@@ -4,36 +4,449 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plone Mraz</title>
+<meta name="description" content="Hunh Mai Phuc (Plone Mraz) — independent researcher, Vietnam. A seven-paper programme on the operation by which configurations come into being and hold.">
 <link rel="icon" href="visual/icon.ico">
+<link rel="apple-touch-icon" href="visual/icon_512.png">
 <link rel="stylesheet" href="theme.css">
 <style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
-    text-align: center;
-    padding: 2rem;
-  }
-  h1 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; margin: 0 0 .5rem; }
-  p  { color: var(--muted-foreground); margin: 0; }
-  .badge {
-    margin-top: 2rem;
-    display: inline-block;
-    padding: .5rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--muted-foreground);
-    font-size: .875rem;
-  }
+/* ============================================================
+   MẶT TIỀN — plonemraz.github.io
+   Token màu nằm ở theme.css. File này chỉ lo bố cục.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 400 16px/1.65 ui-sans-serif, system-ui, -apple-system,
+        "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- Nền orb --------------------------------------------------
+   Lệch ~15° sang góc trên bên phải: dịch phải 30% chiều rộng,
+   dịch lên 8% (30 × tan15° ≈ 8). Chỉnh hai biến này để nắn lại. */
+#orb-layer {
+  --orb-x: 30%;
+  --orb-y: -8%;
+  --orb-size: min(135vh, 1150px);
+
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  transform: translate(
+    calc(-50% + var(--orb-x)),
+    calc(-50% + var(--orb-y))
+  );
+  opacity: .5;
+  pointer-events: none;
+  z-index: 0;
+}
+#orb-layer svg { width: 100%; height: 100%; display: block; }
+
+/* Làm mờ dần rìa để orb chìm vào nền thay vì cắt cụt */
+#orb-layer::after {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 40%,
+    var(--background) 78%
+  );
+}
+
+/* --- Cột nội dung --------------------------------------------- */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 10vh, 6rem) 1.5rem 4rem;
+  text-align: center;
+}
+
+.logo {
+  width: clamp(96px, 22vw, 132px);
+  height: clamp(96px, 22vw, 132px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+h1 {
+  margin: 1.5rem 0 1.25rem;
+  font-size: clamp(2.25rem, 8vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: -.02em;
+}
+
+.hook {
+  margin: 0 auto;
+  max-width: 34rem;
+  color: var(--muted-foreground);
+}
+.hook p { margin: .35rem 0; }
+.hook strong { color: var(--foreground); font-weight: 600; }
+.hook em { font-style: italic; }
+
+/* --- Thanh hành động ------------------------------------------ */
+.actions {
+  margin: 2.5rem auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.25rem;
+  padding: .75rem 1.25rem;
+  width: fit-content;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+}
+
+.vault {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.6rem;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform .18s ease, opacity .18s ease;
+}
+.vault:hover { transform: translateY(-1px); opacity: .9; }
+
+.socials { display: flex; gap: .6rem; }
+
+.socials a {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  transition: transform .18s ease;
+}
+.socials a:hover { transform: translateY(-2px); }
+.socials img { width: 100%; height: 100%; display: block; }
+
+/* Academia là đĩa ĐEN trên nền tối — lật lại thành đĩa trắng
+   cho đồng bộ với đĩa trắng của GitHub. */
+.socials .invert img { filter: invert(1); }
+
+/* Hugging Face không có đĩa nền — cấp cho nó một đĩa trắng
+   để thống nhất hình dạng với bốn cái còn lại. */
+.socials .plate {
+  background: #fff;
+  padding: 7px;
+}
+.socials .plate img { width: 100%; height: 100%; object-fit: contain; }
+
+/* --- Danh mục công trình -------------------------------------- */
+.corpus {
+  margin: 4rem auto 0;
+  text-align: left;
+  max-width: 40rem;
+}
+
+.corpus h2 {
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.entry {
+  display: block;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color .18s ease;
+}
+.entry:hover { border-color: var(--link); }
+.entry .kicker {
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--link);
+}
+.entry .name { display: block; margin-top: .15rem; font-weight: 600; }
+.entry .sub { display: block; color: var(--muted-foreground); font-size: .9375rem; }
+
+ol.papers { list-style: none; margin: 0; padding: 0; }
+
+ol.papers li {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  gap: .75rem;
+  align-items: baseline;
+  padding: .6rem .25rem;
+  border-bottom: 1px solid var(--border);
+}
+ol.papers li:last-child { border-bottom: 0; }
+
+.code {
+  font: 600 .8125rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--muted-foreground);
+}
+.papers .title { color: var(--foreground); text-decoration: none; }
+.papers .title:hover { color: var(--link); }
+.doi {
+  font: .75rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.doi:hover { color: var(--link); }
+
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 3rem 1.5rem 2.5rem;
+  color: var(--muted-foreground);
+  font-size: .875rem;
+}
+footer a { color: var(--muted-foreground); }
+
+@media (max-width: 30rem) {
+  ol.papers li { grid-template-columns: 3rem 1fr; }
+  .doi { grid-column: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #orb-layer svg * { animation: none !important; }
+  .vault, .socials a, .entry { transition: none; }
+}
 </style>
 </head>
 <body>
-  <main>
-    <h1>Plone Mraz</h1>
-    <p>Independent researcher &middot; Vietnam</p>
-    <p class="badge">Site under construction</p>
-  </main>
+
+<!-- ============================================================
+     Orb nền. Phải nhúng inline: lõi merkaba do script vẽ, mà
+     script trong SVG không chạy nếu tải qua <img> hay CSS.
+     ============================================================ -->
+<div id="orb-layer" aria-hidden="true">
+<svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg">
+<style>
+@keyframes orbCW  { 0% { transform: rotate(0deg); }   100% { transform: rotate(360deg); } }
+@keyframes orbCCW { 0% { transform: rotate(0deg); }   100% { transform: rotate(-360deg); } }
+@keyframes orbPulse { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+#orb-layer .s1, #orb-layer .s2, #orb-layer .s3, #orb-layer .s4 {
+  transform-origin: 340px 280px;
+  transform-box: view-box;
+}
+#orb-layer .s1 { animation: orbCW  48s linear infinite; }
+#orb-layer .s2 { animation: orbCCW 32s linear infinite; }
+#orb-layer .s3 { animation: orbCW  20s linear infinite; }
+#orb-layer .s4 { animation: orbCCW 60s linear infinite; }
+#orb-layer .pl { animation: orbPulse 3.2s ease-in-out infinite; }
+</style>
+<g fill="none" stroke="#378ADD" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="340" cy="280" r="248" stroke="#185FA5" stroke-width="0.5" opacity=".45"/>
+<g class="s1">
+<circle cx="340" cy="280" r="232" stroke-width="1.5" stroke-dasharray="150 46" opacity=".9"/>
+<circle cx="340" cy="280" r="222" stroke-width="0.5" stroke-dasharray="8 22" opacity=".5"/>
+</g>
+<g class="s2">
+<circle cx="340" cy="280" r="204" stroke-width="0.5" stroke-dasharray="60 30 14 30" opacity=".7"/>
+</g>
+<g class="s3">
+<g stroke-width="1.5" opacity=".8">
+<path d="M340 96 v18"/><path d="M340 446 v18"/><path d="M156 280 h18"/><path d="M506 280 h18"/>
+</g>
+<g stroke-width="0.5" opacity=".55">
+<path d="M470 150 l12 -12"/><path d="M210 410 l-12 12"/><path d="M470 410 l12 12"/><path d="M210 150 l-12 -12"/>
+</g>
+</g>
+<g class="s4">
+<circle cx="340" cy="280" r="186" stroke-width="0.5" stroke-dasharray="3 14" opacity=".65"/>
+</g>
+<circle cx="340" cy="280" r="168" stroke-width="0.5" opacity=".55"/>
+<circle cx="340" cy="280" r="150" stroke-width="1" opacity=".85"/>
+<g class="s2">
+<circle cx="340" cy="280" r="132" stroke-width="0.5" stroke-dasharray="34 20" opacity=".5"/>
+</g>
+
+<g id="star3d-container" class="s2" stroke-width="1.8" opacity="0.95">
+  <!-- d tĩnh chỉ là bản dự phòng khi JS tắt: sao sáu cánh phẳng.
+       Khi JS chạy, script bên dưới ghi đè mỗi frame bằng phép
+       chiếu 3D thật. -->
+  <path id="star3d-path" stroke="#378ADD" fill="none"
+        d="M 340 154 L 449.1 343 L 230.9 343 Z
+           M 340 406 L 230.9 217 L 449.1 217 Z"/>
+</g>
+
+<g stroke-width="0.5" opacity=".5">
+<circle cx="340" cy="280" r="64"/>
+<circle cx="340" cy="280" r="42"/>
+</g>
+<g class="pl" stroke-width="1" opacity=".8">
+<path d="M340 244 v72"/><path d="M304 280 h72"/>
+<path d="M315 255 l50 50"/><path d="M365 255 l-50 50"/>
+</g>
+<circle cx="340" cy="280" r="7" fill="#85B7EB" stroke="none" class="pl"/>
+</g>
+</svg>
+</div>
+
+<main>
+  <img class="logo" src="visual/Gemini_Generated_Image_9vofcw9vofcw9vof.jpg"
+       alt="Plone Mraz" width="132" height="132">
+
+  <h1>Plone Mraz</h1>
+
+  <div class="hook">
+    <p>Humans think <strong>GREED</strong> is just for <em>Authority</em> and <em>Resources</em>.</p>
+    <p>But any entity always <strong>CRAVES</strong> for something it <em>doesn't have</em>.</p>
+  </div>
+
+  <nav class="actions">
+    <a class="vault" href="https://github.com/PloneMraz/plonemraz.github.io/tree/main/corpus">
+      My vault
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+      </svg>
+    </a>
+
+    <div class="socials">
+      <a href="https://orcid.org/0009-0009-0571-7151" title="ORCID" aria-label="ORCID">
+        <img src="visual/ORCID_iD.svg" alt="" width="44" height="44">
+      </a>
+      <!-- TODO: thay bằng link Academia.edu thật -->
+      <a class="invert" href="#" title="Academia.edu" aria-label="Academia.edu">
+        <img src="visual/academia-edu.png" alt="" width="44" height="44">
+      </a>
+      <a href="https://github.com/PloneMraz" title="GitHub" aria-label="GitHub">
+        <img src="visual/github_logo_icon_.svg" alt="" width="44" height="44">
+      </a>
+      <!-- TODO: thay bằng link Hugging Face thật -->
+      <a class="plate" href="#" title="Hugging Face" aria-label="Hugging Face">
+        <img src="visual/huggingface-icon.svg" alt="" width="44" height="44">
+      </a>
+      <!-- TODO: thay bằng link Facebook thật -->
+      <a href="#" title="Facebook" aria-label="Facebook">
+        <img src="visual/Facebook_icon.svg" alt="" width="44" height="44">
+      </a>
+    </div>
+  </nav>
+
+  <section class="corpus">
+    <h2>Meta-Philosophy — one operation, seven articulations</h2>
+
+    <a class="entry" href="https://doi.org/10.6084/m9.figshare.31852003">
+      <span class="kicker">Start here</span>
+      <span class="name">A Programme Overview</span>
+      <span class="sub">The architecture connecting the seven papers.</span>
+    </a>
+
+    <ol class="papers">
+      <li>
+        <span class="code">2026a</span>
+        <a class="title" href="corpus/SP.pdf">The Synthetic Principle</a>
+        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848634">DOI</a>
+      </li>
+      <li>
+        <span class="code">2026b</span>
+        <a class="title" href="corpus/Aviplestos.pdf">Aviplestos</a>
+        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848649">DOI</a>
+      </li>
+      <li>
+        <span class="code">2026c</span>
+        <a class="title" href="corpus/OP.pdf">Ontonoetic Pattern</a>
+        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848265">DOI</a>
+      </li>
+      <li>
+        <span class="code">2026d</span>
+        <a class="title" href="corpus/PC.pdf">Patterns and Cognition</a>
+        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848688">DOI</a>
+      </li>
+      <li>
+        <span class="code">2026e</span>
+        <a class="title" href="corpus/PoB.pdf">The Passage of Becoming</a>
+        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31849009">DOI</a>
+      </li>
+      <li>
+        <span class="code">2026f</span>
+        <a class="title" href="corpus/PF.pdf">Potentamis and Fasaion</a>
+        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31896160">DOI</a>
+      </li>
+      <li>
+        <span class="code">2026g</span>
+        <a class="title" href="corpus/Stachoria.pdf">Stachoria</a>
+        <a class="doi" href="https://doi.org/10.6084/m9.figshare.32531592">DOI</a>
+      </li>
+    </ol>
+  </section>
+</main>
+
+<footer>
+  <p>Hunh Mai Ph&uacute;c &middot; Independent researcher &middot; Vietnam<br>
+  ORCID <a href="https://orcid.org/0009-0009-0571-7151">0009-0009-0571-7151</a></p>
+</footer>
+
+<script>
+// Lõi merkaba: hai tứ diện lồng ngược, chiếu trực giao, tự xoay.
+(function () {
+  var path = document.getElementById('star3d-path');
+  if (!path) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var cx = 340, cy = 280, size = 126;
+  var V = [
+    { x: 0, y: -size, z: 0 },
+    { x: size * 0.942, y: size * 0.333, z: 0 },
+    { x: -size * 0.471, y: size * 0.333, z: size * 0.816 },
+    { x: -size * 0.471, y: size * 0.333, z: -size * 0.816 },
+    { x: 0, y: size, z: 0 },
+    { x: -size * 0.942, y: -size * 0.333, z: 0 },
+    { x: size * 0.471, y: -size * 0.333, z: -size * 0.816 },
+    { x: size * 0.471, y: -size * 0.333, z: size * 0.816 }
+  ];
+  var E = [[0,1],[0,2],[0,3],[1,2],[2,3],[3,1],
+           [4,5],[4,6],[4,7],[5,6],[6,7],[7,5]];
+
+  var theta = 0, speed = 0.012;
+  var tiltX = 15 * Math.PI / 180, tiltZ = 5 * Math.PI / 180;
+  var cosX = Math.cos(tiltX), sinX = Math.sin(tiltX);
+  var cosZ = Math.cos(tiltZ), sinZ = Math.sin(tiltZ);
+
+  function frame() {
+    theta -= speed;
+    var cosT = Math.cos(theta), sinT = Math.sin(theta);
+    var p = V.map(function (v) {
+      var x1 = v.x * cosT - v.z * sinT;
+      var z1 = v.x * sinT + v.z * cosT;
+      var y2 = v.y * cosX - z1 * sinX;
+      return { x: x1 * cosZ - y2 * sinZ, y: x1 * sinZ + y2 * cosZ };
+    });
+    var d = '';
+    for (var i = 0; i < E.length; i++) {
+      var a = p[E[i][0]], b = p[E[i][1]];
+      d += 'M ' + (cx + a.x) + ' ' + (cy + a.y) +
+           ' L ' + (cx + b.x) + ' ' + (cy + b.y) + ' ';
+    }
+    path.setAttribute('d', d);
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+
 </body>
 </html>

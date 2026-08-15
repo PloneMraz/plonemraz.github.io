@@ -1,0 +1,140 @@
+<svg width="680" height="560" viewBox="0 0 680 560" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>HUD orb azure Real 3D Core Absolute Fix</title>
+<desc>HUD orb with a real 3D math-driven rotating star tetrahedron core.</desc>
+<style>
+/* Các vòng chuyển động phẳng ngoại vi */
+@keyframes spinCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes spinCCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+@keyframes pulse { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+
+.s1, .s2, .s3, .s4 { 
+  transform-origin: 340px 280px; 
+  transform-box: view-box; 
+}
+.s1 { animation: spinCW 48s linear infinite; }
+.s2 { animation: spinCCW 32s linear infinite; }
+.s3 { animation: spinCW 20s linear infinite; }
+.s4 { animation: spinCCW 60s linear infinite; }
+.pl { animation: pulse 3.2s ease-in-out infinite; }
+</style>
+
+<g fill="none" stroke="#378ADD" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="340" cy="280" r="248" stroke="#185FA5" stroke-width="0.5" opacity=".45"/>
+<g class="s1">
+<circle cx="340" cy="280" r="232" stroke-width="1.5" stroke-dasharray="150 46" opacity=".9"/>
+<circle cx="340" cy="280" r="222" stroke-width="0.5" stroke-dasharray="8 22" opacity=".5"/>
+</g>
+<g class="s2">
+<circle cx="340" cy="280" r="204" stroke-width="0.5" stroke-dasharray="60 30 14 30" opacity=".7"/>
+</g>
+<g class="s3">
+<g stroke-width="1.5" opacity=".8">
+<path d="M340 96 v18"/><path d="M340 446 v18"/><path d="M156 280 h18"/><path d="M506 280 h18"/>
+</g>
+<g stroke-width="0.5" opacity=".55">
+<path d="M470 150 l12 -12"/><path d="M210 410 l-12 12"/><path d="M470 410 l12 12"/><path d="M210 150 l-12 -12"/>
+</g>
+</g>
+<g class="s4">
+<circle cx="340" cy="280" r="186" stroke-width="0.5" stroke-dasharray="3 14" opacity=".65"/>
+</g>
+<circle cx="340" cy="280" r="168" stroke-width="0.5" opacity=".55"/>
+<circle cx="340" cy="280" r="150" stroke-width="1" opacity=".85"/>
+<g class="s2">
+<circle cx="340" cy="280" r="132" stroke-width="0.5" stroke-dasharray="34 20" opacity=".5"/>
+</g>
+
+<!-- ================= LÕI KHỐI 3D XOAY KÉP (KÍCH THƯỚC LỚN HƠN) ================= -->
+<g id="star3d-container" class="s2" stroke-width="1.8" opacity="0.95">
+  <path id="star3d-path" stroke="#378ADD" fill="none" />
+</g>
+<!-- ================================================================================================================= -->
+
+<g stroke-width="0.5" opacity=".5">
+<circle cx="340" cy="280" r="64"/>
+<circle cx="340" cy="280" r="42"/>
+</g>
+<g class="pl" stroke-width="1" opacity=".8">
+<path d="M340 244 v72"/><path d="M304 280 h72"/>
+<path d="M315 255 l50 50"/><path d="M365 255 l-50 50"/>
+</g>
+<circle cx="340" cy="280" r="7" fill="#85B7EB" stroke="none" class="pl"/>
+</g>
+
+<!-- SCRIPT TỰ ĐỘNG TÍNH TOÁN XOAY KHỐI KHÔNG GIAN 3D -->
+<script type="text/javascript">
+// <![CDATA[
+  const pathElement = document.getElementById('star3d-path');
+  const cx = 340, cy = 280; 
+  const size = 126; // Tăng từ 95 lên 126 để áp sát vòng tròn r=132 (cách ~1.6 mm)
+
+  // Tọa độ gốc 3D cố định
+  const baseVertices = [
+    {x: 0, y: -size, z: 0},
+    {x: size * 0.942, y: size * 0.333, z: 0},
+    {x: -size * 0.471, y: size * 0.333, z: size * 0.816},
+    {x: -size * 0.471, y: size * 0.333, z: -size * 0.816},
+    
+    {x: 0, y: size, z: 0},
+    {x: -size * 0.942, y: -size * 0.333, z: 0},
+    {x: size * 0.471, y: -size * 0.333, z: -size * 0.816},
+    {x: size * 0.471, y: -size * 0.333, z: size * 0.816}
+  ];
+
+  const edgePairs = [
+    [0,1], [0,2], [0,3], [1,2], [2,3], [3,1], // Khối 1
+    [4,5], [4,6], [4,7], [5,6], [6,7], [7,5]  // Khối 2
+  ];
+
+  // Thiết lập các góc xoay
+  let theta = 0;                  // Gia tốc góc xoay tự thân
+  const speed = 0.012;            // Tốc độ xoay tự thân
+  const tiltX = 15 * Math.PI / 180; // Nghiêng 15 độ về phía trước tạo chiều sâu
+  const tiltZ = 5 * Math.PI / 180;  // Độ lệch trục 5 độ ban đầu
+
+  function rotate3D() {
+    theta -= speed; // Lõi tự xoay theo chiều kim đồng hồ (CW)
+
+    const cosT = Math.cos(theta), sinT = Math.sin(theta);
+    const cosX = Math.cos(tiltX), sinX = Math.sin(tiltX);
+    const cosZ = Math.cos(tiltZ), sinZ = Math.sin(tiltZ);
+
+    const projected = baseVertices.map(v => {
+      // 1. Tự xoay quanh trục dọc cục bộ (Y)
+      const x1 = v.x * cosT - v.z * sinT;
+      const z1 = v.x * sinT + v.z * cosT;
+      const y1 = v.y;
+
+      // 2. Nghiêng Pitch (X) tạo chiều sâu 3D
+      const x2 = x1;
+      const y2 = y1 * cosX - z1 * sinX;
+      const z2 = y1 * sinX + z1 * cosX;
+
+      // 3. Nghiêng Roll (Z) lệch trục 5 độ
+      const x3 = x2 * cosZ - y2 * sinZ;
+      const y3 = x2 * sinZ + y2 * cosZ;
+
+      return { x: x3, y: y3 };
+    });
+
+    let pathData = "";
+    edgePairs.forEach(edge => {
+      const p1 = projected[edge[0]];
+      const p2 = projected[edge[1]];
+      
+      const screenX1 = cx + p1.x;
+      const screenY1 = cy + p1.y;
+      const screenX2 = cx + p2.x;
+      const screenY2 = cy + p2.y;
+      
+      pathData += `M ${screenX1} ${screenY1} L ${screenX2} ${screenY2} `;
+    });
+
+    pathElement.setAttribute('d', pathData);
+    requestAnimationFrame(rotate3D);
+  }
+
+  rotate3D();
+// ]]>
+</script>
+</svg>
