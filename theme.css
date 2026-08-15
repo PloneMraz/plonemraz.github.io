@@ -1,0 +1,100 @@
+/* ============================================================
+   Theme — plonemraz.github.io
+   Dark-only. Không có light mode.
+
+   Mỗi token khai báo hai lần: hex trước, oklch sau.
+   Trình duyệt cũ (< Chrome 111 / Safari 15.4 / Firefox 113)
+   bỏ qua dòng oklch và giữ hex; trình duyệt mới dùng oklch
+   và hiển thị rực hơn trên màn P3.
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* --- Bề mặt --------------------------------------------- */
+  --background: #090B0C;
+  --background: oklch(0.148 0.004 228.8);
+
+  --card: #161B1D;
+  --card: oklch(0.218 0.008 223.9);
+
+  --muted: #22292B;
+  --muted: oklch(0.275 0.011 216.9);
+
+  /* --- Chữ ------------------------------------------------- */
+  --foreground: #F9FBFB;
+  --foreground: oklch(0.987 0.002 197.1);
+
+  --card-foreground: #F9FBFB;
+  --card-foreground: oklch(0.987 0.002 197.1);
+
+  --muted-foreground: #9CA8AB;
+  --muted-foreground: oklch(0.723 0.014 214.4);
+
+  /* --- Nhấn ------------------------------------------------
+     Hai token, hai việc. Đừng hoán đổi:
+       --primary  chỉ làm NỀN (nút, badge) — chữ trên nó dùng
+                  --primary-foreground, đạt 7.05:1
+       --link     chỉ làm CHỮ / VIỀN trên nền tối — 6.98:1 trên
+                  --background, 6.15:1 trên --card
+     Dùng --primary làm chữ sẽ cho 2.63:1 và trượt WCAG AA.    */
+  --primary: #00598A;
+  --primary: oklch(0.443 0.11 240.79);
+
+  --primary-foreground: #F0F9FF;
+  --primary-foreground: oklch(0.977 0.013 236.62);
+
+  --link: #53A1D6;
+  --link: oklch(0.68 0.11 240.79);
+
+  --destructive: #FF6467;
+  --destructive: oklch(0.704 0.191 22.216);
+
+  /* --- Đường nét ------------------------------------------- */
+  --border: rgba(255, 255, 255, 0.16);
+  --border: oklch(1 0 0 / 16%);
+
+  --ring: #67787C;
+  --ring: oklch(0.56 0.021 213.5);
+
+  --radius: 0.625rem;
+
+  /* --- Biểu đồ --------------------------------------------
+     Thang gốc soạn cho nền sáng: chart-4 và chart-5 tụt xuống
+     3.29:1 và 2.41:1 trên --card, dưới sàn 3:1 của WCAG
+     SC 1.4.11 (non-text contrast).
+
+     Thang dưới đây giãn đều lại L trong dải dùng được trên nền
+     tối (0.865 → 0.545), hue xoay 207 → 241 để kết thúc đúng
+     họ màu của --link và orb. Mọi bước cách nhau dE ≈ 0.082
+     trong OKLab — tách rõ hơn bảng gốc (bước hẹp nhất 0.073).
+     Thấp nhất là chart-5 ở 3.56:1 trên --card.               */
+  --chart-1: #53EAFD;
+  --chart-1: oklch(0.865 0.127 207.078);
+  --chart-2: #00CFF2;
+  --chart-2: oklch(0.785 0.143 215.221);
+  --chart-3: #0EB0DB;
+  --chart-3: oklch(0.705 0.130 223.5);
+  --chart-4: #1E93C3;
+  --chart-4: oklch(0.625 0.120 232.0);
+  --chart-5: #2377AB;
+  --chart-5: oklch(0.545 0.112 241.0);
+}
+
+/* ============================================================
+   Nền tảng
+   ============================================================ */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+a {
+  color: var(--link);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
