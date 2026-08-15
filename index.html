@@ -53,12 +53,7 @@ body {
   pointer-events: none;
   z-index: 0;
 }
-#orb-layer object {
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-}
+#orb-layer svg { width: 100%; height: 100%; display: block; }
 
 /* Chỉ làm dịu rìa ngoài cùng. Trước đây lớp này đặc từ 78% nên
    nuốt mất các vòng xoay to nhất — nay đẩy ra sát mép. */
@@ -160,9 +155,8 @@ h1 {
 .socials .plate { background: #fff; padding: 6px; }
 .socials .plate img { object-fit: contain; }
 
-/* Luu y: orb nam trong document rieng cua file SVG nen no xoay
-   bat ke thiet lap giam chuyen dong cua he dieu hanh - giong het
-   spinning_orb.html. Chi hieu ung cua trang la ton trong. */
+/* Orb co y KHONG ton trong giam chuyen dong: no la dac trung
+   nhan dien cua trang. Chi hieu ung giao dien la ton trong. */
 @media (prefers-reduced-motion: reduce) {
   .vault, .socials a { transition: none; }
 }
@@ -171,12 +165,70 @@ h1 {
 <body>
 
 <!-- ============================================================
-     Orb nen. Dung <object> dung nhu spinning_orb.html: file SVG
-     duoc tai thanh document rieng nen phan style va phan kich ban
-     ben trong no chay nguyen ven. Day la co che da chay duoc.
+     Orb nền. Bắt buộc nhúng inline: lõi merkaba do script vẽ,
+     mà script trong SVG không chạy nếu tải qua <img> hay CSS.
      ============================================================ -->
 <div id="orb-layer" aria-hidden="true">
-  <object data="visual/hud_orb_azure.svg" type="image/svg+xml" tabindex="-1"></object>
+<svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg">
+<style>
+@keyframes orbCW    { to { transform: rotate(360deg); } }
+@keyframes orbCCW   { to { transform: rotate(-360deg); } }
+@keyframes orbPulse { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+#orb-layer .s1, #orb-layer .s2, #orb-layer .s3, #orb-layer .s4 {
+  transform-origin: 340px 280px;
+  transform-box: view-box;
+}
+#orb-layer .s1 { animation: orbCW  48s linear infinite; }
+#orb-layer .s2 { animation: orbCCW 32s linear infinite; }
+#orb-layer .s3 { animation: orbCW  20s linear infinite; }
+#orb-layer .s4 { animation: orbCCW 60s linear infinite; }
+#orb-layer .pl { animation: orbPulse 3.2s ease-in-out infinite; }
+</style>
+<g fill="none" stroke="#378ADD" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="340" cy="280" r="248" stroke="#185FA5" stroke-width="0.5" opacity=".45"/>
+<g class="s1">
+<circle cx="340" cy="280" r="232" stroke-width="1.5" stroke-dasharray="150 46" opacity=".9"/>
+<circle cx="340" cy="280" r="222" stroke-width="0.5" stroke-dasharray="8 22" opacity=".5"/>
+</g>
+<g class="s2">
+<circle cx="340" cy="280" r="204" stroke-width="0.5" stroke-dasharray="60 30 14 30" opacity=".7"/>
+</g>
+<g class="s3">
+<g stroke-width="1.5" opacity=".8">
+<path d="M340 96 v18"/><path d="M340 446 v18"/><path d="M156 280 h18"/><path d="M506 280 h18"/>
+</g>
+<g stroke-width="0.5" opacity=".55">
+<path d="M470 150 l12 -12"/><path d="M210 410 l-12 12"/><path d="M470 410 l12 12"/><path d="M210 150 l-12 -12"/>
+</g>
+</g>
+<g class="s4">
+<circle cx="340" cy="280" r="186" stroke-width="0.5" stroke-dasharray="3 14" opacity=".65"/>
+</g>
+<circle cx="340" cy="280" r="168" stroke-width="0.5" opacity=".55"/>
+<circle cx="340" cy="280" r="150" stroke-width="1" opacity=".85"/>
+<g class="s2">
+<circle cx="340" cy="280" r="132" stroke-width="0.5" stroke-dasharray="34 20" opacity=".5"/>
+</g>
+
+<g id="star3d-container" class="s2" stroke-width="1.8" opacity="0.95">
+  <!-- d tĩnh là bản dự phòng khi JS tắt: sao sáu cánh phẳng.
+       Khi JS chạy, script bên dưới ghi đè mỗi frame. -->
+  <path id="star3d-path" stroke="#378ADD" fill="none"
+        d="M 340 154 L 449.1 343 L 230.9 343 Z
+           M 340 406 L 230.9 217 L 449.1 217 Z"/>
+</g>
+
+<g stroke-width="0.5" opacity=".5">
+<circle cx="340" cy="280" r="64"/>
+<circle cx="340" cy="280" r="42"/>
+</g>
+<g class="pl" stroke-width="1" opacity=".8">
+<path d="M340 244 v72"/><path d="M304 280 h72"/>
+<path d="M315 255 l50 50"/><path d="M365 255 l-50 50"/>
+</g>
+<circle cx="340" cy="280" r="7" fill="#85B7EB" stroke="none" class="pl"/>
+</g>
+</svg>
 </div>
 
 <main>
@@ -222,6 +274,53 @@ h1 {
     </div>
   </nav>
 </main>
+
+<script>
+// Lõi merkaba: hai tứ diện lồng ngược, chiếu trực giao, tự xoay.
+(function () {
+  var path = document.getElementById('star3d-path');
+  if (!path) return;
+
+  var cx = 340, cy = 280, size = 126;
+  var V = [
+    { x: 0, y: -size, z: 0 },
+    { x: size * 0.942, y: size * 0.333, z: 0 },
+    { x: -size * 0.471, y: size * 0.333, z: size * 0.816 },
+    { x: -size * 0.471, y: size * 0.333, z: -size * 0.816 },
+    { x: 0, y: size, z: 0 },
+    { x: -size * 0.942, y: -size * 0.333, z: 0 },
+    { x: size * 0.471, y: -size * 0.333, z: -size * 0.816 },
+    { x: size * 0.471, y: -size * 0.333, z: size * 0.816 }
+  ];
+  var E = [[0,1],[0,2],[0,3],[1,2],[2,3],[3,1],
+           [4,5],[4,6],[4,7],[5,6],[6,7],[7,5]];
+
+  var theta = 0, speed = 0.012;
+  var tiltX = 15 * Math.PI / 180, tiltZ = 5 * Math.PI / 180;
+  var cosX = Math.cos(tiltX), sinX = Math.sin(tiltX);
+  var cosZ = Math.cos(tiltZ), sinZ = Math.sin(tiltZ);
+
+  function frame() {
+    theta -= speed;
+    var cosT = Math.cos(theta), sinT = Math.sin(theta);
+    var p = V.map(function (v) {
+      var x1 = v.x * cosT - v.z * sinT;
+      var z1 = v.x * sinT + v.z * cosT;
+      var y2 = v.y * cosX - z1 * sinX;
+      return { x: x1 * cosZ - y2 * sinZ, y: x1 * sinZ + y2 * cosZ };
+    });
+    var d = '';
+    for (var i = 0; i < E.length; i++) {
+      var a = p[E[i][0]], b = p[E[i][1]];
+      d += 'M ' + (cx + a.x) + ' ' + (cy + a.y) +
+           ' L ' + (cx + b.x) + ' ' + (cy + b.y) + ' ';
+    }
+    path.setAttribute('d', d);
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
 
 </body>
 </html>
