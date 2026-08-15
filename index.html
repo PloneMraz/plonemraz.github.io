@@ -72,14 +72,14 @@ body {
 main {
   position: relative;
   z-index: 1;
-  max-width: min(38rem, 92vw);
+  max-width: min(57rem, 92vw);
   padding: 0 clamp(1.5rem, 5vw, 4.5rem) clamp(2rem, 7vh, 4.5rem);
   text-align: left;
 }
 
 .logo {
-  width: clamp(64px, 9vh, 96px);
-  height: clamp(64px, 9vh, 96px);
+  width: clamp(96px, 13.5vh, 144px);
+  height: clamp(96px, 13.5vh, 144px);
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--border);
@@ -87,31 +87,31 @@ main {
 }
 
 h1 {
-  margin: clamp(.75rem, 2vh, 1.25rem) 0 .25rem;
-  font-size: clamp(2rem, 6.5vh, 3.25rem);
+  margin: clamp(1.125rem, 3vh, 1.875rem) 0 .375rem;
+  font-size: clamp(3rem, 9.75vh, 4.875rem);
   font-weight: 300;
   letter-spacing: -.02em;
   line-height: 1.05;
 }
 
 .byline {
-  margin: 0 0 clamp(.75rem, 2vh, 1.25rem);
+  margin: 0 0 clamp(1.125rem, 3vh, 1.875rem);
   color: var(--muted-foreground);
-  font-size: clamp(.8125rem, 1.7vh, .9375rem);
+  font-size: clamp(1.21875rem, 2.55vh, 1.40625rem);
 }
 
 .hook { margin: 0; color: var(--muted-foreground); }
-.hook p { margin: .2rem 0; font-size: clamp(.875rem, 1.9vh, 1.0625rem); }
+.hook p { margin: .3rem 0; font-size: clamp(1.3125rem, 2.85vh, 1.59375rem); }
 .hook strong { color: var(--foreground); font-weight: 600; }
 
 /* --- Thanh hành động ------------------------------------------ */
 .actions {
-  margin-top: clamp(1.25rem, 3.5vh, 2.25rem);
+  margin-top: clamp(1.875rem, 5.25vh, 3.375rem);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: .75rem 1rem;
-  padding: .6rem 1rem;
+  gap: 1.125rem 1.5rem;
+  padding: .9rem 1.5rem;
   width: fit-content;
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -121,24 +121,24 @@ h1 {
 .vault {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: .6rem 1.35rem;
+  gap: .75rem;
+  padding: .9rem 2.025rem;
   border-radius: 999px;
   background: var(--foreground);
   color: var(--background);
   font-weight: 600;
-  font-size: .9375rem;
+  font-size: 1.40625rem;
   text-decoration: none;
   white-space: nowrap;
   transition: transform .18s ease, opacity .18s ease;
 }
 .vault:hover { transform: translateY(-1px); opacity: .9; }
 
-.socials { display: flex; gap: .5rem; }
+.socials { display: flex; gap: .75rem; }
 
 .socials a {
-  width: clamp(34px, 4.6vh, 40px);
-  height: clamp(34px, 4.6vh, 40px);
+  width: clamp(51px, 6.9vh, 60px);
+  height: clamp(51px, 6.9vh, 60px);
   border-radius: 50%;
   overflow: hidden;
   display: grid;
@@ -152,11 +152,26 @@ h1 {
 .socials .invert img { filter: invert(1); }
 
 /* Hugging Face không có đĩa nền — cấp cho nó một đĩa trắng. */
-.socials .plate { background: #fff; padding: 6px; }
+.socials .plate { background: #fff; padding: 9px; }
 .socials .plate img { object-fit: contain; }
 
-/* Orb co y KHONG ton trong giam chuyen dong: no la dac trung
-   nhan dien cua trang. Chi hieu ung giao dien la ton trong. */
+/* Lưới an toàn cho màn hình thấp. Các clamp() ở trên có cận dưới
+   tính bằng rem, nên dưới ~540px chiều cao chúng ngừng co lại và
+   khối sẽ tràn — mà overflow:hidden thì cắt cụt chứ không hiện
+   thanh cuộn. Ở đây hạ hẳn cận dưới xuống. */
+@media (max-height: 540px) {
+  .logo    { width: 64px; height: 64px; }
+  h1       { font-size: 2.25rem; margin: .75rem 0 .25rem; }
+  .byline  { font-size: .9375rem; margin-bottom: .75rem; }
+  .hook p  { font-size: 1rem; margin: .15rem 0; }
+  .actions { margin-top: 1rem; padding: .55rem .9rem; gap: .6rem .9rem; }
+  .vault   { font-size: 1rem; padding: .55rem 1.25rem; }
+  .socials a { width: 38px; height: 38px; }
+  main     { padding-bottom: clamp(1rem, 4vh, 2rem); }
+}
+
+/* Orb cố ý KHÔNG tôn trọng giảm chuyển động: nó là đặc trưng
+   nhận diện của trang. Chỉ hiệu ứng giao diện là tôn trọng. */
 @media (prefers-reduced-motion: reduce) {
   .vault, .socials a { transition: none; }
 }
@@ -233,7 +248,7 @@ h1 {
 
 <main>
   <img class="logo" src="visual/Gemini_Generated_Image_9vofcw9vofcw9vof.jpg"
-       alt="Plone Mraz" width="96" height="96">
+       alt="Plone Mraz" width="144" height="144">
 
   <h1>Plone Mraz</h1>
   <p class="byline">Huỳnh Mai Phúc &middot; Independent researcher &middot; Vietnam</p>
@@ -246,7 +261,7 @@ h1 {
   <nav class="actions">
     <a class="vault" href="https://github.com/PloneMraz/plonemraz.github.io/tree/main/corpus">
       My vault
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
            stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
         <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
       </svg>
@@ -254,22 +269,22 @@ h1 {
 
     <div class="socials">
       <a href="https://orcid.org/0009-0009-0571-7151" title="ORCID" aria-label="ORCID">
-        <img src="visual/ORCID_iD.svg" alt="" width="40" height="40">
+        <img src="visual/ORCID_iD.svg" alt="" width="60" height="60">
       </a>
       <!-- TODO: thay bằng link Academia.edu thật -->
       <a class="invert" href="#" title="Academia.edu" aria-label="Academia.edu">
-        <img src="visual/academia-edu.png" alt="" width="40" height="40">
+        <img src="visual/academia-edu.png" alt="" width="60" height="60">
       </a>
       <a href="https://github.com/PloneMraz" title="GitHub" aria-label="GitHub">
-        <img src="visual/github_logo_icon_.svg" alt="" width="40" height="40">
+        <img src="visual/github_logo_icon_.svg" alt="" width="60" height="60">
       </a>
       <!-- TODO: thay bằng link Hugging Face thật -->
       <a class="plate" href="#" title="Hugging Face" aria-label="Hugging Face">
-        <img src="visual/huggingface-icon.svg" alt="" width="40" height="40">
+        <img src="visual/huggingface-icon.svg" alt="" width="60" height="60">
       </a>
       <!-- TODO: thay bằng link Facebook thật -->
       <a href="#" title="Facebook" aria-label="Facebook">
-        <img src="visual/Facebook_icon.svg" alt="" width="40" height="40">
+        <img src="visual/Facebook_icon.svg" alt="" width="60" height="60">
       </a>
     </div>
   </nav>
