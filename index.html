@@ -4,33 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plone Mraz</title>
-<meta name="description" content="Hunh Mai Phuc (Plone Mraz) — independent researcher, Vietnam. A seven-paper programme on the operation by which configurations come into being and hold.">
+<meta name="description" content="Huỳnh Mai Phúc (Plone Mraz) — independent researcher, Vietnam.">
 <link rel="icon" href="visual/icon.ico">
 <link rel="apple-touch-icon" href="visual/icon_512.png">
 <link rel="stylesheet" href="theme.css">
 <style>
 /* ============================================================
    MẶT TIỀN — plonemraz.github.io
-   Token màu nằm ở theme.css. File này chỉ lo bố cục.
+   Một màn hình, không cuộn. Nội dung neo góc dưới bên trái,
+   orb làm nền ở góc trên bên phải.
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; }
 
+html, body {
+  height: 100%;
+  overflow: hidden;          /* trang chủ không có thanh cuộn */
+}
+
 body {
   margin: 0;
-  min-height: 100vh;
-  font: 400 16px/1.65 ui-sans-serif, system-ui, -apple-system,
+  height: 100dvh;
+  display: flex;
+  align-items: flex-end;     /* neo xuống đáy */
+  justify-content: flex-start;
+  font: 400 16px/1.6 ui-sans-serif, system-ui, -apple-system,
         "Segoe UI", Roboto, sans-serif;
-  overflow-x: hidden;
 }
 
 /* --- Nền orb --------------------------------------------------
-   Lệch ~15° sang góc trên bên phải: dịch phải 30% chiều rộng,
-   dịch lên 8% (30 × tan15° ≈ 8). Chỉnh hai biến này để nắn lại. */
+   Lệch ~15° lên góc trên bên phải: dịch phải 30%, lên 8%
+   (30 × tan15° ≈ 8). Chỉnh ba biến này để nắn lại. */
 #orb-layer {
   --orb-x: 30%;
   --orb-y: -8%;
-  --orb-size: min(135vh, 1150px);
+  --orb-size: min(125vh, 1050px);
 
   position: fixed;
   left: 50%;
@@ -41,67 +49,69 @@ body {
     calc(-50% + var(--orb-x)),
     calc(-50% + var(--orb-y))
   );
-  opacity: .5;
+  opacity: .85;
   pointer-events: none;
   z-index: 0;
 }
 #orb-layer svg { width: 100%; height: 100%; display: block; }
 
-/* Làm mờ dần rìa để orb chìm vào nền thay vì cắt cụt */
+/* Chỉ làm dịu rìa ngoài cùng. Trước đây lớp này đặc từ 78% nên
+   nuốt mất các vòng xoay to nhất — nay đẩy ra sát mép. */
 #orb-layer::after {
   content: "";
   position: absolute;
-  inset: -10%;
+  inset: 0;
   background: radial-gradient(
     circle at 50% 50%,
-    transparent 40%,
-    var(--background) 78%
+    transparent 68%,
+    var(--background) 100%
   );
 }
 
-/* --- Cột nội dung --------------------------------------------- */
+/* --- Nội dung, căn trái, góc dưới ------------------------------ */
 main {
   position: relative;
   z-index: 1;
-  max-width: 46rem;
-  margin: 0 auto;
-  padding: clamp(3rem, 10vh, 6rem) 1.5rem 4rem;
-  text-align: center;
+  max-width: min(38rem, 92vw);
+  padding: 0 clamp(1.5rem, 5vw, 4.5rem) clamp(2rem, 7vh, 4.5rem);
+  text-align: left;
 }
 
 .logo {
-  width: clamp(96px, 22vw, 132px);
-  height: clamp(96px, 22vw, 132px);
+  width: clamp(64px, 9vh, 96px);
+  height: clamp(64px, 9vh, 96px);
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--border);
+  display: block;
 }
 
 h1 {
-  margin: 1.5rem 0 1.25rem;
-  font-size: clamp(2.25rem, 8vw, 3.5rem);
+  margin: clamp(.75rem, 2vh, 1.25rem) 0 .25rem;
+  font-size: clamp(2rem, 6.5vh, 3.25rem);
   font-weight: 300;
   letter-spacing: -.02em;
+  line-height: 1.05;
 }
 
-.hook {
-  margin: 0 auto;
-  max-width: 34rem;
+.byline {
+  margin: 0 0 clamp(.75rem, 2vh, 1.25rem);
   color: var(--muted-foreground);
+  font-size: clamp(.8125rem, 1.7vh, .9375rem);
 }
-.hook p { margin: .35rem 0; }
+
+.hook { margin: 0; color: var(--muted-foreground); }
+.hook p { margin: .2rem 0; font-size: clamp(.875rem, 1.9vh, 1.0625rem); }
 .hook strong { color: var(--foreground); font-weight: 600; }
-.hook em { font-style: italic; }
 
 /* --- Thanh hành động ------------------------------------------ */
 .actions {
-  margin: 2.5rem auto 0;
+  margin-top: clamp(1.25rem, 3.5vh, 2.25rem);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 1rem 1.25rem;
-  padding: .75rem 1.25rem;
+  gap: .75rem 1rem;
+  padding: .6rem 1rem;
   width: fit-content;
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -112,22 +122,23 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .7rem 1.6rem;
+  padding: .6rem 1.35rem;
   border-radius: 999px;
   background: var(--foreground);
   color: var(--background);
   font-weight: 600;
+  font-size: .9375rem;
   text-decoration: none;
   white-space: nowrap;
   transition: transform .18s ease, opacity .18s ease;
 }
 .vault:hover { transform: translateY(-1px); opacity: .9; }
 
-.socials { display: flex; gap: .6rem; }
+.socials { display: flex; gap: .5rem; }
 
 .socials a {
-  width: 44px;
-  height: 44px;
+  width: clamp(34px, 4.6vh, 40px);
+  height: clamp(34px, 4.6vh, 40px);
   border-radius: 50%;
   overflow: hidden;
   display: grid;
@@ -137,114 +148,30 @@ h1 {
 .socials a:hover { transform: translateY(-2px); }
 .socials img { width: 100%; height: 100%; display: block; }
 
-/* Academia là đĩa ĐEN trên nền tối — lật lại thành đĩa trắng
-   cho đồng bộ với đĩa trắng của GitHub. */
+/* Academia là đĩa ĐEN — lật thành đĩa trắng cho khớp GitHub. */
 .socials .invert img { filter: invert(1); }
 
-/* Hugging Face không có đĩa nền — cấp cho nó một đĩa trắng
-   để thống nhất hình dạng với bốn cái còn lại. */
-.socials .plate {
-  background: #fff;
-  padding: 7px;
-}
-.socials .plate img { width: 100%; height: 100%; object-fit: contain; }
-
-/* --- Danh mục công trình -------------------------------------- */
-.corpus {
-  margin: 4rem auto 0;
-  text-align: left;
-  max-width: 40rem;
-}
-
-.corpus h2 {
-  font-size: .8125rem;
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
-  margin: 0 0 1rem;
-  text-align: center;
-}
-
-.entry {
-  display: block;
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: color-mix(in oklab, var(--card) 70%, transparent);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color .18s ease;
-}
-.entry:hover { border-color: var(--link); }
-.entry .kicker {
-  font-size: .75rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--link);
-}
-.entry .name { display: block; margin-top: .15rem; font-weight: 600; }
-.entry .sub { display: block; color: var(--muted-foreground); font-size: .9375rem; }
-
-ol.papers { list-style: none; margin: 0; padding: 0; }
-
-ol.papers li {
-  display: grid;
-  grid-template-columns: 3.5rem 1fr auto;
-  gap: .75rem;
-  align-items: baseline;
-  padding: .6rem .25rem;
-  border-bottom: 1px solid var(--border);
-}
-ol.papers li:last-child { border-bottom: 0; }
-
-.code {
-  font: 600 .8125rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
-  color: var(--muted-foreground);
-}
-.papers .title { color: var(--foreground); text-decoration: none; }
-.papers .title:hover { color: var(--link); }
-.doi {
-  font: .75rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
-  color: var(--muted-foreground);
-  text-decoration: none;
-  white-space: nowrap;
-}
-.doi:hover { color: var(--link); }
-
-footer {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 3rem 1.5rem 2.5rem;
-  color: var(--muted-foreground);
-  font-size: .875rem;
-}
-footer a { color: var(--muted-foreground); }
-
-@media (max-width: 30rem) {
-  ol.papers li { grid-template-columns: 3rem 1fr; }
-  .doi { grid-column: 2; }
-}
+/* Hugging Face không có đĩa nền — cấp cho nó một đĩa trắng. */
+.socials .plate { background: #fff; padding: 6px; }
+.socials .plate img { object-fit: contain; }
 
 @media (prefers-reduced-motion: reduce) {
   #orb-layer svg * { animation: none !important; }
-  .vault, .socials a, .entry { transition: none; }
+  .vault, .socials a { transition: none; }
 }
 </style>
 </head>
 <body>
 
 <!-- ============================================================
-     Orb nền. Phải nhúng inline: lõi merkaba do script vẽ, mà
-     script trong SVG không chạy nếu tải qua <img> hay CSS.
+     Orb nền. Bắt buộc nhúng inline: lõi merkaba do script vẽ,
+     mà script trong SVG không chạy nếu tải qua <img> hay CSS.
      ============================================================ -->
 <div id="orb-layer" aria-hidden="true">
 <svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg">
 <style>
-@keyframes orbCW  { 0% { transform: rotate(0deg); }   100% { transform: rotate(360deg); } }
-@keyframes orbCCW { 0% { transform: rotate(0deg); }   100% { transform: rotate(-360deg); } }
+@keyframes orbCW    { to { transform: rotate(360deg); } }
+@keyframes orbCCW   { to { transform: rotate(-360deg); } }
 @keyframes orbPulse { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
 #orb-layer .s1, #orb-layer .s2, #orb-layer .s3, #orb-layer .s4 {
   transform-origin: 340px 280px;
@@ -283,9 +210,8 @@ footer a { color: var(--muted-foreground); }
 </g>
 
 <g id="star3d-container" class="s2" stroke-width="1.8" opacity="0.95">
-  <!-- d tĩnh chỉ là bản dự phòng khi JS tắt: sao sáu cánh phẳng.
-       Khi JS chạy, script bên dưới ghi đè mỗi frame bằng phép
-       chiếu 3D thật. -->
+  <!-- d tĩnh là bản dự phòng khi JS tắt: sao sáu cánh phẳng.
+       Khi JS chạy, script bên dưới ghi đè mỗi frame. -->
   <path id="star3d-path" stroke="#378ADD" fill="none"
         d="M 340 154 L 449.1 343 L 230.9 343 Z
            M 340 406 L 230.9 217 L 449.1 217 Z"/>
@@ -306,9 +232,10 @@ footer a { color: var(--muted-foreground); }
 
 <main>
   <img class="logo" src="visual/Gemini_Generated_Image_9vofcw9vofcw9vof.jpg"
-       alt="Plone Mraz" width="132" height="132">
+       alt="Plone Mraz" width="96" height="96">
 
   <h1>Plone Mraz</h1>
+  <p class="byline">Huỳnh Mai Phúc &middot; Independent researcher &middot; Vietnam</p>
 
   <div class="hook">
     <p>Humans think <strong>GREED</strong> is just for <em>Authority</em> and <em>Resources</em>.</p>
@@ -326,79 +253,26 @@ footer a { color: var(--muted-foreground); }
 
     <div class="socials">
       <a href="https://orcid.org/0009-0009-0571-7151" title="ORCID" aria-label="ORCID">
-        <img src="visual/ORCID_iD.svg" alt="" width="44" height="44">
+        <img src="visual/ORCID_iD.svg" alt="" width="40" height="40">
       </a>
       <!-- TODO: thay bằng link Academia.edu thật -->
       <a class="invert" href="#" title="Academia.edu" aria-label="Academia.edu">
-        <img src="visual/academia-edu.png" alt="" width="44" height="44">
+        <img src="visual/academia-edu.png" alt="" width="40" height="40">
       </a>
       <a href="https://github.com/PloneMraz" title="GitHub" aria-label="GitHub">
-        <img src="visual/github_logo_icon_.svg" alt="" width="44" height="44">
+        <img src="visual/github_logo_icon_.svg" alt="" width="40" height="40">
       </a>
       <!-- TODO: thay bằng link Hugging Face thật -->
       <a class="plate" href="#" title="Hugging Face" aria-label="Hugging Face">
-        <img src="visual/huggingface-icon.svg" alt="" width="44" height="44">
+        <img src="visual/huggingface-icon.svg" alt="" width="40" height="40">
       </a>
       <!-- TODO: thay bằng link Facebook thật -->
       <a href="#" title="Facebook" aria-label="Facebook">
-        <img src="visual/Facebook_icon.svg" alt="" width="44" height="44">
+        <img src="visual/Facebook_icon.svg" alt="" width="40" height="40">
       </a>
     </div>
   </nav>
-
-  <section class="corpus">
-    <h2>Meta-Philosophy — one operation, seven articulations</h2>
-
-    <a class="entry" href="https://doi.org/10.6084/m9.figshare.31852003">
-      <span class="kicker">Start here</span>
-      <span class="name">A Programme Overview</span>
-      <span class="sub">The architecture connecting the seven papers.</span>
-    </a>
-
-    <ol class="papers">
-      <li>
-        <span class="code">2026a</span>
-        <a class="title" href="corpus/SP.pdf">The Synthetic Principle</a>
-        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848634">DOI</a>
-      </li>
-      <li>
-        <span class="code">2026b</span>
-        <a class="title" href="corpus/Aviplestos.pdf">Aviplestos</a>
-        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848649">DOI</a>
-      </li>
-      <li>
-        <span class="code">2026c</span>
-        <a class="title" href="corpus/OP.pdf">Ontonoetic Pattern</a>
-        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848265">DOI</a>
-      </li>
-      <li>
-        <span class="code">2026d</span>
-        <a class="title" href="corpus/PC.pdf">Patterns and Cognition</a>
-        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31848688">DOI</a>
-      </li>
-      <li>
-        <span class="code">2026e</span>
-        <a class="title" href="corpus/PoB.pdf">The Passage of Becoming</a>
-        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31849009">DOI</a>
-      </li>
-      <li>
-        <span class="code">2026f</span>
-        <a class="title" href="corpus/PF.pdf">Potentamis and Fasaion</a>
-        <a class="doi" href="https://doi.org/10.6084/m9.figshare.31896160">DOI</a>
-      </li>
-      <li>
-        <span class="code">2026g</span>
-        <a class="title" href="corpus/Stachoria.pdf">Stachoria</a>
-        <a class="doi" href="https://doi.org/10.6084/m9.figshare.32531592">DOI</a>
-      </li>
-    </ol>
-  </section>
 </main>
-
-<footer>
-  <p>Hunh Mai Ph&uacute;c &middot; Independent researcher &middot; Vietnam<br>
-  ORCID <a href="https://orcid.org/0009-0009-0571-7151">0009-0009-0571-7151</a></p>
-</footer>
 
 <script>
 // Lõi merkaba: hai tứ diện lồng ngược, chiếu trực giao, tự xoay.
