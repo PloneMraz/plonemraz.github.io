@@ -198,8 +198,40 @@ html[data-sidebar="closed"] .side-handle svg { transform: rotate(180deg); }
 body.no-sidebar .content,
 html[data-sidebar="closed"] .content { margin-left: 0; }
 
-/* Cột đọc: hẹp vừa tầm mắt, không tràn hết bề ngang */
-.prose { max-width: 38rem; }
+/* Cột đọc: hẹp vừa tầm mắt, và căn GIỮA vùng còn lại thay vì dán
+   sát mép trái. Khi thanh dọc mở, vùng còn lại là phần bên phải
+   nó; khi đóng thì là cả bề ngang — cột tự dịch theo. */
+.prose {
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+/* Justify cho văn xuôi dài. Dòng cuối của mỗi đoạn vẫn căn trái
+   theo mặc định, nên đoạn một dòng không bị kéo giãn. hyphens
+   giúp tiếng Anh bớt "sông" trắng giữa dòng; tiếng Việt không có
+   từ điển ngắt âm tiết nên thuộc tính này lặng lẽ vô hiệu. */
+.prose p,
+.prose li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Những dòng ngắn KHÔNG được justify: nhãn, meta, chú thích,
+   danh sách nghề nghiệp. Kéo giãn mấy dòng này trông rất gượng. */
+.prose .kicker,
+.prose .lede,
+.prose .tr-note,
+.prose .keywords,
+.prose .note,
+.paper-actions,
+.about-links,
+.doi-line,
+.cv-roles li,
+.cv-edu li {
+  text-align: left;
+  hyphens: manual;
+}
 .prose h1 {
   margin: 0 0 .35rem;
   font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -232,7 +264,7 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
 
 /* --- Trang tác giả ------------------------------------------ */
 /* Không có thanh dọc nên cột đọc nới rộng hơn bài viết thường */
-.about { max-width: 44rem; }
+.about { max-width: 44rem; margin-inline: auto; }
 
 .cv-roles {
   list-style: none;
