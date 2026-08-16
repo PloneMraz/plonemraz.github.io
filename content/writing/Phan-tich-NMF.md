@@ -1,6 +1,6 @@
 ---
 title: 'Đọc thử một cơ chế "Danh – Nghĩa – Hệ"'
-date: 2026-08-14
+date: 2026-06-23
 lang: vi
 summary: 'Mổ xẻ cơ chế Danh – Nghĩa – Hệ: chỗ nào nó làm được, chỗ nào nó hụt, và vì sao cái hụt đó không phải lỗi vặt mà nằm ở nền móng.'
 permalink: /vault/blog/danh-nghia-he/
@@ -96,3 +96,5 @@ Thứ hai, mỗi khi tôi định tuyên một câu kiểu "luôn luôn" hay "kh
 Thứ ba, và quan trọng nhất: tôi phải luôn chừa chỗ cho cái sự vật đứng đó độc lập với tôi. Khoảnh khắc một cái cơ chế nuốt trọn hiện thực vào trong nhận thức — biến mọi khác biệt của vật thành khác biệt của cách-tôi-gọi-vật — là khoảnh khắc nó đánh mất chính cái nó định nói tới. Cái bóng thì dễ uốn theo ý mình. Nhưng tôi không làm việc với cái bóng. Tôi làm việc với cái vật đổ ra cái bóng đó.
 
 Cái cơ chế tôi vừa đọc làm tốt phần nó làm được, và tôi học được từ nó nhiều hơn tôi tưởng lúc mới mở ra — kể cả học từ những chỗ tôi đọc lộn nó. Nhưng nó nhắc tôi một điều tôi không muốn quên: một cơ chế tư duy đẹp và mạch lạc đến đâu, nếu dựng trên một viên gạch gốc không có thật, thì cái mạch lạc ấy chỉ là cái mạch lạc của một giấc mơ chặt chẽ. Việc khó không phải là dựng cho mạch lạc. Việc khó là dựng cho mạch lạc mà vẫn chạm đất.
+
+- Plone Mraz -
