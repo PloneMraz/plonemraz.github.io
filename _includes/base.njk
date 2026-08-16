@@ -1,0 +1,115 @@
+{%- macro t(s) -%}<span data-l="en">{{ s.en }}</span><span data-l="vi">{{ s.vi }}</span>{%- endmacro -%}
+<!DOCTYPE html>
+<html lang="{{ lang or 'en' }}" data-ui-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }} · Plone Mraz</title>
+{%- if summary %}
+<meta name="description" content="{{ summary }}">
+{%- endif %}
+<link rel="icon" href="/visual/icon.ico">
+<link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/assets/vault.css">
+</head>
+<body class="{% if hideSidebar %}no-sidebar{% endif %}">
+
+{% include "orb.njk" %}
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <img src="/visual/icon.ico" alt="" width="28" height="28">
+    <span>Plone Mraz</span>
+  </a>
+
+  <button class="burger" type="button" aria-expanded="false" aria-controls="topnav"
+          aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="topnav" id="topnav">
+    <a href="/">{{ t(ui.nav.home) }}</a>
+    <a href="/vault/"        class="{% if section == 'blog' %}on{% endif %}">{{ t(ui.nav.blog) }}</a>
+    <a href="/vault/papers/" class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
+    <a href="/vault/about/"  class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
+    <a href="/vault/contact/" class="{% if section == 'contact' %}on{% endif %}">{{ t(ui.nav.contact) }}</a>
+  </nav>
+</header>
+
+{% if not hideSidebar %}
+<button class="sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+  {{ t(ui.label.list) }}
+</button>
+
+<aside class="sidebar" id="sidebar">
+  {%- if section == 'papers' %}
+    {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview], ['specs', ui.label.specs]] %}
+    <h2 class="side-h">{{ t(g[1]) }}</h2>
+    <ul class="side-list">
+      {%- for p in papers %}{% if p.group == g[0] %}
+      <li>
+        <a href="/vault/papers/{{ p.slug }}/"
+           class="{% if p.slug == paperSlug %}on{% endif %}">
+          {%- if p.code %}<span class="code">{{ p.code }}</span>{% endif %}
+          <span class="name">{{ p.title }}</span>
+        </a>
+      </li>
+      {% endif %}{%- endfor %}
+    </ul>
+    {%- endfor %}
+  {%- else %}
+    <h2 class="side-h">{{ t(ui.label.posts) }}</h2>
+    <ul class="side-list">
+      {%- for post in collections.posts %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  {%- endif %}
+</aside>
+{% endif %}
+
+<main class="content">
+  {{ content | safe }}
+</main>
+
+<button class="langtoggle" type="button" aria-label="Switch interface language">
+  <span data-l="en">EN</span><span data-l="vi">VI</span>
+</button>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'ui-lang';
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved !== 'en' && saved !== 'vi') {
+    saved = (navigator.language || '').toLowerCase().indexOf('vi') === 0 ? 'vi' : 'en';
+  }
+  root.setAttribute('data-ui-lang', saved);
+
+  document.querySelector('.langtoggle').addEventListener('click', function () {
+    var next = root.getAttribute('data-ui-lang') === 'en' ? 'vi' : 'en';
+    root.setAttribute('data-ui-lang', next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+  });
+
+  function wire(btnSel, targetSel, cls) {
+    var b = document.querySelector(btnSel), t = document.querySelector(targetSel);
+    if (!b || !t) return;
+    b.addEventListener('click', function () {
+      var open = t.classList.toggle(cls);
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+  wire('.burger', '.topnav', 'open');
+  wire('.sidebar-toggle', '.sidebar', 'open');
+})();
+</script>
+
+</body>
+</html>

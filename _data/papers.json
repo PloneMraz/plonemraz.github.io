@@ -1,0 +1,16 @@
+[
+  { "slug": "synthetic-principle",   "group": "programme", "code": "2026a", "title": "The Synthetic Principle",              "asks": "what operates",                                  "pages": 18, "pdf": "SP.pdf",           "doi": "10.6084/m9.figshare.31848634" },
+  { "slug": "aviplestos",            "group": "programme", "code": "2026b", "title": "Aviplestos",                            "asks": "toward what it tends",                           "pages": 32, "pdf": "Aviplestos.pdf",   "doi": "10.6084/m9.figshare.31848649" },
+  { "slug": "ontonoetic-pattern",    "group": "programme", "code": "2026c", "title": "Ontonoetic Pattern",                    "asks": "by what cognitive procedure it is articulated",  "pages": 25, "pdf": "OP.pdf",           "doi": "10.6084/m9.figshare.31848265" },
+  { "slug": "patterns-and-cognition","group": "programme", "code": "2026d", "title": "Patterns and Cognition",                "asks": "within what geometry that procedure operates",   "pages": 23, "pdf": "PC.pdf",           "doi": "10.6084/m9.figshare.31848688" },
+  { "slug": "passage-of-becoming",   "group": "programme", "code": "2026e", "title": "The Passage of Becoming",               "asks": "through what passage it runs",                   "pages": 24, "pdf": "PoB.pdf",          "doi": "10.6084/m9.figshare.31849009" },
+  { "slug": "potentamis-and-fasaion","group": "programme", "code": "2026f", "title": "Potentamis and Fasaion",                "asks": "how the mechanism operates",                     "pages": 24, "pdf": "PF.pdf",           "doi": "10.6084/m9.figshare.31896160" },
+  { "slug": "stachoria",             "group": "programme", "code": "2026g", "title": "Stachoria",                             "asks": "within what it takes place",                     "pages": 22, "pdf": "Stachoria.pdf",    "doi": "10.6084/m9.figshare.32531592" },
+
+  { "slug": "programme-overview",    "group": "overview",  "code": "",      "title": "A Programme Overview",                  "asks": "the architecture connecting the seven papers",   "pages": 31, "pdf": "MetaPaper.pdf",    "doi": "10.6084/m9.figshare.31852003" },
+  { "slug": "first-target",          "group": "overview",  "code": "",      "title": "The First Target of the Observation",    "asks": "what the programme was built with, and how",     "pages": 17, "pdf": "FirstTarget.pdf",  "doi": "10.6084/m9.figshare.32657418" },
+  { "slug": "derived-cognitive-protocol", "group": "overview", "code": "", "title": "Derived Cognitive Protocol",             "asks": "how to put the corpus to work on a case",        "pages": 15, "pdf": "DCP.pdf",          "doi": "10.6084/m9.figshare.33261138" },
+
+  { "slug": "data-integration-loop", "group": "specs",     "code": "",      "title": "The Data Integration Loop",             "asks": "an agent in a purely informational environment", "pages": 52, "pdf": "DIL-en-v6.pdf",    "doi": "10.6084/m9.figshare.32728983" },
+  { "slug": "relational-sensory-integration-loop", "group": "specs", "code": "", "title": "The Relational Sensory Integration Loop", "asks": "the same structure, embodied",       "pages": 65, "pdf": "RSIL-en-v1.pdf",   "doi": "10.6084/m9.figshare.33261654" }
+]

@@ -1,0 +1,29 @@
+---
+layout: base.njk
+section: papers
+pagination:
+  data: papers
+  size: 1
+  alias: paper
+permalink: "/vault/papers/{{ paper.slug }}/"
+eleventyComputed:
+  title: "{{ paper.title }}"
+  paperSlug: "{{ paper.slug }}"
+---
+<article class="prose">
+  <h1>{{ paper.title }}</h1>
+  <p class="kicker">
+    {% if paper.code %}{{ paper.code }} &middot; {% endif %}
+    {{ paper.pages }} <span data-l="en">pages</span><span data-l="vi">trang</span>
+  </p>
+
+  <p>{{ paper.asks | capitalize }}.</p>
+
+  <p>
+    <a href="/corpus/{{ paper.pdf }}">
+      <span data-l="en">Read PDF</span><span data-l="vi">Đọc bản PDF</span>
+    </a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://doi.org/{{ paper.doi }}">{{ paper.doi }}</a>
+  </p>
+</article>
