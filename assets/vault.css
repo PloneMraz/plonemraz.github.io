@@ -92,7 +92,6 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
 .topnav a:hover { color: var(--foreground); }
 .topnav a.on { color: var(--foreground); border-bottom-color: var(--link); }
 
-.topbar-buttons { display: flex; align-items: center; gap: .5rem; }
 .burger { display: none; }
 
 /* --- Thanh dọc ---------------------------------------------- */
@@ -151,7 +150,40 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   opacity: .8;
 }
 
-.sidebar-toggle { display: none; }   /* chi hien tren man hep */
+/* Đóng/mở. Mặc định mở ở mọi cỡ màn hình; trạng thái do thuộc tính
+   data-sidebar trên <html> quyết định và được đặt ngay trong <head>
+   nên không thấy chớp lúc tải. */
+.sidebar { transition: transform .25s ease; }
+html[data-sidebar="closed"] .sidebar { transform: translateX(-100%); }
+
+/* Nút tròn bám cạnh phải thanh dọc, chạy theo cạnh khi đóng/mở */
+.side-handle {
+  position: fixed;
+  top: 50%;
+  left: var(--sidebar-w);
+  transform: translate(-50%, -50%);
+  z-index: 35;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: left .25s ease, transform .25s ease,
+              color .15s ease, border-color .15s ease;
+}
+.side-handle:hover { color: var(--foreground); border-color: var(--link); }
+.side-handle svg { transition: transform .25s ease; }
+
+/* Đóng: nút về sát mép trái, mũi tên quay ngược */
+html[data-sidebar="closed"] .side-handle {
+  left: 0;
+  transform: translate(.35rem, -50%);
+}
+html[data-sidebar="closed"] .side-handle svg { transform: rotate(180deg); }
 
 /* --- Khung nội dung ----------------------------------------- */
 .content {
@@ -161,8 +193,10 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   padding: calc(var(--topbar-h) + clamp(2rem, 5vh, 3.5rem))
            clamp(1.25rem, 5vw, 4rem) 6rem;
   min-height: 100vh;
+  transition: margin-left .25s ease;
 }
-body.no-sidebar .content { margin-left: 0; }
+body.no-sidebar .content,
+html[data-sidebar="closed"] .content { margin-left: 0; }
 
 /* Cột đọc: hẹp vừa tầm mắt, không tràn hết bề ngang */
 .prose { max-width: 38rem; }
@@ -448,31 +482,13 @@ body.no-sidebar .content { margin-left: 0; }
   .topnav a:last-child { border-bottom: 0; }
   .topnav a.on { border-bottom-color: var(--border); color: var(--link); }
 
-  /* Nut mo thanh doc nam TREN thanh ngang, khong o goc duoi trai:
-     goc do da danh cho o tim kiem. */
-  .sidebar-toggle {
-    display: block;
-    padding: .5rem .8rem;
-    border: 1px solid var(--border);
-    border-radius: calc(var(--radius) - 2px);
-    background: transparent;
-    color: var(--foreground);
-    font: 600 .8125rem/1 ui-sans-serif, system-ui, sans-serif;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform .22s ease;
-    width: min(85vw, var(--sidebar-w));
-    background: var(--background);
-  }
-  .sidebar.open { transform: translateX(0); }
-
+  /* Màn hẹp: thanh dọc phủ LÊN nội dung thay vì đẩy nó sang phải,
+     vì không còn đủ bề ngang để chia đôi. */
+  :root { --sidebar-w: min(84vw, 288px); }
+  .sidebar { background: var(--background); }
   .content { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sidebar { transition: none; }
+  .sidebar, .content, .side-handle, .side-handle svg { transition: none; }
 }
