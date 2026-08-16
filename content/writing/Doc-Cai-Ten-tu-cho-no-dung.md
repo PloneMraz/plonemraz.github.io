@@ -1,6 +1,6 @@
 ---
 title: 'Đọc Một Cái Tên Từ Đúng Chỗ Nó Đứng'
-date: 2026-08-15
+date: 2026-08-02
 lang: vi
 summary: 'Một cách tự kiểm tra những khái niệm mình đang dùng để sống'
 permalink: /vault/blog/doc-mot-cai-ten/

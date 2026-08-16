@@ -22,13 +22,13 @@ it and disclaims what the others answer.
 
 | Code | Paper | Asks | Pages | PDF | DOI |
 |---|---|---|---|---|---|
-| 2026a | The Synthetic Principle | *what* operates | 18 | [PDF](corpus/SP.pdf) | [10.6084/m9.figshare.31848634](https://doi.org/10.6084/m9.figshare.31848634) |
-| 2026b | Aviplestos | *toward what* it tends | 32 | [PDF](corpus/Aviplestos.pdf) | [10.6084/m9.figshare.31848649](https://doi.org/10.6084/m9.figshare.31848649) |
-| 2026c | Ontonoetic Pattern | by *what cognitive procedure* it is articulated | 25 | [PDF](corpus/OP.pdf) | [10.6084/m9.figshare.31848265](https://doi.org/10.6084/m9.figshare.31848265) |
-| 2026d | Patterns and Cognition | within *what geometry* that procedure operates | 23 | [PDF](corpus/PC.pdf) | [10.6084/m9.figshare.31848688](https://doi.org/10.6084/m9.figshare.31848688) |
-| 2026e | The Passage of Becoming | through *what passage* it runs | 24 | [PDF](corpus/PoB.pdf) | [10.6084/m9.figshare.31849009](https://doi.org/10.6084/m9.figshare.31849009) |
-| 2026f | Potentamis and Fasaion | *how* the mechanism operates | 24 | [PDF](corpus/PF.pdf) | [10.6084/m9.figshare.31896160](https://doi.org/10.6084/m9.figshare.31896160) |
-| 2026g | Stachoria | *within what* it takes place | 22 | [PDF](corpus/Stachoria.pdf) | [10.6084/m9.figshare.32531592](https://doi.org/10.6084/m9.figshare.32531592) |
+| 2026a | The Synthetic Principle | *what* operates | 18 | [PDF](content/corpus/SP.pdf) | [10.6084/m9.figshare.31848634](https://doi.org/10.6084/m9.figshare.31848634) |
+| 2026b | Aviplestos | *toward what* it tends | 32 | [PDF](content/corpus/Aviplestos.pdf) | [10.6084/m9.figshare.31848649](https://doi.org/10.6084/m9.figshare.31848649) |
+| 2026c | Ontonoetic Pattern | by *what cognitive procedure* it is articulated | 25 | [PDF](content/corpus/OP.pdf) | [10.6084/m9.figshare.31848265](https://doi.org/10.6084/m9.figshare.31848265) |
+| 2026d | Patterns and Cognition | within *what geometry* that procedure operates | 23 | [PDF](content/corpus/PC.pdf) | [10.6084/m9.figshare.31848688](https://doi.org/10.6084/m9.figshare.31848688) |
+| 2026e | The Passage of Becoming | through *what passage* it runs | 24 | [PDF](content/corpus/PoB.pdf) | [10.6084/m9.figshare.31849009](https://doi.org/10.6084/m9.figshare.31849009) |
+| 2026f | Potentamis and Fasaion | *how* the mechanism operates | 24 | [PDF](content/corpus/PF.pdf) | [10.6084/m9.figshare.31896160](https://doi.org/10.6084/m9.figshare.31896160) |
+| 2026g | Stachoria | *within what* it takes place | 22 | [PDF](content/corpus/Stachoria.pdf) | [10.6084/m9.figshare.32531592](https://doi.org/10.6084/m9.figshare.32531592) |
 
 ### Start here
 
@@ -36,7 +36,7 @@ it and disclaims what the others answer.
 research-programme-scoped methodology, including the role of AI assistance across the
 corpus. 31 pages.
 
-[PDF](corpus/MetaPaper.pdf) · [10.6084/m9.figshare.31852003](https://doi.org/10.6084/m9.figshare.31852003)
+[PDF](content/corpus/MetaPaper.pdf) · [10.6084/m9.figshare.31852003](https://doi.org/10.6084/m9.figshare.31852003)
 
 ### Related documents
 
@@ -45,8 +45,8 @@ cut from; the second instructs rather than describes.
 
 | Document | What it is | Pages | PDF | DOI |
 |---|---|---|---|---|
-| The First Target of the Observation | Working note on what the programme was built with, and how | 17 | [PDF](corpus/FirstTarget.pdf) | [10.6084/m9.figshare.32657418](https://doi.org/10.6084/m9.figshare.32657418) |
-| Derived Cognitive Protocol (DCP) | Tool specification derived from the corpus | 15 | [PDF](corpus/DCP.pdf) | [10.6084/m9.figshare.33261138](https://doi.org/10.6084/m9.figshare.33261138) |
+| The First Target of the Observation | Working note on what the programme was built with, and how | 17 | [PDF](content/corpus/FirstTarget.pdf) | [10.6084/m9.figshare.32657418](https://doi.org/10.6084/m9.figshare.32657418) |
+| Derived Cognitive Protocol (DCP) | Tool specification derived from the corpus | 15 | [PDF](content/corpus/DCP.pdf) | [10.6084/m9.figshare.33261138](https://doi.org/10.6084/m9.figshare.33261138) |
 
 ---
 
@@ -57,8 +57,8 @@ document is a clinical recommendation, and both state their epistemic limits up 
 
 | Document | What it proposes | Pages | PDF | DOI |
 |---|---|---|---|---|
-| The Unlocking Motif | A cross-domain heuristic for clinical reasoning, offered to medical educators for evaluation | 15 | [PDF](corpus/Aviplestos_Unlocking_Motif_MedEd_v2.pdf) | [10.6084/m9.figshare.32339904](https://doi.org/10.6084/m9.figshare.32339904) |
-| A Structural Model of Depression Recovery as Constrained Aviplestos | A technical blueprint reinterpreting recovery under combined pharmacological and cognitive intervention, deriving one falsifiable prediction | 27 | [PDF](corpus/Aviplestos_Depression_Blueprint_v1.pdf) | [10.6084/m9.figshare.32515635](https://doi.org/10.6084/m9.figshare.32515635) |
+| The Unlocking Motif | A cross-domain heuristic for clinical reasoning, offered to medical educators for evaluation | 15 | [PDF](content/corpus/Aviplestos_Unlocking_Motif_MedEd_v2.pdf) | [10.6084/m9.figshare.32339904](https://doi.org/10.6084/m9.figshare.32339904) |
+| A Structural Model of Depression Recovery as Constrained Aviplestos | A technical blueprint reinterpreting recovery under combined pharmacological and cognitive intervention, deriving one falsifiable prediction | 27 | [PDF](content/corpus/Aviplestos_Depression_Blueprint_v1.pdf) | [10.6084/m9.figshare.32515635](https://doi.org/10.6084/m9.figshare.32515635) |
 
 ---
 
@@ -72,8 +72,8 @@ marked in place.
 
 | Specification | Environment | Pages | PDF | DOI |
 |---|---|---|---|---|
-| The Data Integration Loop (DIL) | Purely informational | 52 | [PDF](corpus/DIL-en-v6.pdf) | [10.6084/m9.figshare.32728983](https://doi.org/10.6084/m9.figshare.32728983) |
-| The Relational Sensory Integration Loop (RSIL) | Physical, embodied | 65 | [PDF](corpus/RSIL-en-v1.pdf) | [10.6084/m9.figshare.33261654](https://doi.org/10.6084/m9.figshare.33261654) |
+| The Data Integration Loop (DIL) | Purely informational | 52 | [PDF](content/corpus/DIL-en-v6.pdf) | [10.6084/m9.figshare.32728983](https://doi.org/10.6084/m9.figshare.32728983) |
+| The Relational Sensory Integration Loop (RSIL) | Physical, embodied | 65 | [PDF](content/corpus/RSIL-en-v1.pdf) | [10.6084/m9.figshare.33261654](https://doi.org/10.6084/m9.figshare.33261654) |
 
 Both are specifications, not reports of built systems. The proper test of either is
 conformance — whether a given system meets the conditions and invariants set out — not
@@ -86,7 +86,7 @@ benchmarking or measured performance.
 ```
 index.html    Front page — single screen, no scroll
 theme.css     Colour tokens, dark-only
-corpus/       The 14 documents above, as PDFs
+content/      Nguồn: corpus/ (14 PDF), writing/ (bài viết)
 visual/       Logo, favicon, animated HUD orb, profile icons
 ```
 

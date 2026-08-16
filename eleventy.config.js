@@ -8,21 +8,23 @@ module.exports = function (eleventyConfig) {
   // --- Chép nguyên trạng, không xử lý ---
   eleventyConfig.addPassthroughCopy({ "index.html": "index.html" });
   eleventyConfig.addPassthroughCopy({ "theme.css": "theme.css" });
-  eleventyConfig.addPassthroughCopy({ corpus: "corpus" });
+  // Giữ URL công khai là /corpus/... dù file đã chuyển vào content/,
+  // để mọi liên kết cũ từ bên ngoài vẫn sống.
+  eleventyConfig.addPassthroughCopy({ "content/corpus": "corpus" });
   eleventyConfig.addPassthroughCopy({ visual: "visual" });
   eleventyConfig.addPassthroughCopy({ assets: "assets" });
 
   // --- Không dựng thành trang ---
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add("index.html");
-  eleventyConfig.ignores.add("corpus/**");
+  eleventyConfig.ignores.add("content/corpus/**");
   eleventyConfig.ignores.add("visual/**");
-  eleventyConfig.ignores.add("writing/*.docx");
-  eleventyConfig.ignores.add("writing/*.txt");
+  eleventyConfig.ignores.add("content/**/*.docx");
+  eleventyConfig.ignores.add("content/**/*.txt");
 
   // --- Bài viết, mới nhất lên đầu ---
   eleventyConfig.addCollection("posts", (api) =>
-    api.getFilteredByGlob("writing/*.md").sort((a, b) => b.date - a.date)
+    api.getFilteredByGlob("content/writing/*.md").sort((a, b) => b.date - a.date)
   );
 
   // --- Ngày hiển thị: 16 Aug 2026 ---
