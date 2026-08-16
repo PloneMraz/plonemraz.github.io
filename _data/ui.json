@@ -1,21 +1,82 @@
 {
   "nav": {
-    "home":    { "en": "Home",         "vi": "Trang chủ" },
-    "blog":    { "en": "Blog",         "vi": "Bài viết" },
-    "papers":  { "en": "Papers",       "vi": "Công trình" },
-    "about":   { "en": "About Author", "vi": "Tác giả" },
-    "contact": { "en": "Contact",      "vi": "Liên hệ" }
+    "home": {
+      "en": "Home",
+      "vi": "Trang chủ"
+    },
+    "blog": {
+      "en": "Blog",
+      "vi": "Bài viết"
+    },
+    "papers": {
+      "en": "Papers",
+      "vi": "Công trình"
+    },
+    "about": {
+      "en": "About Author",
+      "vi": "Tác giả"
+    },
+    "contact": {
+      "en": "Contact",
+      "vi": "Liên hệ"
+    }
   },
   "label": {
-    "posts":      { "en": "Posts",              "vi": "Bài viết" },
-    "corpus":     { "en": "Corpus",             "vi": "Tuyển tập" },
-    "menu":       { "en": "Menu",               "vi": "Menu" },
-    "list":       { "en": "List",               "vi": "Danh sách" },
-    "pages":      { "en": "pages",              "vi": "trang" },
-    "readPdf":    { "en": "Read PDF",           "vi": "Đọc bản PDF" },
-    "programme":  { "en": "Meta-Philosophy",    "vi": "Meta-Philosophy" },
-    "overview":   { "en": "Overview & related", "vi": "Tổng quan & liên quan" },
-    "specs":      { "en": "Agent specs",        "vi": "Đặc tả tác tử" },
-    "empty":      { "en": "Choose something from the list on the left.", "vi": "Chọn một mục ở thanh bên trái." }
+    "posts": {
+      "en": "Posts",
+      "vi": "Bài viết"
+    },
+    "corpus": {
+      "en": "Corpus",
+      "vi": "Tuyển tập"
+    },
+    "menu": {
+      "en": "Menu",
+      "vi": "Menu"
+    },
+    "list": {
+      "en": "List",
+      "vi": "Danh sách"
+    },
+    "pages": {
+      "en": "pages",
+      "vi": "trang"
+    },
+    "readPdf": {
+      "en": "Read PDF",
+      "vi": "Đọc bản PDF"
+    },
+    "programme": {
+      "en": "Meta-Philosophy",
+      "vi": "Meta-Philosophy"
+    },
+    "overview": {
+      "en": "Overview & related",
+      "vi": "Tổng quan & liên quan"
+    },
+    "specs": {
+      "en": "Agent specs",
+      "vi": "Đặc tả tác tử"
+    },
+    "empty": {
+      "en": "Choose something from the list on the left.",
+      "vi": "Chọn một mục ở thanh bên trái."
+    },
+    "abstract": {
+      "en": "Abstract",
+      "vi": "Tóm tắt"
+    },
+    "keywords": {
+      "en": "Keywords",
+      "vi": "Từ khoá"
+    },
+    "asks": {
+      "en": "Asks",
+      "vi": "Câu hỏi"
+    },
+    "doi": {
+      "en": "DOI record",
+      "vi": "Bản ghi DOI"
+    }
   }
 }
