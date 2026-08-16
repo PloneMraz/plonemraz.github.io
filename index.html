@@ -124,7 +124,10 @@ h1 {
   gap: .75rem;
   padding: .9rem 2.025rem;
   border-radius: 999px;
-  background: var(--foreground);
+  /* Xám xanh, đồng bộ với nút trong vault. Trắng --foreground cho
+     18.99:1 so với nền, quá chói cho một mảng đặc; --muted-foreground
+     hạ còn 8.08:1 mà chữ trên nút vẫn đúng 8.08:1. */
+  background: var(--muted-foreground);
   color: var(--background);
   font-weight: 600;
   font-size: 1.40625rem;
