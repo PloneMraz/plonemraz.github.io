@@ -55,7 +55,8 @@
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-scroll">
   {%- if section == 'papers' %}
-    {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview], ['specs', ui.label.specs]] %}
+    {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview],
+               ['applied', ui.label.applied], ['specs', ui.label.specs]] %}
     <h2 class="side-h">{{ t(g[1]) }}</h2>
     <ul class="side-list">
       {%- for p in papers %}{% if p.group == g[0] %}
