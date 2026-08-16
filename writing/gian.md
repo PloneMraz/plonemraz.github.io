@@ -2,7 +2,7 @@
 title: 'GIẬN!'
 date: 2026-08-13
 lang: vi
-summary: 
+summary: 'Người làm bạn giận đã ngủ ngon rồi. Bạn thì chưa. Cơn giận là thứ hiếm hoi bạn không chia được cho ai — và bài này không khuyên bạn đừng giận.'
 permalink: /vault/blog/gian/
 tags: [self-help]
 ---

@@ -2,7 +2,7 @@
 title: 'Phân tích mô hình "Cây cứt lợn" của Lucisthelord - Tung Nguyen'
 date: 2026-08-04
 lang: vi
-summary: 'Phân tích mô hình "Cây cứt lợn" của Lucisthelord - Tung Nguyen'
+summary: 'Mô hình được mô tả bằng ba mục đích khác nhau ở ba chỗ khác nhau, trong khi bộ thành phần thì không đổi. Đọc kỹ chỗ nó làm được và chỗ nó hụt.'
 permalink: /vault/blog/cay-cut-lon-v1/
 tags: [review,]
 ---
