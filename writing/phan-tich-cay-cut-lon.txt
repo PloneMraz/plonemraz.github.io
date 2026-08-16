@@ -1,0 +1,43 @@
+Phân tích mô hình "Cây cứt lợn" của Lucisthelord - Tung Nguyen
+
+MÔ HÌNH CÂY CỨT LỢN (CCL) LÀ GÌ?
+
+Theo nguyên văn của tác giả trong bài đầu: "một system prompt có hai chức năng: một là bóc một bài viết xuống tận cấu trúc của nó; hai là dùng chính cấu trúc ấy để dựng một bài viết mới" được tác giả đặt tên là "mô hình CÂY CỨT LỢN". (Trích từ: https://www.facebook.com/share/p/17mjuWUpJZ/)
+
+Trong phần mở đầu của Case-Study, tác giả viết: "Nó là một khung giải phẫu văn bản, dùng để bóc một bài viết xuống tận bối cảnh, định nghĩa nền, giả định, đường lập luận, kỹ thuật diễn đạt, tác động tâm lý và kết luận thật sự". (Trích từ: https://www.facebook.com/share/p/1BfDigHVRE/)
+
+Trong phần "XI. Sức mạnh thật của mô hình" trong Case-Study, tác giả viết: "Cây Cứt Lợn không chỉ dùng để phân loại các phần trong bài. Nó cho phép truy ngược". (Trích từ: https://www.facebook.com/share/p/1BfDigHVRE/)
+
+Như vậy, mô hình CCL được tác giả mô tả bằng ba mục đích khác nhau ở ba chỗ khác nhau — công cụ dựng bài, khung mô tả cấu tạo, và công cụ truy quyền định nghĩa — mà bộ thành phần thì không đổi.
+
+PHÂN TÍCH CHI TIẾT MÔ HÌNH CLL
+
+Mô hình này coi một đơn vị bài viết như một cái cây (cây cứt lợn): đất là bối cảnh, rễ là tiền đề và định nghĩa nền, thân là luận đề, cành là luận điểm phụ, lá là cách diễn đạt, hoa là vẻ đẹp của bài, mùi là tác động lên người đọc, quả là kết luận, hạt là mệnh đề được mang đi kể lại.
+
+Mô hình có hai chỗ khá hay. Thứ nhất là cái tên. Tiêu chí của một công cụ tư duy là gọi ra được lúc cần, và cái tên bẩn thì bám não. Thứ hai là chỗ tách hoa khỏi mùi: thuộc tính nằm trong bài khác với hiệu ứng xảy ra trong người đọc. "Bi thương" là đặc điểm của bài; "làm người đọc thương cảm" là chuyện xảy ra ở người đọc. Tách ra thì buộc phải trả lời thêm câu hỏi kỹ thuật này đang lái người đọc đi đâu, chứ không dừng ở việc điểm danh kỹ thuật.
+
+Nhưng khi mô hình được đem ra dùng thật — phân tích hai bài tranh luận về trách nhiệm xã hội của văn học — kết quả cho thấy vấn đề.
+
+Vấn đề bắt đầu ở chỗ mô hình được mô tả bằng ba mục đích khác nhau, tại ba thời điểm khác nhau, mà bộ thành phần thì không đổi. Lần đầu, nó là một system prompt có hai chức năng: bóc bài xuống cấu trúc, rồi dùng chính cấu trúc ấy dựng một bài mới — công cụ để sinh. Lần sau, nó là khung giải phẫu văn bản, bóc xuống bối cảnh, định nghĩa nền, giả định, đường lập luận, kỹ thuật, tác động, kết luận — công cụ để mô tả, và chức năng dựng bài mới đã biến mất không lời giải thích. Đến phần tự tổng kết "sức mạnh thật", nó truy ngược đến chủ thể có quyền định nghĩa, biến văn bản thành một cấu trúc nhận thức và quyền lực — công cụ để phê phán.
+
+Ba việc ấy đòi ba bộ thành phần khác nhau. Và chín tầng không đủ cho việc nào.
+
+Thứ nhất, muốn dựng lại một bài viết thì không cần trục tác giả, nhưng cũng không thể vứt hoa-lá-mùi đi, vì vứt rồi thì dựng bằng gì. Đây là mâu thuẫn thấy được ngay trong phần trình diễn: Mô hình nói Hoa và Mùi là hai tầng cấu tạo, tách ra để thấy bài đang tác động thế nào. Nhưng thao tác thực tế lại là "Sau khi bỏ toàn bộ hoa, lá và mùi, thân cây còn gì?" (Phần XIII). Bộ phận cấu tạo thì không bỏ được; bỏ được mà bài vẫn nguyên nghĩa thì không phải là bộ phận cấu tạo.
+
+Thứ hai, muốn mô tả một bài viết được làm nên bởi cái gì thì phải có dưỡng chất và điều kiện sống. Mô hình nhắc "hút dưỡng chất qua bộ rễ" ngay câu định nghĩa rồi bỏ dưỡng chất khỏi danh sách, nên nguồn đọc và vốn tri thức của người viết không có chỗ. Nó có Đất nhưng không có khí hậu, gió, nước. Đây không phải đòi hỏi thừa: nhà văn viết về chiến tranh trong thời bình khác nhà văn viết trong thời chiến, và cùng thời chiến, người ra chiến trường vẫn viết khác người ở tuyến hậu cần. Cái phân biệt họ là vị trí đứng trong hoàn cảnh — thấy gì, chịu gì, viết cho ai đọc. Biến số ấy không rút về Đất được. Cây trên đỉnh gió thì thân thấp và cong, cùng loài trong thung lũng kín thì thẳng và cao; hình thái là dấu vết mà điều kiện sống để lại.
+
+Thứ ba, muốn truy đến quyền định nghĩa thì bắt buộc phải có trục người viết — và đúng lúc này thì món đi vay lộ ra. Chuỗi truy ngược trong phần tự tổng kết đi từ kết luận về luận điểm, tiền đề, định nghĩa, hệ quy chiếu, rồi đến chủ thể có quyền định nghĩa. Ba bước đầu còn ánh xạ được sang quả, cành, rễ. Bước cuối thì không có ô nào chứa nó, trong khi chính nó tạo ra toàn bộ kết quả của bài trình diễn. Mô hình có Quả — kết luận mà người viết muốn dẫn tới — nhưng không có tầng nào cho người viết, tức không có nguyên nhân tạo ra Quả.
+
+Trong bài Case-Study phân tích — hai bài tranh luận về trách nhiệm xã hội của văn học — kết quả thu được đều đến từ đúng một tầng: Rễ. Việc đào ra hai bộ tiền đề rồi đặt cạnh nhau là việc tử tế, và kết luận rằng hai bên không tranh về nghệ thuật mà tranh về hai định nghĩa của chữ "nhân sinh" là kết luận đúng. Nhưng tám tầng còn lại không tham gia vào kết quả. Đất không xuất hiện. Thân, cành, lá, hoa, quả, hạt không có mục nào. Chính bài viết ấy, khi tự tổng kết "sức mạnh thật" của mô hình, lại mô tả bằng một chuỗi hoàn toàn khác: kết luận → luận điểm → tiền đề → định nghĩa → hệ quy chiếu → chủ thể có quyền định nghĩa. Mô hình đang đóng vai bộ từ vựng đặt tên cho việc đã làm, chứ không phải thủ tục sinh ra việc ấy.
+
+Nói gọn: mô hình có hình thái học, không có sinh thái học. Nó tả được từng bộ phận, không giải thích được vì sao rễ nông chỗ này, thân cong hướng kia — mà đó mới là câu hỏi khiến việc mổ xẻ có nghĩa. Biết một bài rễ mỏng chỉ là ghi nhận. Biết vì sao nó buộc phải mỏng, hoặc chọn để mỏng, mới là hiểu.
+
+Điều này giải thích một nghịch lý: bài trình diễn có những đoạn phân tích tốt, nhưng chúng không chứng minh được mô hình. Phần tốt chạy bằng thao tác truy ngược tới quyền định nghĩa. Mô hình lại được dựng cho việc bóc và tái tạo. Hai thứ không gặp nhau, nên màn trình diễn xác nhận một cái khác với cái nó định xác nhận.
+
+Cuối cùng, phần XIII, trong mười câu hỏi mà tác giả soạn cho người đọc, có tám câu không dùng đến bất kỳ tầng nào của mô hình, và câu chốt cuối thì khuyên bỏ tám tầng để đào một tầng. Nếu chín tầng đều là bộ phận cấu thành và đều đáng phân tích, thì lời khuyên cuối cùng nên là phân tích đủ chín tầng. Câu chốt lại nói: có một tầng đáng làm, tám tầng kia là chỗ người ta mắc kẹt. Mô hình chín tầng kết thúc bằng lời khuyên dùng một tầng. Với chừng đó, chữ "tận" trong lời giới thiệu là quá rộng so với thứ mô hình thật sự chạm tới.
+
+Như vậy, qua Case-Study của tác giả, ở dạng cô đọng nhất và thực dụng nhất, phương pháp có giá trị là phân tích tiền giả định và truy quyền định nghĩa — mô hình Danh-Nghĩa-Hệ của tác giả. Còn cái cây (CCL) chỉ là một con bù nhìn, dùng để thu hút sự chú ý và để gọi, không tham gia vào việc.
+
+NGUỒN TRÍCH DẪN
+lucisthelord (KEVIN - TUNG NGUYEN) - "MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/17mjuWUpJZ/
+lucisthelord (KEVIN - TUNG NGUYEN) - "SỨC MẠNH CỦA MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/1BfDigHVRE/

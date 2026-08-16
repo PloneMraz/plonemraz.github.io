@@ -9,3 +9,7 @@ desktop.ini
 # Editor
 .vscode/
 .idea/
+
+# Eleventy
+node_modules/
+_site/

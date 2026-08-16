@@ -1,0 +1,64 @@
+{# Orb nền cho /vault/ — cố định chính giữa màn hình, mờ, dưới cùng.
+   Bọc trong raw để Nunjucks không đụng vào dấu ngoặc trong CSS/JS. #}
+{% raw %}
+<div id="orb-layer" aria-hidden="true">
+<svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg">
+<style>
+@keyframes orbCW    { to { transform: rotate(360deg); } }
+@keyframes orbCCW   { to { transform: rotate(-360deg); } }
+@keyframes orbPulse { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+#orb-layer .s1, #orb-layer .s2, #orb-layer .s3, #orb-layer .s4 {
+  transform-origin: 340px 280px;
+  transform-box: view-box;
+}
+#orb-layer .s1 { animation: orbCW  48s linear infinite; }
+#orb-layer .s2 { animation: orbCCW 32s linear infinite; }
+#orb-layer .s3 { animation: orbCW  20s linear infinite; }
+#orb-layer .s4 { animation: orbCCW 60s linear infinite; }
+#orb-layer .pl { animation: orbPulse 3.2s ease-in-out infinite; }
+</style>
+<g fill="none" stroke="#378ADD" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="340" cy="280" r="248" stroke="#185FA5" stroke-width="0.5" opacity=".45"/>
+<g class="s1">
+<circle cx="340" cy="280" r="232" stroke-width="1.5" stroke-dasharray="150 46" opacity=".9"/>
+<circle cx="340" cy="280" r="222" stroke-width="0.5" stroke-dasharray="8 22" opacity=".5"/>
+</g>
+<g class="s2">
+<circle cx="340" cy="280" r="204" stroke-width="0.5" stroke-dasharray="60 30 14 30" opacity=".7"/>
+</g>
+<g class="s3">
+<g stroke-width="1.5" opacity=".8">
+<path d="M340 96 v18"/><path d="M340 446 v18"/><path d="M156 280 h18"/><path d="M506 280 h18"/>
+</g>
+<g stroke-width="0.5" opacity=".55">
+<path d="M470 150 l12 -12"/><path d="M210 410 l-12 12"/><path d="M470 410 l12 12"/><path d="M210 150 l-12 -12"/>
+</g>
+</g>
+<g class="s4">
+<circle cx="340" cy="280" r="186" stroke-width="0.5" stroke-dasharray="3 14" opacity=".65"/>
+</g>
+<circle cx="340" cy="280" r="168" stroke-width="0.5" opacity=".55"/>
+<circle cx="340" cy="280" r="150" stroke-width="1" opacity=".85"/>
+<g class="s2">
+<circle cx="340" cy="280" r="132" stroke-width="0.5" stroke-dasharray="34 20" opacity=".5"/>
+</g>
+
+<g id="star3d-container" class="s2" stroke-width="1.8" opacity="0.95">
+  <path id="star3d-path" stroke="#378ADD" fill="none"
+        d="M 340 154 L 449.1 343 L 230.9 343 Z
+           M 340 406 L 230.9 217 L 449.1 217 Z"/>
+</g>
+
+<g stroke-width="0.5" opacity=".5">
+<circle cx="340" cy="280" r="64"/>
+<circle cx="340" cy="280" r="42"/>
+</g>
+<g class="pl" stroke-width="1" opacity=".8">
+<path d="M340 244 v72"/><path d="M304 280 h72"/>
+<path d="M315 255 l50 50"/><path d="M365 255 l-50 50"/>
+</g>
+<circle cx="340" cy="280" r="7" fill="#85B7EB" stroke="none" class="pl"/>
+</g>
+</svg>
+</div>
+{% endraw %}

@@ -1,0 +1,287 @@
+/* ============================================================
+   VAULT — phần bên trong của plonemraz.github.io
+   Token màu lấy từ theme.css. File này lo bố cục.
+
+   Khung: thanh ngang cố định trên đỉnh, thanh dọc cố định bên
+   trái, orb cố định chính giữa màn hình nằm dưới cùng, nút đổi
+   ngôn ngữ cố định góc dưới phải.
+   ============================================================ */
+
+:root {
+  --topbar-h: 64px;
+  --sidebar-w: 288px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 400 16px/1.65 ui-sans-serif, system-ui, -apple-system,
+        "Segoe UI", Roboto, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* --- Song ngữ giao diện -------------------------------------
+   Cả hai bản đều nằm trong DOM; nút chỉ đổi bản nào hiện. Nhờ
+   vậy khi tắt JS trang vẫn đọc được bằng ngôn ngữ mặc định. */
+html[data-ui-lang="en"] [data-l="vi"],
+html[data-ui-lang="vi"] [data-l="en"] { display: none; }
+
+/* --- Orb: cố định chính giữa, dưới mọi thứ ------------------ */
+#orb-layer {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: min(120vh, 1000px);
+  height: min(120vh, 1000px);
+  transform: translate(-50%, -50%);
+  opacity: .22;
+  pointer-events: none;
+  z-index: 0;
+}
+#orb-layer svg { width: 100%; height: 100%; display: block; }
+#orb-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%,
+              transparent 66%, var(--background) 100%);
+}
+
+/* --- Thanh ngang -------------------------------------------- */
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--topbar-h);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--background) 88%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.brand img { border-radius: 50%; }
+
+.topnav { display: flex; gap: clamp(.75rem, 2vw, 1.75rem); }
+.topnav a {
+  color: var(--muted-foreground);
+  text-decoration: none;
+  font-size: .9375rem;
+  padding: .35rem 0;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .15s ease, border-color .15s ease;
+}
+.topnav a:hover { color: var(--foreground); }
+.topnav a.on { color: var(--foreground); border-bottom-color: var(--link); }
+
+.burger { display: none; }
+
+/* --- Thanh dọc ---------------------------------------------- */
+.sidebar {
+  position: fixed;
+  top: var(--topbar-h);
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-w);
+  z-index: 20;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.5rem 1rem 3rem;
+  border-right: 1px solid var(--border);
+  background: color-mix(in oklab, var(--background) 82%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.side-h {
+  margin: 1.5rem .5rem .5rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.side-h:first-child { margin-top: 0; }
+
+.side-list { list-style: none; margin: 0; padding: 0; }
+.side-list a {
+  display: block;
+  padding: .55rem .65rem;
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--muted-foreground);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: background .15s ease, color .15s ease;
+}
+.side-list a:hover { background: var(--muted); color: var(--foreground); }
+.side-list a.on {
+  background: var(--muted);
+  color: var(--foreground);
+  border-left-color: var(--link);
+}
+.side-list .code {
+  display: inline-block;
+  min-width: 3.25rem;
+  font: 600 .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--link);
+}
+.side-list .name { font-size: .9375rem; }
+.side-list .meta {
+  display: block;
+  margin-top: .1rem;
+  font-size: .75rem;
+  color: var(--muted-foreground);
+  opacity: .8;
+}
+
+.sidebar-toggle { display: none; }
+
+/* --- Khung nội dung ----------------------------------------- */
+.content {
+  position: relative;
+  z-index: 10;
+  margin-left: var(--sidebar-w);
+  padding: calc(var(--topbar-h) + clamp(2rem, 5vh, 3.5rem))
+           clamp(1.25rem, 5vw, 4rem) 6rem;
+  min-height: 100vh;
+}
+body.no-sidebar .content { margin-left: 0; }
+
+/* Cột đọc: hẹp vừa tầm mắt, không tràn hết bề ngang */
+.prose { max-width: 38rem; }
+.prose h1 {
+  margin: 0 0 .35rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+}
+.prose .kicker {
+  margin: 0 0 2rem;
+  font-size: .875rem;
+  color: var(--muted-foreground);
+}
+.prose h2 { margin: 2.5rem 0 .75rem; font-size: 1.375rem; font-weight: 600; }
+.prose h3 { margin: 2rem 0 .5rem; font-size: 1.125rem; font-weight: 600; }
+.prose p, .prose li { color: var(--foreground); }
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--border);
+  color: var(--muted-foreground);
+}
+.prose hr { border: 0; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+.prose code {
+  font: .875em/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: var(--muted);
+  padding: .1em .35em;
+  border-radius: 4px;
+}
+.prose img { max-width: 100%; height: auto; }
+
+/* --- Nút đổi ngôn ngữ --------------------------------------- */
+.langtoggle {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vh, 2rem);
+  z-index: 40;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--muted-foreground);
+  font: 600 .8125rem/1 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+}
+.langtoggle:hover { color: var(--foreground); border-color: var(--link); }
+
+/* --- Màn hẹp ------------------------------------------------ */
+@media (max-width: 60rem) {
+  .burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0 8px;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) - 2px);
+    background: transparent;
+    cursor: pointer;
+  }
+  .burger span {
+    display: block;
+    height: 1.5px;
+    background: var(--foreground);
+    border-radius: 2px;
+  }
+
+  .topnav {
+    position: fixed;
+    top: var(--topbar-h);
+    left: 0;
+    right: 0;
+    z-index: 25;
+    flex-direction: column;
+    gap: 0;
+    padding: .5rem 1rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in oklab, var(--background) 96%, transparent);
+    backdrop-filter: blur(10px);
+    display: none;
+  }
+  .topnav.open { display: flex; }
+  .topnav a { padding: .7rem .25rem; border-bottom: 1px solid var(--border); }
+  .topnav a:last-child { border-bottom: 0; }
+  .topnav a.on { border-bottom-color: var(--border); color: var(--link); }
+
+  .sidebar-toggle {
+    display: block;
+    position: fixed;
+    left: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vh, 2rem);
+    z-index: 40;
+    padding: .7rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--card) 88%, transparent);
+    backdrop-filter: blur(8px);
+    color: var(--foreground);
+    font: 600 .875rem/1 ui-sans-serif, system-ui, sans-serif;
+    cursor: pointer;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform .22s ease;
+    width: min(85vw, var(--sidebar-w));
+    background: var(--background);
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .content { margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar { transition: none; }
+}
