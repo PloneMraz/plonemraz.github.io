@@ -2,129 +2,200 @@
 layout: base.njk
 title: About Author
 section: about
-lang: en
 hideSidebar: true
 permalink: /vault/about/
 summary: "Huỳnh Mai Phúc (Plone Mraz) — self-funded independent researcher working outside any institution."
 ---
+{#  Trang này song ngữ toàn phần: nó là trang giới thiệu, thuộc khung
+    giao diện, không phải một bài viết đơn lẻ. Hai bản nằm sẵn trong
+    DOM, nút [vi/en] quyết định bản nào hiện — cùng cơ chế với nhãn
+    điều hướng. Giữ hai khối tách rời thay vì xen kẽ từng đoạn để
+    sửa bản dịch không phải lần mò giữa hai thứ tiếng.  #}
 <article class="prose about">
   <h1>Huỳnh Mai Phúc</h1>
-  <p class="kicker">Plone Mraz &middot; Independent researcher &middot; Vietnam</p>
-
-  <h2>Profile</h2>
-  <p>
-    Self-funded independent researcher working outside any institution. I build
-    structural frameworks for how arrangements come to hold, and how the names placed
-    over them diverge from what actually holds them up — then carry those frameworks
-    into applied domains as bounded, falsifiable proposals. Thirteen preprints and a
-    dataset deposited with permanent DOIs, together with two open-source reference
-    implementations. My applied work is deliberately cross-domain: I take a structural
-    pattern established in one field and test whether it organises observation in
-    another, stating the limits of the transfer explicitly rather than leaving them to
-    be inferred.
+  <p class="kicker">
+    Plone Mraz &middot;
+    <span data-l="en">Independent researcher &middot; Vietnam</span>
+    <span data-l="vi">Nhà nghiên cứu độc lập &middot; Việt Nam</span>
   </p>
 
-  <h2>Professional experience</h2>
-  <p>
-    Fifteen years in kitchen and manufacturing operations. This is not policy experience
-    and is not offered as such. It is the practice context in which I first met the
-    problem my research now addresses: the distance between a plan that has been
-    approved and the resources actually released to run it. A section chef receives a
-    costed menu and must deliver it with the ingredients, equipment and staff genuinely
-    on hand; a manufacturing engineering section works the gap between a documented
-    process and the line as it runs.
-  </p>
+  <!-- ============================ EN ============================ -->
+  <div data-l="en" lang="en">
+    <h2>Profile</h2>
+    <p>
+      Self-funded independent researcher working outside any institution. I build
+      structural frameworks for how arrangements come to hold, and how the names placed
+      over them diverge from what actually holds them up — then carry those frameworks
+      into applied domains as bounded, falsifiable proposals. Every paper and dataset is
+      deposited with a permanent DOI, together with two open-source reference
+      implementations. My applied work is deliberately cross-domain: I take a structural
+      pattern established in one field and test whether it organises observation in
+      another, stating the limits of the transfer explicitly rather than leaving them to
+      be inferred.
+    </p>
 
-  <ul class="cv-roles">
-    <li>
-      <span class="org">Jabil Viet Nam</span>
-      <span class="role">Manufacturing Engineering</span>
-      <span class="when">2021–2024</span>
-    </li>
-    <li>
-      <span class="org">Vinschool</span>
-      <span class="role">Chef de partie</span>
-      <span class="when">2020</span>
-    </li>
-    <li>
-      <span class="org">Saigon-Dalat Hotel</span>
-      <span class="role">Chef de partie</span>
-      <span class="when">2018</span>
-    </li>
-    <li>
-      <span class="org">The Snap Cafe</span>
-      <span class="role">Commis chef</span>
-      <span class="when">2015–2016</span>
-    </li>
-    <li>
-      <span class="org">Cafe Terrace</span>
-      <span class="role">Commis chef</span>
-      <span class="when">2014–2015</span>
-    </li>
-  </ul>
+    <h2>Professional experience</h2>
+    <p>
+      Fifteen years in kitchen and manufacturing operations. This is not policy
+      experience and is not offered as such. It is the practice context in which I first
+      met the problem my research now addresses: the distance between a plan that has
+      been approved and the resources actually released to run it. A section chef
+      receives a costed menu and must deliver it with the ingredients, equipment and
+      staff genuinely on hand; a manufacturing engineering section works the gap between
+      a documented process and the line as it runs.
+    </p>
 
-  <h2>Education</h2>
-  <ul class="cv-edu">
-    <li>
-      <strong>Hướng Nghiệp Á-Âu</strong>, Ho Chi Minh City — Vocational Diploma,
-      Culinary Arts. 2013–2015
-    </li>
-    <li>
-      <strong>Ho Chi Minh City University of Education</strong> — Russian–English
-      Bilingual Studies, 2008–2013. Not completed.
-    </li>
-  </ul>
-  <p class="note">
-    Self-taught thereafter across philosophy, systems theory and software. Frameworks
-    were developed from direct observation first; the literature was consulted
-    afterwards, and points of convergence with existing thought are recorded as
-    convergences rather than as sources.
-  </p>
+    <ul class="cv-roles">
+      <li><span class="org">Jabil Viet Nam</span><span class="role">Manufacturing Engineering</span><span class="when">2021–2024</span></li>
+      <li><span class="org">Vinschool</span><span class="role">Chef de partie</span><span class="when">2020</span></li>
+      <li><span class="org">Saigon-Dalat Hotel</span><span class="role">Chef de partie</span><span class="when">2018</span></li>
+      <li><span class="org">The Snap Cafe</span><span class="role">Commis chef</span><span class="when">2015–2016</span></li>
+      <li><span class="org">Cafe Terrace</span><span class="role">Commis chef</span><span class="when">2014–2015</span></li>
+    </ul>
 
-  <h2>Skills and working method</h2>
+    <h2>Education</h2>
+    <ul class="cv-edu">
+      <li><strong>Hướng Nghiệp Á-Âu</strong>, Ho Chi Minh City — Vocational Diploma,
+        Culinary Arts. 2013–2015</li>
+      <li><strong>Ho Chi Minh City University of Education</strong> — Russian–English
+        Bilingual Studies, 2008–2013. Not completed.</li>
+    </ul>
+    <p class="note">
+      Self-taught thereafter across philosophy, systems theory and software. Frameworks
+      were developed from direct observation first; the literature was consulted
+      afterwards, and points of convergence with existing thought are recorded as
+      convergences rather than as sources.
+    </p>
 
-  <p>
-    <strong>Observation and cross-domain analysis.</strong> I hold observation,
-    description and naming as three simultaneous cuts rather than sequential steps, so
-    that what is seen is not quietly replaced by what it is called. On that basis I read
-    a structure that recurs across fields sharing no subject matter — clinical
-    reasoning, therapeutic response, and now the measurement of governance — and in each
-    case state where the transfer stops and the structure would mislead. Evidence is
-    taken from published records and traces rather than from what an actor declares
-    about itself.
-  </p>
+    <h2>Skills and working method</h2>
+    <p>
+      <strong>Observation and cross-domain analysis.</strong> I hold observation,
+      description and naming as three simultaneous cuts rather than sequential steps, so
+      that what is seen is not quietly replaced by what it is called. On that basis I
+      read a structure that recurs across fields sharing no subject matter — clinical
+      reasoning, therapeutic response, and now the measurement of governance — and in
+      each case state where the transfer stops and the structure would mislead. Evidence
+      is taken from published records and traces rather than from what an actor declares
+      about itself.
+    </p>
+    <p>
+      <strong>Technical.</strong> TypeScript — two released implementations. Python and
+      Jupyter for formalization work in information theory (Shannon entropy, partial
+      information decomposition, effective information). Specification writing: protocol
+      documents and machine-readable analytic protocols written to be executed by a
+      reader or an agent without inferential gaps. Open research practice: permanent DOI
+      deposit, citation metadata, append-only audit design.
+    </p>
+    <p>
+      <strong>Method.</strong> I develop frameworks from direct observation first and
+      consult the literature afterwards, recording agreements as convergences rather
+      than as sources. I hold apart the mechanism that operates, the fact it produces,
+      and the name an observer lays over that fact — and I apply the distinction to my
+      own work, which is why earlier formulations in this corpus have been renamed,
+      overturned or withdrawn on the public record.
+    </p>
+    <p>
+      <strong>Direction.</strong> The programme is moving from description toward
+      measurement: an information-theoretic formalization, with the applied protocol for
+      reading which configuration is actually holding, and which is only named as
+      holding, now specified and deposited. Environmental and development governance is
+      where I now expect that reading to be most useful, and most testable.
+    </p>
 
-  <p>
-    <strong>Technical.</strong> TypeScript — two released implementations. Python and
-    Jupyter for formalization work in information theory (Shannon entropy, partial
-    information decomposition, effective information). Specification writing: protocol
-    documents and machine-readable analytic protocols written to be executed by a reader
-    or an agent without inferential gaps. Open research practice: permanent DOI deposit,
-    citation metadata, append-only audit design.
-  </p>
+    <h2>Languages</h2>
+    <p>
+      Vietnamese (native); English (professional working proficiency — all research
+      written and published in English).
+    </p>
+  </div>
 
-  <p>
-    <strong>Method.</strong> I develop frameworks from direct observation first and
-    consult the literature afterwards, recording agreements as convergences rather than
-    as sources. I hold apart the mechanism that operates, the fact it produces, and the
-    name an observer lays over that fact — and I apply the distinction to my own work,
-    which is why earlier formulations in this corpus have been renamed, overturned or
-    withdrawn on the public record.
-  </p>
+  <!-- ============================ VI ============================ -->
+  <div data-l="vi" lang="vi">
+    <h2>Giới thiệu</h2>
+    <p>
+      Nhà nghiên cứu độc lập, tự tài trợ, làm việc ngoài mọi cơ quan. Tôi dựng những
+      khuôn khổ cấu trúc về việc các sắp đặt đứng vững ra sao, và về việc những cái tên
+      phủ lên chúng lệch thế nào so với thứ thực sự giữ chúng đứng — rồi mang các khuôn
+      khổ ấy sang những lĩnh vực ứng dụng dưới dạng đề xuất có giới hạn và có thể bác bỏ.
+      Mọi bài viết và bộ dữ liệu đều được nộp lưu kèm DOI vĩnh viễn, cùng hai bản cài đặt
+      tham chiếu mã nguồn mở. Phần ứng dụng của tôi cố ý bắc cầu giữa các ngành: tôi lấy
+      một khuôn mẫu cấu trúc đã được xác lập ở một lĩnh vực rồi thử xem nó có tổ chức
+      được quan sát ở một lĩnh vực khác hay không, và nói rõ phép chuyển ấy dừng ở đâu
+      thay vì để người đọc tự suy ra.
+    </p>
 
-  <p>
-    <strong>Direction.</strong> The programme is moving from description toward
-    measurement: an information-theoretic formalization, with the applied protocol for
-    reading which configuration is actually holding, and which is only named as holding,
-    now specified and deposited. Environmental and development governance is where I now
-    expect that reading to be most useful, and most testable.
-  </p>
+    <h2>Kinh nghiệm làm việc</h2>
+    <p>
+      Mười lăm năm trong vận hành bếp và sản xuất. Đây không phải kinh nghiệm chính sách
+      và không được đưa ra như thể là vậy. Đó là bối cảnh thực hành nơi tôi lần đầu gặp
+      đúng vấn đề mà nghiên cứu của tôi đang xử lý: khoảng cách giữa một kế hoạch đã được
+      duyệt và nguồn lực thực sự được cấp để chạy nó. Một bếp chính bộ phận nhận một thực
+      đơn đã tính giá và phải làm ra nó bằng nguyên liệu, thiết bị và nhân sự thực có
+      trong tay; một bộ phận kỹ thuật sản xuất thì xoay xở đúng ở khoảng hở giữa quy
+      trình trên giấy và dây chuyền lúc đang chạy.
+    </p>
 
-  <h2>Languages</h2>
-  <p>
-    Vietnamese (native); English (professional working proficiency — all research
-    written and published in English).
-  </p>
+    <ul class="cv-roles">
+      <li><span class="org">Jabil Viet Nam</span><span class="role">Kỹ thuật sản xuất</span><span class="when">2021–2024</span></li>
+      <li><span class="org">Vinschool</span><span class="role">Bếp chính bộ phận</span><span class="when">2020</span></li>
+      <li><span class="org">Saigon-Dalat Hotel</span><span class="role">Bếp chính bộ phận</span><span class="when">2018</span></li>
+      <li><span class="org">The Snap Cafe</span><span class="role">Phụ bếp</span><span class="when">2015–2016</span></li>
+      <li><span class="org">Cafe Terrace</span><span class="role">Phụ bếp</span><span class="when">2014–2015</span></li>
+    </ul>
+
+    <h2>Học vấn</h2>
+    <ul class="cv-edu">
+      <li><strong>Hướng Nghiệp Á-Âu</strong>, TP. Hồ Chí Minh — Bằng nghề, Kỹ thuật chế
+        biến món ăn. 2013–2015</li>
+      <li><strong>Đại học Sư phạm TP. Hồ Chí Minh</strong> — Song ngữ Nga–Anh,
+        2008–2013. Chưa hoàn thành.</li>
+    </ul>
+    <p class="note">
+      Sau đó tự học về triết học, lý thuyết hệ thống và phần mềm. Các khuôn khổ được dựng
+      từ quan sát trực tiếp trước; tài liệu được đọc sau, và những chỗ trùng khớp với tư
+      tưởng đã có được ghi là điểm hội tụ chứ không phải nguồn.
+    </p>
+
+    <h2>Kỹ năng và cách làm việc</h2>
+    <p>
+      <strong>Quan sát và phân tích liên ngành.</strong> Tôi coi quan sát, mô tả và định
+      danh là ba lát cắt diễn ra đồng thời chứ không phải ba bước nối tiếp, để cái được
+      thấy không lặng lẽ bị thay bằng cái được gọi tên. Trên cơ sở đó tôi đọc một cấu
+      trúc lặp lại ở những lĩnh vực không chung đề tài nào — lập luận lâm sàng, đáp ứng
+      điều trị, và nay là đo lường quản trị — và ở mỗi trường hợp đều nói rõ phép chuyển
+      dừng ở đâu, quá chỗ đó thì cấu trúc sẽ dẫn sai. Bằng chứng lấy từ hồ sơ và dấu vết
+      đã công bố, không lấy từ điều một chủ thể tự tuyên bố về mình.
+    </p>
+    <p>
+      <strong>Kỹ thuật.</strong> TypeScript — hai bản cài đặt đã phát hành. Python và
+      Jupyter cho phần hình thức hoá trong lý thuyết thông tin (entropy Shannon, phân rã
+      thông tin từng phần, thông tin hữu hiệu). Viết đặc tả: tài liệu giao thức và các
+      giao thức phân tích máy đọc được, viết sao cho một người đọc hoặc một tác tử thi
+      hành được mà không phải suy diễn bù vào chỗ trống. Thực hành nghiên cứu mở: nộp lưu
+      DOI vĩnh viễn, siêu dữ liệu trích dẫn, thiết kế nhật ký chỉ ghi thêm.
+    </p>
+    <p>
+      <strong>Phương pháp.</strong> Tôi dựng khuôn khổ từ quan sát trực tiếp trước rồi
+      mới đọc tài liệu, và ghi những chỗ đồng thuận là điểm hội tụ chứ không phải nguồn.
+      Tôi tách bạch cơ chế đang vận hành, sự việc mà nó tạo ra, và cái tên người quan sát
+      phủ lên sự việc ấy — rồi áp chính sự phân biệt đó lên công trình của mình. Đó là lý
+      do một số cách phát biểu trước đây trong tuyển tập này đã bị đổi tên, bị lật lại
+      hoặc bị rút, công khai trên hồ sơ.
+    </p>
+    <p>
+      <strong>Hướng đi.</strong> Chương trình đang chuyển từ mô tả sang đo lường: một
+      cách hình thức hoá theo lý thuyết thông tin, kèm giao thức ứng dụng để đọc xem cấu
+      hình nào đang thực sự đứng vững và cấu hình nào chỉ được gọi tên là đang đứng vững
+      — nay đã đặc tả xong và nộp lưu. Quản trị môi trường và phát triển là nơi tôi kỳ
+      vọng cách đọc đó hữu dụng nhất, và cũng kiểm chứng được rõ nhất.
+    </p>
+
+    <h2>Ngôn ngữ</h2>
+    <p>
+      Tiếng Việt (bản ngữ); tiếng Anh (trình độ làm việc chuyên môn — toàn bộ nghiên cứu
+      đều được viết và công bố bằng tiếng Anh).
+    </p>
+  </div>
 
   <p class="about-links">
     <a class="btn" href="/vault/papers/">
