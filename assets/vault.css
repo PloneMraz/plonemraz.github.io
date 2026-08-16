@@ -430,7 +430,7 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
   left: .75rem;
   right: .75rem;
   bottom: 100%;
-  max-height: min(60vh, 26rem);
+  max-height: min(64vh, 30rem);
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: .35rem;
@@ -448,6 +448,19 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
 }
 .search-panel a:hover { background: var(--muted); }
 .search-panel .r-title { display: block; font-size: .9375rem; }
+
+/* Tóm tắt trong kết quả: ô tìm kiếm vốn đã dò khớp cả trong summary,
+   nên hiện nó ra để người dùng thấy VÌ SAO một mục khớp. */
+.search-panel .r-sum {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: .15rem;
+  font-size: .8125rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
 .search-panel .r-meta {
   display: block;
   margin-top: .15rem;

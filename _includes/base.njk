@@ -203,6 +203,20 @@
       .replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase().trim();
   }
 
+  /* Chèn bằng innerHTML nên phải thoát ký tự: tiêu đề có dấu ngoặc
+     kép, và về sau tag do người viết đặt cũng có thể chứa ký tự lạ. */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  /* Cắt tại ranh giới từ để không đứt giữa chữ */
+  function clip(s, n) {
+    s = String(s == null ? '' : s).trim();
+    if (s.length <= n) return s;
+    return s.slice(0, n).replace(/\s+\S*$/, '') + '…';
+  }
+
   var data = null, loading = false;
   function load() {
     if (data || loading) return;
@@ -245,12 +259,14 @@
     } else {
       panel.innerHTML = hits.map(function (it) {
         var tags = (it.tags || []).map(function (t) {
-          return '<span class="t">#' + t + '</span>';
+          return '<span class="t">#' + esc(t) + '</span>';
         }).join('');
-        return '<a href="' + it.url + '">' +
-          '<span class="r-title">' + it.title + '</span>' +
+        var sum = clip(it.summary, 110);
+        return '<a href="' + esc(it.url) + '">' +
+          '<span class="r-title">' + esc(it.title) + '</span>' +
+          (sum ? '<span class="r-sum">' + esc(sum) + '</span>' : '') +
           '<span class="r-meta">' + (it.type === 'paper' ? 'Paper' : 'Post') +
-          (it.date ? ' · ' + it.date : '') + ' ' + tags + '</span></a>';
+          (it.date ? ' · ' + esc(it.date) : '') + ' ' + tags + '</span></a>';
       }).join('');
     }
     panel.hidden = false;

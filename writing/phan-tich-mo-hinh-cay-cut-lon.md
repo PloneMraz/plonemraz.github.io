@@ -1,6 +1,13 @@
-Phân tích mô hình "Cây cứt lợn" của Lucisthelord - Tung Nguyen
+---
+title: 'Phân tích mô hình "Cây cứt lợn" của Lucisthelord - Tung Nguyen'
+date: 2026-08-04
+lang: vi
+summary: 'Phân tích mô hình "Cây cứt lợn" của Lucisthelord - Tung Nguyen'
+permalink: /vault/blog/cay-cut-lon-v1/
+tags: [review,]
+---
 
-MÔ HÌNH CÂY CỨT LỢN (CCL) LÀ GÌ?
+## MÔ HÌNH CÂY CỨT LỢN (CCL) LÀ GÌ?
 
 Theo nguyên văn của tác giả trong bài đầu: "một system prompt có hai chức năng: một là bóc một bài viết xuống tận cấu trúc của nó; hai là dùng chính cấu trúc ấy để dựng một bài viết mới" được tác giả đặt tên là "mô hình CÂY CỨT LỢN". (Trích từ: https://www.facebook.com/share/p/17mjuWUpJZ/)
 
@@ -10,7 +17,7 @@ Trong phần "XI. Sức mạnh thật của mô hình" trong Case-Study, tác gi
 
 Như vậy, mô hình CCL được tác giả mô tả bằng ba mục đích khác nhau ở ba chỗ khác nhau — công cụ dựng bài, khung mô tả cấu tạo, và công cụ truy quyền định nghĩa — mà bộ thành phần thì không đổi.
 
-PHÂN TÍCH CHI TIẾT MÔ HÌNH CLL
+## PHÂN TÍCH CHI TIẾT MÔ HÌNH CLL
 
 Mô hình này coi một đơn vị bài viết như một cái cây (cây cứt lợn): đất là bối cảnh, rễ là tiền đề và định nghĩa nền, thân là luận đề, cành là luận điểm phụ, lá là cách diễn đạt, hoa là vẻ đẹp của bài, mùi là tác động lên người đọc, quả là kết luận, hạt là mệnh đề được mang đi kể lại.
 
@@ -38,6 +45,8 @@ Cuối cùng, phần XIII, trong mười câu hỏi mà tác giả soạn cho ng
 
 Như vậy, qua Case-Study của tác giả, ở dạng cô đọng nhất và thực dụng nhất, phương pháp có giá trị là phân tích tiền giả định và truy quyền định nghĩa — mô hình Danh-Nghĩa-Hệ của tác giả. Còn cái cây (CCL) chỉ là một con bù nhìn, dùng để thu hút sự chú ý và để gọi, không tham gia vào việc.
 
-NGUỒN TRÍCH DẪN
-lucisthelord (KEVIN - TUNG NGUYEN) - "MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/17mjuWUpJZ/
-lucisthelord (KEVIN - TUNG NGUYEN) - "SỨC MẠNH CỦA MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/1BfDigHVRE/
+## NGUỒN TRÍCH DẪN
+
+- lucisthelord (KEVIN - TUNG NGUYEN) - "MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/17mjuWUpJZ/
+- lucisthelord (KEVIN - TUNG NGUYEN) - "SỨC MẠNH CỦA MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/1BfDigHVRE/
+- Plone Mraz -
