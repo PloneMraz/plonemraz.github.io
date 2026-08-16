@@ -103,9 +103,8 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   bottom: 0;
   width: var(--sidebar-w);
   z-index: 20;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 1.5rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid var(--border);
   background: color-mix(in oklab, var(--background) 82%, transparent);
   backdrop-filter: blur(8px);
@@ -197,13 +196,21 @@ body.no-sidebar .content { margin-left: 0; }
 }
 .prose img { max-width: 100%; height: auto; }
 
-/* --- Ô tìm kiếm: góc dưới trái, đối xứng với nút ngôn ngữ ---- */
+/* Danh sach cuon rieng, de o tim kiem ghim duoi day thanh doc */
+.sidebar-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.5rem 1rem;
+}
+
+/* --- Ô tìm kiếm: ghim đáy thanh dọc ------------------------- */
 .search {
-  position: fixed;
-  left: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(1rem, 3vh, 2rem);
-  z-index: 40;
-  width: min(19rem, calc(100vw - 6.5rem));
+  position: relative;
+  flex: none;
+  padding: .75rem;
+  border-top: 1px solid var(--border);
 }
 
 .search-box {
@@ -235,9 +242,9 @@ body.no-sidebar .content { margin-left: 0; }
 /* Bảng kết quả mở LÊN TRÊN vì ô nằm sát đáy màn hình */
 .search-panel {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(100% + .5rem);
+  left: .75rem;
+  right: .75rem;
+  bottom: 100%;
   max-height: min(60vh, 26rem);
   overflow-y: auto;
   overscroll-behavior: contain;

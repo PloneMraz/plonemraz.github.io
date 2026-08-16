@@ -45,6 +45,7 @@
 
 {% if not hideSidebar %}
 <aside class="sidebar" id="sidebar">
+  <div class="sidebar-scroll">
   {%- if section == 'papers' %}
     {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview], ['specs', ui.label.specs]] %}
     <h2 class="side-h">{{ t(g[1]) }}</h2>
@@ -73,25 +74,26 @@
       {%- endfor %}
     </ul>
   {%- endif %}
+  </div>
+
+  <div class="search" id="search">
+    <div class="search-panel" id="search-panel" hidden></div>
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+      </svg>
+      <input type="search" id="search-input" autocomplete="off" spellcheck="false"
+             placeholder="Search" data-ph-en="Search" data-ph-vi="Tìm kiếm"
+             aria-label="Search">
+    </div>
+  </div>
 </aside>
 {% endif %}
 
 <main class="content">
   {{ content | safe }}
 </main>
-
-<div class="search" id="search">
-  <div class="search-panel" id="search-panel" hidden></div>
-  <div class="search-box">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
-    </svg>
-    <input type="search" id="search-input" autocomplete="off" spellcheck="false"
-           placeholder="Search" data-ph-en="Search" data-ph-vi="Tìm kiếm"
-           aria-label="Search">
-  </div>
-</div>
 
 <button class="langtoggle" type="button" aria-label="Switch interface language">
   <span data-l="en">EN</span><span data-l="vi">VI</span>
