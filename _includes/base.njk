@@ -64,7 +64,7 @@
     <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">{{ t(ui.nav.blog) }}</a>
     <a href="/vault/papers/"  class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
     {#  Ba mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
-    <a href="/vault/ai-gen/"      class="{% if section == 'ai-gen' %}on{% endif %}">AI Gen</a>
+    <a href="/vault/ps-gems/"     class="{% if section == 'ai-gen' %}on{% endif %}">P&#39;s Gems</a>
     <a href="/vault/fiction/"     class="{% if section == 'fiction' %}on{% endif %}">Fiction</a>
     <a href="/vault/vibe-coding/" class="{% if section == 'code' %}on{% endif %}">Vibe Coding</a>
     <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
@@ -98,7 +98,7 @@
     <ul class="side-list">
       {%- for a in albums %}
       <li>
-        <a href="/vault/ai-gen/{{ a.slug }}/" class="{% if a.slug == albumSlug %}on{% endif %}">
+        <a href="/vault/ps-gems/{{ a.slug }}/" class="{% if a.slug == albumSlug %}on{% endif %}">
           <span class="name">{{ a.title }}</span>
           <span class="meta">{{ a.count }} <span data-l="en">images</span><span data-l="vi">ảnh</span></span>
         </a>

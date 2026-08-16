@@ -31,7 +31,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("visual/**");
   eleventyConfig.ignores.add("content/**/*.docx");
   eleventyConfig.ignores.add("content/**/*.txt");
-  eleventyConfig.ignores.add("content/imagination/**");
+  eleventyConfig.ignores.add("content/my oc/**");
 
   // --- Ảnh: <picture> hai cỡ, tải lười ---
   eleventyConfig.addAsyncShortcode("photo", async function (src, alt, cls) {
