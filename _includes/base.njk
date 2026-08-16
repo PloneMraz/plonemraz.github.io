@@ -63,6 +63,10 @@
     <a href="/">{{ t(ui.nav.home) }}</a>
     <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">{{ t(ui.nav.blog) }}</a>
     <a href="/vault/papers/"  class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
+    {#  Ba mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
+    <a href="/vault/ai-gen/"      class="{% if section == 'ai-gen' %}on{% endif %}">AI Gen</a>
+    <a href="/vault/fiction/"     class="{% if section == 'fiction' %}on{% endif %}">Fiction</a>
+    <a href="/vault/vibe-coding/" class="{% if section == 'code' %}on{% endif %}">Vibe Coding</a>
     <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
     <a href="/vault/contact/" class="{% if section == 'contact' %}on{% endif %}">{{ t(ui.nav.contact) }}</a>
   </nav>
@@ -87,6 +91,52 @@
       {% endif %}{%- endfor %}
     </ul>
     {%- endfor %}
+
+  {%- elif section == 'ai-gen' %}
+    <h2 class="side-h">Albums</h2>
+    {%- if albums.length %}
+    <ul class="side-list">
+      {%- for a in albums %}
+      <li>
+        <a href="/vault/ai-gen/{{ a.slug }}/" class="{% if a.slug == albumSlug %}on{% endif %}">
+          <span class="name">{{ a.title }}</span>
+          <span class="meta">{{ a.count }} <span data-l="en">images</span><span data-l="vi">ảnh</span></span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'fiction' %}
+    <h2 class="side-h">Fiction</h2>
+    {%- if collections.fiction.length %}
+    <ul class="side-list">
+      {%- for post in collections.fiction %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'code' %}
+    <h2 class="side-h">Repositories</h2>
+    {%- if collections.code.length %}
+    <ul class="side-list">
+      {%- for post in collections.code %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          {%- if post.data.language %}<span class="meta">{{ post.data.language }}</span>{% endif %}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
   {%- else %}
     <h2 class="side-h">{{ t(ui.label.posts) }}</h2>
     <ul class="side-list">
@@ -130,6 +180,16 @@
 <main class="content">
   {{ content | safe }}
 </main>
+
+{%- if section == 'ai-gen' %}
+<div class="lbox" id="lbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <img id="lbox-img" alt="">
+  <button class="lbox-close" id="lbox-close" aria-label="Close">&times;</button>
+  <button class="lbox-prev"  id="lbox-prev"  aria-label="Previous">&#8249;</button>
+  <button class="lbox-next"  id="lbox-next"  aria-label="Next">&#8250;</button>
+  <span class="lbox-count" id="lbox-count"></span>
+</div>
+{%- endif %}
 
 <button class="langtoggle" type="button" aria-label="Switch interface language">
   <span data-l="en">EN</span><span data-l="vi">VI</span>
@@ -185,6 +245,51 @@
   if (list) {
     list.addEventListener('click', function (e) {
       if (e.target.closest('a')) setSidebar('closed');
+    });
+  }
+
+  /* ---------- Lightbox ----------
+     Mỗi thumbnail là một <a> trỏ thẳng tới ảnh lớn, nên khi tắt JS
+     thì bấm vào vẫn mở được ảnh — chỉ là mở ở tab riêng. */
+  var lbox = document.getElementById('lbox');
+  if (lbox) {
+    var shots = [].slice.call(document.querySelectorAll('.shot'));
+    var img = document.getElementById('lbox-img');
+    var counter = document.getElementById('lbox-count');
+    var at = 0;
+
+    function show(i) {
+      at = (i + shots.length) % shots.length;
+      img.src = shots[at].getAttribute('data-full');
+      counter.textContent = (at + 1) + ' / ' + shots.length;
+    }
+    function open(i) {
+      show(i);
+      lbox.classList.add('on');
+      document.body.classList.add('lbox-open');
+    }
+    function close() {
+      lbox.classList.remove('on');
+      document.body.classList.remove('lbox-open');
+      img.src = '';
+    }
+
+    shots.forEach(function (a, i) {
+      a.addEventListener('click', function (e) { e.preventDefault(); open(i); });
+    });
+    document.getElementById('lbox-close').addEventListener('click', close);
+    document.getElementById('lbox-prev').addEventListener('click', function (e) {
+      e.stopPropagation(); show(at - 1);
+    });
+    document.getElementById('lbox-next').addEventListener('click', function (e) {
+      e.stopPropagation(); show(at + 1);
+    });
+    lbox.addEventListener('click', function (e) { if (e.target === lbox) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lbox.classList.contains('on')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(at - 1);
+      if (e.key === 'ArrowRight') show(at + 1);
     });
   }
 

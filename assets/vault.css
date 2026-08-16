@@ -495,7 +495,9 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
 .langtoggle:hover { color: var(--foreground); border-color: var(--link); }
 
 /* --- Màn hẹp ------------------------------------------------ */
-@media (max-width: 60rem) {
+/* Ngưỡng nâng từ 60rem lên 68rem: nav có 8 mục nên ở khoảng
+   960-1080px nó chật và tràn. Cho hamburger xuất hiện sớm hơn. */
+@media (max-width: 68rem) {
   .burger {
     display: inline-flex;
     flex-direction: column;
@@ -544,4 +546,99 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .sidebar, .content, .side-handle, .side-handle svg { transition: none; }
+}
+
+/* ============================================================
+   AI GEN — lưới ảnh và lightbox
+   ============================================================ */
+
+.album h1 { margin: 0 0 .35rem; font-size: clamp(1.5rem, 3.5vw, 2.25rem); font-weight: 600; }
+.album .kicker { margin: 0 0 2rem; font-size: .875rem; color: var(--muted-foreground); }
+
+/* Lưới tự co: mỗi ô tối thiểu 160px, lấp đầy bề ngang có được */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: .6rem;
+}
+
+.shot {
+  display: block;
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid var(--border);
+  background: var(--muted);
+  transition: border-color .15s ease, transform .15s ease;
+}
+.shot:hover { border-color: var(--link); transform: translateY(-2px); }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* --- Lightbox --- */
+.lbox {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  place-items: center;
+  padding: clamp(.75rem, 3vw, 2.5rem);
+  background: color-mix(in oklab, var(--background) 92%, transparent);
+  backdrop-filter: blur(6px);
+}
+.lbox[open], .lbox.on { display: grid; }
+.lbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+.lbox-close, .lbox-prev, .lbox-next {
+  position: fixed;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  color: var(--foreground);
+  font: 400 1.25rem/1 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+}
+.lbox-close { top: clamp(.75rem, 3vw, 1.5rem); right: clamp(.75rem, 3vw, 1.5rem); }
+.lbox-prev  { left: clamp(.5rem, 2vw, 1.5rem); top: 50%; transform: translateY(-50%); }
+.lbox-next  { right: clamp(.5rem, 2vw, 1.5rem); top: 50%; transform: translateY(-50%); }
+.lbox-count {
+  position: fixed;
+  bottom: clamp(.75rem, 3vh, 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font: .8125rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--muted-foreground);
+}
+body.lbox-open { overflow: hidden; }
+
+/* --- Trạng thái rỗng của thanh dọc --- */
+.side-empty {
+  margin: .5rem .65rem;
+  font-size: .875rem;
+  color: var(--muted-foreground);
+}
+
+/* --- Trang repo --- */
+.project .lang-chip {
+  display: inline-block;
+  padding: .1rem .5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font: 600 .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--link);
+}
+.project .snapshot-note {
+  margin: -1.5rem 0 2.5rem;
+  font-size: .8125rem;
+  font-style: italic;
+  color: var(--muted-foreground);
+  text-align: left;
 }

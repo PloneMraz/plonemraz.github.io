@@ -1,0 +1,25 @@
+---
+layout: base.njk
+section: ai-gen
+pagination:
+  data: albums
+  size: 1
+  alias: album
+  addAllPagesToCollections: true
+permalink: "/vault/ai-gen/{{ album.slug }}/"
+eleventyComputed:
+  title: "{{ album.title }}"
+  albumSlug: "{{ album.slug }}"
+---
+<div class="album">
+  <h1>{{ album.title }}</h1>
+  <p class="kicker">{{ album.count }}
+    <span data-l="en">images</span><span data-l="vi">ảnh</span>
+  </p>
+
+  <div class="shots">
+    {%- for src in album.images %}
+    {% photo src, album.title %}
+    {%- endfor %}
+  </div>
+</div>
