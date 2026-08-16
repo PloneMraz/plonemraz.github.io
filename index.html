@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ui-lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +19,19 @@
 <meta name="twitter:title" content="Plone Mraz">
 <meta name="twitter:description" content="Huỳnh Mai Phúc (Plone Mraz) — independent researcher, Vietnam.">
 <meta name="twitter:image" content="https://plonemraz.github.io/visual/icon_512.png">
+<script>
+/* Đặt ngôn ngữ trước khi vẽ, nếu không sẽ chớp một nhịp tiếng Anh.
+   Dùng chung khoá 'ui-lang' với /vault/ nên lựa chọn theo người
+   đọc qua lại giữa mặt tiền và phần bên trong. */
+(function () {
+  var l = null;
+  try { l = localStorage.getItem('ui-lang'); } catch (e) {}
+  if (l !== 'en' && l !== 'vi') {
+    l = (navigator.language || '').toLowerCase().indexOf('vi') === 0 ? 'vi' : 'en';
+  }
+  document.documentElement.setAttribute('data-ui-lang', l);
+})();
+</script>
 <link rel="stylesheet" href="theme.css">
 <style>
 /* ============================================================
@@ -50,6 +63,30 @@ body {
   font: 400 16px/1.6 ui-sans-serif, system-ui, -apple-system,
         "Segoe UI", Roboto, sans-serif;
 }
+
+/* --- Song ngữ giao diện -------------------------------------
+   Cả hai bản nằm sẵn trong DOM, CSS quyết định bản nào hiện. Tắt
+   JS thì trang vẫn đọc được bằng ngôn ngữ mặc định. */
+html[data-ui-lang="en"] [data-l="vi"],
+html[data-ui-lang="vi"] [data-l="en"] { display: none; }
+
+.langtoggle {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vh, 2rem);
+  z-index: 5;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 88%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--muted-foreground);
+  font: 600 .8125rem/1 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+}
+.langtoggle:hover { color: var(--foreground); border-color: var(--link); }
 
 /* --- Nền orb --------------------------------------------------
    Lệch ~15° lên góc trên bên phải: dịch phải 30%, lên 8%
@@ -275,18 +312,24 @@ h1 {
 
   <h1>Plone Mraz</h1>
   <p class="byline">
-    Huỳnh Mai Phúc &middot; Independent researcher &middot; Vietnam<br>
+    Huỳnh Mai Phúc<span data-l="en"> &middot; Independent researcher &middot; Vietnam</span><span data-l="vi"> &middot; Nhà nghiên cứu độc lập &middot; Việt Nam</span><br>
     <a href="mailto:plone.mraz@gmail.com">plone.mraz@gmail.com</a>
   </p>
 
   <div class="hook">
-    <p>Humans think <strong>GREED</strong> is just for <em>Authority</em> and <em>Resources</em>.</p>
-    <p>But any entity always <strong>CRAVES</strong> for something it <em>doesn't have</em>.</p>
+    <div data-l="en" lang="en">
+      <p>Humans think <strong>GREED</strong> is just for <em>Authority</em> and <em>Resources</em>.</p>
+      <p>But any entity always <strong>CRAVES</strong> for something it <em>doesn't have</em>.</p>
+    </div>
+    <div data-l="vi" lang="vi">
+      <p>Người ta tưởng <strong>THAM LAM</strong> chỉ dành cho <em>Quyền lực</em> và <em>Tài nguyên</em>.</p>
+      <p>Nhưng mọi thực thể đều luôn <strong>KHAO KHÁT</strong> thứ mà <em>nó không có</em>.</p>
+    </div>
   </div>
 
   <nav class="actions">
     <a class="vault" href="/vault/">
-      My vault
+      <span data-l="en">My vault</span><span data-l="vi">Kho của tôi</span>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
            aria-hidden="true">
@@ -319,6 +362,21 @@ h1 {
     </div>
   </nav>
 </main>
+
+<button class="langtoggle" type="button" aria-label="Switch interface language">
+  <span data-l="en">EN</span><span data-l="vi">VI</span>
+</button>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  document.querySelector('.langtoggle').addEventListener('click', function () {
+    var next = root.getAttribute('data-ui-lang') === 'en' ? 'vi' : 'en';
+    root.setAttribute('data-ui-lang', next);
+    try { localStorage.setItem('ui-lang', next); } catch (e) {}
+  });
+})();
+</script>
 
 <script>
 // Lõi merkaba: hai tứ diện lồng ngược, chiếu trực giao, tự xoay.
