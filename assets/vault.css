@@ -37,7 +37,8 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   width: min(120vh, 1000px);
   height: min(120vh, 1000px);
   transform: translate(-50%, -50%);
-  opacity: .22;
+  opacity: .45;          /* mặt tiền dùng .85; trong này nhạt hơn vì
+                            có chữ đè lên, nhưng .22 thì mờ quá */
   pointer-events: none;
   z-index: 0;
 }
