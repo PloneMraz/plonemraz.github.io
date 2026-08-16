@@ -196,6 +196,54 @@ body.no-sidebar .content { margin-left: 0; }
 }
 .prose img { max-width: 100%; height: auto; }
 
+/* --- Trang tác giả ------------------------------------------ */
+/* Không có thanh dọc nên cột đọc nới rộng hơn bài viết thường */
+.about { max-width: 44rem; }
+
+.cv-roles {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+.cv-roles li {
+  display: grid;
+  grid-template-columns: minmax(9rem, max-content) 1fr max-content;
+  gap: .25rem 1.5rem;
+  align-items: baseline;
+  padding: .6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.cv-roles li:last-child { border-bottom: 0; }
+.cv-roles .org { font-weight: 600; }
+.cv-roles .role { color: var(--muted-foreground); }
+.cv-roles .when {
+  font: .8125rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.cv-edu { margin: 0; padding-left: 1.1rem; }
+.cv-edu li { margin: .5rem 0; }
+
+.about .note {
+  color: var(--muted-foreground);
+  font-size: .9375rem;
+}
+
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 34rem) {
+  .cv-roles li { grid-template-columns: 1fr max-content; }
+  .cv-roles .role { grid-column: 1 / -1; }
+}
+
 /* --- Trang tài liệu ----------------------------------------- */
 .paper .pcode {
   font: 600 .8125rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
