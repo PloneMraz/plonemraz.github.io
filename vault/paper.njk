@@ -10,20 +10,41 @@ eleventyComputed:
   title: "{{ paper.title }}"
   paperSlug: "{{ paper.slug }}"
 ---
-<article class="prose">
+{%- set meta = abstracts[paper.slug] -%}
+<article class="prose paper">
   <h1>{{ paper.title }}</h1>
+
   <p class="kicker">
-    {% if paper.code %}{{ paper.code }} &middot; {% endif %}
+    {%- if paper.code %}<span class="pcode">{{ paper.code }}</span> &middot; {% endif -%}
     {{ paper.pages }} <span data-l="en">pages</span><span data-l="vi">trang</span>
   </p>
 
-  <p>{{ paper.asks | capitalize }}.</p>
+  <p class="lede">
+    <span data-l="en">Asks</span><span data-l="vi">Câu hỏi</span>: {{ paper.asks }}.
+  </p>
 
-  <p>
-    <a href="/corpus/{{ paper.pdf }}">
+  <p class="paper-actions">
+    <a class="btn" href="/corpus/{{ paper.pdf }}">
       <span data-l="en">Read PDF</span><span data-l="vi">Đọc bản PDF</span>
     </a>
-    &nbsp;&middot;&nbsp;
+    <a class="btn ghost" href="https://doi.org/{{ paper.doi }}">
+      <span data-l="en">DOI record</span><span data-l="vi">Bản ghi DOI</span>
+    </a>
+  </p>
+
+  {%- if meta.abstract %}
+  <h2><span data-l="en">Abstract</span><span data-l="vi">Tóm tắt</span></h2>
+  <p class="abstract">{{ meta.abstract }}</p>
+  {%- endif %}
+
+  {%- if meta.keywords %}
+  <p class="keywords">
+    <span class="k-label"><span data-l="en">Keywords</span><span data-l="vi">Từ khoá</span></span>
+    {{ meta.keywords }}
+  </p>
+  {%- endif %}
+
+  <p class="doi-line">
     <a href="https://doi.org/{{ paper.doi }}">{{ paper.doi }}</a>
   </p>
 </article>

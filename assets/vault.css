@@ -196,6 +196,72 @@ body.no-sidebar .content { margin-left: 0; }
 }
 .prose img { max-width: 100%; height: auto; }
 
+/* --- Trang tài liệu ----------------------------------------- */
+.paper .pcode {
+  font: 600 .8125rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--link);
+}
+
+/* Câu hỏi bài đó trả lời — đọc như phụ đề, không phải câu cụt */
+.paper .lede {
+  margin: 0 0 1.75rem;
+  font-size: 1.0625rem;
+  color: var(--muted-foreground);
+}
+
+.paper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: 0 0 2.5rem;
+}
+.btn {
+  display: inline-block;
+  padding: .55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: .9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+.btn:hover { opacity: .9; }
+.btn.ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--foreground);
+  font-weight: 400;
+}
+.btn.ghost:hover { border-color: var(--link); opacity: 1; }
+
+/* Abstract dài, nên nới dòng ra một chút cho dễ đọc */
+.paper .abstract { line-height: 1.8; }
+
+.paper .keywords {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: .9375rem;
+  color: var(--muted-foreground);
+}
+.paper .k-label {
+  display: block;
+  margin-bottom: .3rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.paper .doi-line {
+  margin-top: 1.5rem;
+  font: .8125rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.paper .doi-line a { color: var(--muted-foreground); }
+.paper .doi-line a:hover { color: var(--link); }
+
 /* Danh sach cuon rieng, de o tim kiem ghim duoi day thanh doc */
 .sidebar-scroll {
   flex: 1;
