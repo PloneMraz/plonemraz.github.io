@@ -11,15 +11,22 @@
 <style>
 /* ============================================================
    MẶT TIỀN — plonemraz.github.io
-   Một màn hình, không cuộn. Nội dung neo góc dưới bên trái,
-   orb làm nền ở góc trên bên phải.
+   Gói trong một màn hình: nội dung neo góc dưới bên trái, orb làm
+   nền ở góc trên bên phải. Mọi kích thước neo theo CẢ vh lẫn vw
+   (lấy giá trị nhỏ hơn) để màn hẹp không làm chữ vỡ dòng và đội
+   khối cao vượt màn hình.
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body {
   height: 100%;
-  overflow: hidden;          /* trang chủ không có thanh cuộn */
+  /* Trước đây là overflow:hidden. Khi khối cao hơn màn hình, phần
+     thừa trào LÊN TRÊN vì nội dung neo đáy — logo bị nuốt mất và
+     không cuộn tới được. Nay để auto: kích thước bên dưới đã neo
+     theo cả vh lẫn vw nên màn hình bình thường không có thanh cuộn,
+     đây chỉ là van an toàn. */
+  overflow-y: auto;
 }
 
 body {
@@ -78,8 +85,8 @@ main {
 }
 
 .logo {
-  width: clamp(96px, 13.5vh, 144px);
-  height: clamp(96px, 13.5vh, 144px);
+  width: clamp(72px, min(13.5vh, 20vw), 144px);
+  height: clamp(72px, min(13.5vh, 20vw), 144px);
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--border);
@@ -87,31 +94,31 @@ main {
 }
 
 h1 {
-  margin: clamp(1.125rem, 3vh, 1.875rem) 0 .375rem;
-  font-size: clamp(3rem, 9.75vh, 4.875rem);
+  margin: clamp(.75rem, min(3vh, 4vw), 1.875rem) 0 .375rem;
+  font-size: clamp(2rem, min(9.75vh, 13vw), 4.875rem);
   font-weight: 300;
   letter-spacing: -.02em;
   line-height: 1.05;
 }
 
 .byline {
-  margin: 0 0 clamp(1.125rem, 3vh, 1.875rem);
+  margin: 0 0 clamp(.75rem, min(3vh, 4vw), 1.875rem);
   color: var(--muted-foreground);
-  font-size: clamp(1.21875rem, 2.55vh, 1.40625rem);
+  font-size: clamp(.9375rem, min(2.55vh, 4vw), 1.40625rem);
 }
 
 .hook { margin: 0; color: var(--muted-foreground); }
-.hook p { margin: .3rem 0; font-size: clamp(1.3125rem, 2.85vh, 1.59375rem); }
+.hook p { margin: .3rem 0; font-size: clamp(1rem, min(2.85vh, 4.4vw), 1.59375rem); }
 .hook strong { color: var(--foreground); font-weight: 600; }
 
 /* --- Thanh hành động ------------------------------------------ */
 .actions {
-  margin-top: clamp(1.875rem, 5.25vh, 3.375rem);
+  margin-top: clamp(1.125rem, min(5.25vh, 7vw), 3.375rem);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.125rem 1.5rem;
-  padding: .9rem 1.5rem;
+  gap: clamp(.6rem, 2vw, 1.125rem) clamp(.75rem, 3vw, 1.5rem);
+  padding: clamp(.55rem, 2vw, .9rem) clamp(.75rem, 3vw, 1.5rem);
   width: fit-content;
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -121,8 +128,8 @@ h1 {
 .vault {
   display: inline-flex;
   align-items: center;
-  gap: .75rem;
-  padding: .9rem 2.025rem;
+  gap: .6rem;
+  padding: clamp(.55rem, 2vw, .9rem) clamp(1.1rem, 5vw, 2.025rem);
   border-radius: 999px;
   /* Xám xanh, đồng bộ với nút trong vault. Trắng --foreground cho
      18.99:1 so với nền, quá chói cho một mảng đặc; --muted-foreground
@@ -130,18 +137,18 @@ h1 {
   background: var(--muted-foreground);
   color: var(--background);
   font-weight: 600;
-  font-size: 1.40625rem;
+  font-size: clamp(1rem, min(2.4vh, 4vw), 1.40625rem);
   text-decoration: none;
   white-space: nowrap;
   transition: transform .18s ease, opacity .18s ease;
 }
 .vault:hover { transform: translateY(-1px); opacity: .9; }
 
-.socials { display: flex; gap: .75rem; }
+.socials { display: flex; gap: clamp(.4rem, 1.8vw, .75rem); }
 
 .socials a {
-  width: clamp(51px, 6.9vh, 60px);
-  height: clamp(51px, 6.9vh, 60px);
+  width: clamp(38px, min(6.9vh, 11vw), 60px);
+  height: clamp(38px, min(6.9vh, 11vw), 60px);
   border-radius: 50%;
   overflow: hidden;
   display: grid;
