@@ -34,13 +34,23 @@ eleventyComputed:
 
   {%- if meta.abstract %}
   <h2><span data-l="en">Abstract</span><span data-l="vi">Tóm tắt</span></h2>
-  <p class="abstract">{{ meta.abstract }}</p>
+  <p class="abstract" data-l="en" lang="en">{{ meta.abstract }}</p>
+  {%- if meta.abstract_vi %}
+  <div data-l="vi" lang="vi">
+    <p class="abstract">{{ meta.abstract_vi }}</p>
+    {#  Nói rõ đây là bản dịch: nguyên văn đã công bố là tiếng Anh,
+        nên không ai được trích bản này như thể là nguyên bản.  #}
+    <p class="tr-note">Bản dịch. Nguyên văn tiếng Anh nằm trong bản PDF
+      và trên bản ghi DOI.</p>
+  </div>
+  {%- endif %}
   {%- endif %}
 
   {%- if meta.keywords %}
   <p class="keywords">
     <span class="k-label"><span data-l="en">Keywords</span><span data-l="vi">Từ khoá</span></span>
-    {{ meta.keywords }}
+    <span data-l="en" lang="en">{{ meta.keywords }}</span>
+    <span data-l="vi" lang="vi">{{ meta.keywords_vi or meta.keywords }}</span>
   </p>
   {%- endif %}
 

@@ -318,6 +318,14 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
 /* Abstract dài, nên nới dòng ra một chút cho dễ đọc */
 .paper .abstract { line-height: 1.8; }
 
+.paper .tr-note {
+  margin: .75rem 0 0;
+  font-size: .8125rem;
+  color: var(--muted-foreground);
+  opacity: .85;
+  font-style: italic;
+}
+
 .paper .keywords {
   margin-top: 2rem;
   padding-top: 1.25rem;
