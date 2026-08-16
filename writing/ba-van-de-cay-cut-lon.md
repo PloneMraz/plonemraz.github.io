@@ -2,7 +2,7 @@
 title: 'BA VẤN ĐỀ TRONG MÔ HÌNH CÂY CỨT LỢN CỦA Lucisthelord — Kevin - Tung Nguyen'
 date: 2026-08-07
 lang: vi
-summary: 'BA VẤN ĐỀ TRONG MÔ HÌNH CÂY CỨT LỢN CỦA Lucisthelord — Kevin - Tung Nguyen'
+summary: 'Ba vấn đề trong bản mổ mẫu đầy đủ nhất của mô hình Cây Cứt Lợn. Cả ba đều kiểm được bằng chính văn bản của tác giả, không cần tài liệu nào bên ngoài.'
 permalink: /vault/blog/cay-cut-lon-v2/
 tags: [review,]
 ---
