@@ -642,3 +642,47 @@ body.lbox-open { overflow: hidden; }
   color: var(--muted-foreground);
   text-align: left;
 }
+
+/* --- P's Gems: trang giới thiệu --- */
+.gems-intro { max-width: 42rem; margin-inline: auto; }
+.gems-intro .roster-lead { margin: 0 0 1rem; }
+
+.roster { list-style: none; margin: 0 0 1rem; padding: 0; }
+.roster li {
+  padding: .7rem 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.roster li:last-child { border-bottom: 0; }
+.roster a { text-decoration: none; }
+.roster .who {
+  display: inline-block;
+  min-width: 4.5rem;
+  font-weight: 600;
+  color: var(--link);
+}
+.roster .role { color: var(--foreground); font-weight: 600; }
+.roster li > span { color: var(--muted-foreground); }
+
+/* Tiêu đề nhóm trong một album: Anime, Realistic… */
+.group-h {
+  margin: 2.25rem 0 .75rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.group-h:first-of-type { margin-top: 1rem; }
+
+/* Ảnh minh hoạ trên trang giới thiệu P's Gems — căn giữa */
+.gem-figure { margin: 2rem 0 2.5rem; text-align: center; }
+.gem-visual {
+  display: inline-block;
+  max-width: min(22rem, 100%);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  line-height: 0;
+}
+.gem-visual img { width: 100%; height: auto; display: block; }

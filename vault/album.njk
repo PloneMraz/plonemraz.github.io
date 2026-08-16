@@ -17,9 +17,12 @@ eleventyComputed:
     <span data-l="en">images</span><span data-l="vi">ảnh</span>
   </p>
 
+  {%- for g in album.groups %}
+  {%- if g.name %}<h2 class="group-h">{{ g.name }}</h2>{% endif %}
   <div class="shots">
-    {%- for src in album.images %}
+    {%- for src in g.images %}
     {% photo src, album.title %}
     {%- endfor %}
   </div>
+  {%- endfor %}
 </div>
