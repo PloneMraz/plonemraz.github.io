@@ -215,26 +215,23 @@ body.no-sidebar .content { margin-left: 0; }
   gap: .6rem;
   margin: 0 0 2.5rem;
 }
+/* Nền xám xanh thay vì --foreground trắng: trắng cho 18.99:1 so
+   với nền, quá chói cho một mảng đặc. --muted-foreground (#9CA8AB)
+   hạ xuống 8.08:1 mà nút vẫn nổi rõ, chữ trên nút vẫn 8.08:1.
+   Các token xám xanh tối hơn (--muted, --card, --primary) đều chỉ
+   đạt 1.1-2.6:1 so với nền, tức nút sẽ tan vào trang. */
 .btn {
   display: inline-block;
   padding: .55rem 1.1rem;
   border-radius: 999px;
-  border: 1px solid transparent;
-  background: var(--foreground);
+  background: var(--muted-foreground);
   color: var(--background);
   font-size: .9375rem;
   font-weight: 600;
   text-decoration: none;
   transition: opacity .15s ease;
 }
-.btn:hover { opacity: .9; }
-.btn.ghost {
-  background: transparent;
-  border-color: var(--border);
-  color: var(--foreground);
-  font-weight: 400;
-}
-.btn.ghost:hover { border-color: var(--link); opacity: 1; }
+.btn:hover { opacity: .85; }
 
 /* Abstract dài, nên nới dòng ra một chút cho dễ đọc */
 .paper .abstract { line-height: 1.8; }
