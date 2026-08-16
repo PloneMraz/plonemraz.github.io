@@ -4,6 +4,16 @@
  * Mặt tiền (index.html) KHÔNG đi qua Eleventy: nó được chép thẳng.
  * Eleventy chỉ dựng phần bên trong, tức /vault/.
  */
+// v7 xuat theo kieu ESM, ban CommonJS nam o .default
+const Image = require("@11ty/eleventy-img").default;
+const path = require("path");
+
+/* Sinh ảnh lúc build: bản nhỏ cho lưới, bản lớn cho lightbox.
+   Không phục vụ file gốc — bản 2000px WebP đã thừa cho màn hình,
+   mà nhẹ hơn ảnh gốc hàng chục lần. */
+const IMG = { widths: [400, 2000], formats: ["webp"], outputDir: "_site/img/",
+              urlPath: "/img/", sharpWebpOptions: { quality: 82 } };
+
 module.exports = function (eleventyConfig) {
   // --- Chép nguyên trạng, không xử lý ---
   eleventyConfig.addPassthroughCopy({ "index.html": "index.html" });
@@ -21,10 +31,30 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("visual/**");
   eleventyConfig.ignores.add("content/**/*.docx");
   eleventyConfig.ignores.add("content/**/*.txt");
+  eleventyConfig.ignores.add("content/imagination/**");
+
+  // --- Ảnh: <picture> hai cỡ, tải lười ---
+  eleventyConfig.addAsyncShortcode("photo", async function (src, alt, cls) {
+    const meta = await Image(src, IMG);
+    const thumb = meta.webp[0];
+    const full = meta.webp[meta.webp.length - 1];
+    return `<a class="${cls || "shot"}" href="${full.url}"
+      data-full="${full.url}" data-w="${full.width}" data-h="${full.height}">
+      <img src="${thumb.url}" width="${thumb.width}" height="${thumb.height}"
+           alt="${(alt || "").replace(/"/g, "&quot;")}" loading="lazy" decoding="async">
+    </a>`;
+  });
 
   // --- Bài viết, mới nhất lên đầu ---
   eleventyConfig.addCollection("posts", (api) =>
     api.getFilteredByGlob("content/writing/*.md").sort((a, b) => b.date - a.date)
+  );
+
+  eleventyConfig.addCollection("fiction", (api) =>
+    api.getFilteredByGlob("content/fiction/*.md").sort((a, b) => b.date - a.date)
+  );
+  eleventyConfig.addCollection("code", (api) =>
+    api.getFilteredByGlob("content/vibe-coding/*.md").sort((a, b) => b.date - a.date)
   );
 
   // --- Ngày hiển thị: 16 Aug 2026 ---

@@ -1,0 +1,27 @@
+---
+layout: base.njk
+---
+<article class="prose project">
+  <h1>{{ title }}</h1>
+  <p class="kicker">
+    {%- if language %}<span class="lang-chip">{{ language }}</span>{% endif %}
+    {%- if page.date %} <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>{% endif %}
+  </p>
+
+  {%- if repo %}
+  <p class="paper-actions">
+    <a class="btn" href="{{ repo }}">
+      <span data-l="en">Open on GitHub</span><span data-l="vi">Mở trên GitHub</span>
+    </a>
+  </p>
+  {#  README chép về đây là một BẢN CHỤP. Repo gốc vẫn chạy tiếp,
+      nên phải nói rõ để không ai tưởng đây là bản mới nhất.  #}
+  <p class="snapshot-note">
+    <span data-l="en">Snapshot of the repository README. The repository itself is the
+      current version.</span>
+    <span data-l="vi">Bản chụp README của repo. Bản đang chạy nằm ở chính repo.</span>
+  </p>
+  {%- endif %}
+
+  {{ content | safe }}
+</article>

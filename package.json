@@ -8,7 +8,8 @@
     "build": "eleventy"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^7.0.0"
   },
   "license": "MIT"
 }
