@@ -1,6 +1,6 @@
 {%- macro t(s) -%}<span data-l="en">{{ s.en }}</span><span data-l="vi">{{ s.vi }}</span>{%- endmacro -%}
 <!DOCTYPE html>
-<html lang="{{ lang or 'en' }}" data-ui-lang="en">
+<html lang="{{ lang or 'en' }}" data-ui-lang="en" data-sidebar="open">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,21 @@
 <meta name="description" content="{{ summary }}">
 {%- endif %}
 <link rel="icon" href="/visual/icon.ico">
+<script>
+/* Đặt trạng thái TRƯỚC khi vẽ, nếu không sẽ thấy chớp: trang hiện
+   tiếng Anh rồi mới đổi sang Việt, hoặc thanh dọc bung ra rồi mới
+   thu vào. Phải nằm trong <head>, trước cả stylesheet. */
+(function () {
+  var r = document.documentElement;
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  var l = get('ui-lang');
+  if (l !== 'en' && l !== 'vi') {
+    l = (navigator.language || '').toLowerCase().indexOf('vi') === 0 ? 'vi' : 'en';
+  }
+  r.setAttribute('data-ui-lang', l);
+  r.setAttribute('data-sidebar', get('sidebar') === 'closed' ? 'closed' : 'open');
+})();
+</script>
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/assets/vault.css">
 </head>
@@ -22,23 +37,16 @@
     <span>Plone Mraz</span>
   </a>
 
-  <div class="topbar-buttons">
-    {%- if not hideSidebar %}
-    <button class="sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
-      {{ t(ui.label.list) }}
-    </button>
-    {%- endif %}
-    <button class="burger" type="button" aria-expanded="false" aria-controls="topnav"
-            aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="topnav"
+          aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 
   <nav class="topnav" id="topnav">
     <a href="/">{{ t(ui.nav.home) }}</a>
-    <a href="/vault/"        class="{% if section == 'blog' %}on{% endif %}">{{ t(ui.nav.blog) }}</a>
-    <a href="/vault/papers/" class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
-    <a href="/vault/about/"  class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
+    <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">{{ t(ui.nav.blog) }}</a>
+    <a href="/vault/papers/"  class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
+    <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
     <a href="/vault/contact/" class="{% if section == 'contact' %}on{% endif %}">{{ t(ui.nav.contact) }}</a>
   </nav>
 </header>
@@ -89,6 +97,16 @@
     </div>
   </div>
 </aside>
+
+{#  Nút tròn bám cạnh phải của thanh dọc, chạy theo cạnh đó khi
+    đóng/mở. Đóng thì nằm sát mép trái trình duyệt.  #}
+<button class="side-handle" type="button" id="side-handle"
+        aria-controls="sidebar" aria-expanded="true" aria-label="Toggle list">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M15 5l-7 7 7 7"/>
+  </svg>
+</button>
 {% endif %}
 
 <main class="content">
@@ -102,37 +120,55 @@
 <script>
 (function () {
   var root = document.documentElement;
-  var KEY = 'ui-lang';
-  var saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
-  if (saved !== 'en' && saved !== 'vi') {
-    saved = (navigator.language || '').toLowerCase().indexOf('vi') === 0 ? 'vi' : 'en';
-  }
-  root.setAttribute('data-ui-lang', saved);
+  function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
+  /* ---------- Ngôn ngữ giao diện ---------- */
   var input = document.getElementById('search-input');
   function applyLang(l) {
     root.setAttribute('data-ui-lang', l);
     if (input) input.placeholder = input.getAttribute('data-ph-' + l) || 'Search';
   }
-  applyLang(saved);
+  applyLang(root.getAttribute('data-ui-lang') || 'en');
 
   document.querySelector('.langtoggle').addEventListener('click', function () {
     var next = root.getAttribute('data-ui-lang') === 'en' ? 'vi' : 'en';
     applyLang(next);
-    try { localStorage.setItem(KEY, next); } catch (e) {}
+    save('ui-lang', next);
   });
 
-  function wire(btnSel, targetSel, cls) {
-    var b = document.querySelector(btnSel), t = document.querySelector(targetSel);
-    if (!b || !t) return;
-    b.addEventListener('click', function () {
-      var open = t.classList.toggle(cls);
-      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  /* ---------- Menu ngang trên màn hẹp ---------- */
+  var burger = document.querySelector('.burger'),
+      topnav = document.querySelector('.topnav');
+  if (burger && topnav) {
+    burger.addEventListener('click', function () {
+      var open = topnav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
-  wire('.burger', '.topnav', 'open');
-  wire('.sidebar-toggle', '.sidebar', 'open');
+
+  /* ---------- Thanh dọc ----------
+     Mặc định mở ở mọi cỡ màn hình. Chỉ đổi trạng thái qua hai lối:
+     bấm nút tròn, hoặc bấm một mục trong danh sách — bấm mục thì
+     đóng lại để nhường chỗ cho phần đọc. Trạng thái ghi vào
+     localStorage nên nó theo người đọc sang trang kế tiếp. */
+  var handle = document.getElementById('side-handle');
+  function setSidebar(state) {
+    root.setAttribute('data-sidebar', state);
+    save('sidebar', state);
+    if (handle) handle.setAttribute('aria-expanded', state === 'open' ? 'true' : 'false');
+  }
+  if (handle) {
+    setSidebar(root.getAttribute('data-sidebar') || 'open');
+    handle.addEventListener('click', function () {
+      setSidebar(root.getAttribute('data-sidebar') === 'open' ? 'closed' : 'open');
+    });
+  }
+  var list = document.querySelector('.sidebar .sidebar-scroll');
+  if (list) {
+    list.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setSidebar('closed');
+    });
+  }
 
   /* ---------- Tìm kiếm ----------
      Khớp theo tên bài và tag. Gõ #tag để lọc riêng theo tag; tag
