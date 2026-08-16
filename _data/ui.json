@@ -77,6 +77,10 @@
     "doi": {
       "en": "DOI record",
       "vi": "Bản ghi DOI"
+    },
+    "applied": {
+      "en": "Applied work",
+      "vi": "Ứng dụng"
     }
   }
 }

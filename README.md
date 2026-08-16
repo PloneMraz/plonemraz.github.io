@@ -50,6 +50,18 @@ cut from; the second instructs rather than describes.
 
 ---
 
+## Applied work
+
+The framework carried into applied domains as bounded, falsifiable proposals. Neither
+document is a clinical recommendation, and both state their epistemic limits up front.
+
+| Document | What it proposes | Pages | PDF | DOI |
+|---|---|---|---|---|
+| The Unlocking Motif | A cross-domain heuristic for clinical reasoning, offered to medical educators for evaluation | 15 | [PDF](corpus/Aviplestos_Unlocking_Motif_MedEd_v1.pdf) | [10.6084/m9.figshare.32339904](https://doi.org/10.6084/m9.figshare.32339904) |
+| A Structural Model of Depression Recovery as Constrained Aviplestos | A technical blueprint reinterpreting recovery under combined pharmacological and cognitive intervention, deriving one falsifiable prediction | 27 | [PDF](corpus/Aviplestos_Depression_Blueprint_v1.pdf) | [10.6084/m9.figshare.32515635](https://doi.org/10.6084/m9.figshare.32515635) |
+
+---
+
 ## Agent specifications
 
 A co-ranked pair specifying the same relational structure for agents of differing scope.
@@ -74,7 +86,7 @@ benchmarking or measured performance.
 ```
 index.html    Front page — single screen, no scroll
 theme.css     Colour tokens, dark-only
-corpus/       The 12 documents above, as PDFs
+corpus/       The 14 documents above, as PDFs
 visual/       Logo, favicon, animated HUD orb, profile icons
 ```
 
