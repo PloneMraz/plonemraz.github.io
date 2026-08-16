@@ -22,10 +22,17 @@
     <span>Plone Mraz</span>
   </a>
 
-  <button class="burger" type="button" aria-expanded="false" aria-controls="topnav"
-          aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="topbar-buttons">
+    {%- if not hideSidebar %}
+    <button class="sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+      {{ t(ui.label.list) }}
+    </button>
+    {%- endif %}
+    <button class="burger" type="button" aria-expanded="false" aria-controls="topnav"
+            aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 
   <nav class="topnav" id="topnav">
     <a href="/">{{ t(ui.nav.home) }}</a>
@@ -37,10 +44,6 @@
 </header>
 
 {% if not hideSidebar %}
-<button class="sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
-  {{ t(ui.label.list) }}
-</button>
-
 <aside class="sidebar" id="sidebar">
   {%- if section == 'papers' %}
     {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview], ['specs', ui.label.specs]] %}
@@ -77,6 +80,19 @@
   {{ content | safe }}
 </main>
 
+<div class="search" id="search">
+  <div class="search-panel" id="search-panel" hidden></div>
+  <div class="search-box">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+    </svg>
+    <input type="search" id="search-input" autocomplete="off" spellcheck="false"
+           placeholder="Search" data-ph-en="Search" data-ph-vi="Tìm kiếm"
+           aria-label="Search">
+  </div>
+</div>
+
 <button class="langtoggle" type="button" aria-label="Switch interface language">
   <span data-l="en">EN</span><span data-l="vi">VI</span>
 </button>
@@ -92,9 +108,16 @@
   }
   root.setAttribute('data-ui-lang', saved);
 
+  var input = document.getElementById('search-input');
+  function applyLang(l) {
+    root.setAttribute('data-ui-lang', l);
+    if (input) input.placeholder = input.getAttribute('data-ph-' + l) || 'Search';
+  }
+  applyLang(saved);
+
   document.querySelector('.langtoggle').addEventListener('click', function () {
     var next = root.getAttribute('data-ui-lang') === 'en' ? 'vi' : 'en';
-    root.setAttribute('data-ui-lang', next);
+    applyLang(next);
     try { localStorage.setItem(KEY, next); } catch (e) {}
   });
 
@@ -108,6 +131,87 @@
   }
   wire('.burger', '.topnav', 'open');
   wire('.sidebar-toggle', '.sidebar', 'open');
+
+  /* ---------- Tìm kiếm ----------
+     Khớp theo tên bài và tag. Gõ #tag để lọc riêng theo tag; tag
+     lồng nhau nên #triet-hoc bắt luôn #triet-hoc/ban-the.
+     Bỏ dấu trước khi so, nên "cay den" tìm ra "Cây Đèn". */
+  var panel = document.getElementById('search-panel');
+  if (!input || !panel) return;
+
+  function fold(s) {
+    return (s || '').normalize('NFD')
+      .split('').filter(function (c) {
+        var k = c.charCodeAt(0); return k < 0x300 || k > 0x36f;
+      }).join('')
+      .replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase().trim();
+  }
+
+  var data = null, loading = false;
+  function load() {
+    if (data || loading) return;
+    loading = true;
+    fetch('/search.json')
+      .then(function (r) { return r.json(); })
+      .then(function (j) { data = j; loading = false; run(); })
+      .catch(function () { loading = false; });
+  }
+
+  function match(q) {
+    if (!data) return [];
+    if (q.charAt(0) === '#') {
+      var tag = fold(q.slice(1));
+      if (!tag) return [];
+      return data.filter(function (it) {
+        return (it.tags || []).some(function (t) {
+          var f = fold(t);
+          return f === tag || f.indexOf(tag + '/') === 0 || f.indexOf(tag) === 0;
+        });
+      });
+    }
+    var n = fold(q);
+    return data.filter(function (it) {
+      return fold(it.title).indexOf(n) > -1 ||
+             fold(it.summary).indexOf(n) > -1 ||
+             (it.tags || []).some(function (t) { return fold(t).indexOf(n) > -1; });
+    });
+  }
+
+  function run() {
+    var q = input.value.trim();
+    if (!q) { panel.hidden = true; panel.innerHTML = ''; return; }
+    if (!data) { load(); return; }
+
+    var hits = match(q).slice(0, 12);
+    if (!hits.length) {
+      panel.innerHTML = '<p class="search-empty">' +
+        '<span data-l="en">No match</span><span data-l="vi">Không có kết quả</span></p>';
+    } else {
+      panel.innerHTML = hits.map(function (it) {
+        var tags = (it.tags || []).map(function (t) {
+          return '<span class="t">#' + t + '</span>';
+        }).join('');
+        return '<a href="' + it.url + '">' +
+          '<span class="r-title">' + it.title + '</span>' +
+          '<span class="r-meta">' + (it.type === 'paper' ? 'Paper' : 'Post') +
+          (it.date ? ' · ' + it.date : '') + ' ' + tags + '</span></a>';
+      }).join('');
+    }
+    panel.hidden = false;
+  }
+
+  input.addEventListener('focus', load);
+  input.addEventListener('input', run);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { input.value = ''; run(); input.blur(); }
+    if (e.key === 'Enter') {
+      var first = panel.querySelector('a');
+      if (first) window.location.href = first.getAttribute('href');
+    }
+  });
+  document.addEventListener('click', function (e) {
+    if (!document.getElementById('search').contains(e.target)) panel.hidden = true;
+  });
 })();
 </script>
 

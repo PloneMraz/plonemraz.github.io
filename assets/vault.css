@@ -92,6 +92,7 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
 .topnav a:hover { color: var(--foreground); }
 .topnav a.on { color: var(--foreground); border-bottom-color: var(--link); }
 
+.topbar-buttons { display: flex; align-items: center; gap: .5rem; }
 .burger { display: none; }
 
 /* --- Thanh dọc ---------------------------------------------- */
@@ -151,7 +152,7 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   opacity: .8;
 }
 
-.sidebar-toggle { display: none; }
+.sidebar-toggle { display: none; }   /* chi hien tren man hep */
 
 /* --- Khung nội dung ----------------------------------------- */
 .content {
@@ -195,6 +196,79 @@ body.no-sidebar .content { margin-left: 0; }
   border-radius: 4px;
 }
 .prose img { max-width: 100%; height: auto; }
+
+/* --- Ô tìm kiếm: góc dưới trái, đối xứng với nút ngôn ngữ ---- */
+.search {
+  position: fixed;
+  left: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vh, 2rem);
+  z-index: 40;
+  width: min(19rem, calc(100vw - 6.5rem));
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .6rem .9rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: color-mix(in oklab, var(--card) 90%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--muted-foreground);
+  transition: border-color .15s ease;
+}
+.search-box:focus-within { border-color: var(--link); color: var(--foreground); }
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  font: 400 .9375rem/1.4 inherit;
+  outline: none;
+}
+.search-box input::placeholder { color: var(--muted-foreground); }
+.search-box input::-webkit-search-cancel-button { filter: invert(.6); }
+
+/* Bảng kết quả mở LÊN TRÊN vì ô nằm sát đáy màn hình */
+.search-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + .5rem);
+  max-height: min(60vh, 26rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: .35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--card) 96%, transparent);
+  backdrop-filter: blur(12px);
+}
+.search-panel a {
+  display: block;
+  padding: .5rem .6rem;
+  border-radius: calc(var(--radius) - 4px);
+  text-decoration: none;
+  color: var(--foreground);
+}
+.search-panel a:hover { background: var(--muted); }
+.search-panel .r-title { display: block; font-size: .9375rem; }
+.search-panel .r-meta {
+  display: block;
+  margin-top: .15rem;
+  font-size: .75rem;
+  color: var(--muted-foreground);
+}
+.search-panel .t { color: var(--link); margin-left: .35rem; }
+.search-empty {
+  margin: 0;
+  padding: .6rem;
+  font-size: .875rem;
+  color: var(--muted-foreground);
+}
 
 /* --- Nút đổi ngôn ngữ --------------------------------------- */
 .langtoggle {
@@ -256,20 +330,18 @@ body.no-sidebar .content { margin-left: 0; }
   .topnav a:last-child { border-bottom: 0; }
   .topnav a.on { border-bottom-color: var(--border); color: var(--link); }
 
+  /* Nut mo thanh doc nam TREN thanh ngang, khong o goc duoi trai:
+     goc do da danh cho o tim kiem. */
   .sidebar-toggle {
     display: block;
-    position: fixed;
-    left: clamp(1rem, 3vw, 2rem);
-    bottom: clamp(1rem, 3vh, 2rem);
-    z-index: 40;
-    padding: .7rem 1.1rem;
+    padding: .5rem .8rem;
     border: 1px solid var(--border);
-    border-radius: 999px;
-    background: color-mix(in oklab, var(--card) 88%, transparent);
-    backdrop-filter: blur(8px);
+    border-radius: calc(var(--radius) - 2px);
+    background: transparent;
     color: var(--foreground);
-    font: 600 .875rem/1 ui-sans-serif, system-ui, sans-serif;
+    font: 600 .8125rem/1 ui-sans-serif, system-ui, sans-serif;
     cursor: pointer;
+    white-space: nowrap;
   }
 
   .sidebar {

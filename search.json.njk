@@ -1,0 +1,28 @@
+---
+permalink: /search.json
+eleventyExcludeFromCollections: true
+---
+[
+{%- for post in collections.posts %}
+{
+"type": "post",
+"title": {{ post.data.title | dump | safe }},
+"summary": {{ (post.data.summary or "") | dump | safe }},
+"tags": {{ (post.data.tags or []) | dump | safe }},
+"lang": {{ (post.data.lang or "") | dump | safe }},
+"date": {{ (post.date | readableDate) | dump | safe }},
+"url": {{ post.url | dump | safe }}
+},
+{%- endfor %}
+{%- for p in papers %}
+{
+"type": "paper",
+"title": {{ p.title | dump | safe }},
+"summary": {{ p.asks | dump | safe }},
+"tags": [],
+"lang": "en",
+"date": {{ p.code | dump | safe }},
+"url": {{ ("/vault/papers/" + p.slug + "/") | dump | safe }}
+}{% if not loop.last %},{% endif %}
+{%- endfor %}
+]
