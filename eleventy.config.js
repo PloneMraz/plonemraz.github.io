@@ -21,6 +21,7 @@ module.exports = function (eleventyConfig) {
   // Giữ URL công khai là /corpus/... dù file đã chuyển vào content/,
   // để mọi liên kết cũ từ bên ngoài vẫn sống.
   eleventyConfig.addPassthroughCopy({ "content/corpus": "corpus" });
+  eleventyConfig.addPassthroughCopy({ "content/books": "books" });
   eleventyConfig.addPassthroughCopy({ visual: "visual" });
   eleventyConfig.addPassthroughCopy({ assets: "assets" });
 
@@ -32,6 +33,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("content/**/*.docx");
   eleventyConfig.ignores.add("content/**/*.txt");
   eleventyConfig.ignores.add("content/my oc/**");
+  eleventyConfig.ignores.add("content/books/**");
 
   // --- Ảnh: <picture> hai cỡ, tải lười ---
   eleventyConfig.addAsyncShortcode("photo", async function (src, alt, cls) {

@@ -1,0 +1,29 @@
+---
+layout: base.njk
+section: books
+pagination:
+  data: books
+  size: 1
+  alias: book
+  addAllPagesToCollections: true
+permalink: "/vault/books/{{ book.slug }}/"
+eleventyComputed:
+  title: "{{ book.title }}"
+  bookSlug: "{{ book.slug }}"
+---
+<article class="prose book">
+  <h1>{{ book.title }}</h1>
+  <p class="kicker">
+    <span class="lang-chip">{{ book.ext }}</span> &middot; {{ book.size }}
+  </p>
+
+  {%- if book.description %}
+  <p>{{ book.description }}</p>
+  {%- endif %}
+
+  <p class="paper-actions">
+    <a class="btn" href="/books/{{ book.file | urlencode }}" download>
+      <span data-l="en">Download</span><span data-l="vi">Tải về</span>
+    </a>
+  </p>
+</article>

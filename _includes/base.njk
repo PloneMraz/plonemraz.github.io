@@ -67,6 +67,7 @@
     <a href="/vault/ps-gems/"     class="{% if section == 'ai-gen' %}on{% endif %}">P&#39;s Gems</a>
     <a href="/vault/fiction/"     class="{% if section == 'fiction' %}on{% endif %}">Fiction</a>
     <a href="/vault/vibe-coding/" class="{% if section == 'code' %}on{% endif %}">Vibe Coding</a>
+    <a href="/vault/books/"   class="{% if section == 'books' %}on{% endif %}">{{ t(ui.nav.books) }}</a>
     <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
     <a href="/vault/contact/" class="{% if section == 'contact' %}on{% endif %}">{{ t(ui.nav.contact) }}</a>
   </nav>
@@ -116,6 +117,21 @@
         <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
           <span class="name">{{ post.data.title }}</span>
           <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'books' %}
+    <h2 class="side-h">{{ t(ui.nav.books) }}</h2>
+    {%- if books.length %}
+    <ul class="side-list">
+      {%- for b in books %}
+      <li>
+        <a href="/vault/books/{{ b.slug }}/" class="{% if b.slug == bookSlug %}on{% endif %}">
+          <span class="name">{{ b.title }}</span>
+          <span class="meta">{{ b.ext }} · {{ b.size }}</span>
         </a>
       </li>
       {%- endfor %}
