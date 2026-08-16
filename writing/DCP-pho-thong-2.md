@@ -4,7 +4,7 @@ date: 2026-08-16
 lang: vi
 summary: 'Bài này không chỉ cho bạn nên rẽ đâu. Nó chỉ làm cho các ngả rẽ hiện ra.'
 permalink: /vault/blog/cay-den-trong-me-cung/
-tags: []
+tags: [self-help,]
 ---
 
 *Bài này không chỉ cho bạn nên rẽ đâu. Nó chỉ làm cho các ngả rẽ hiện ra.*

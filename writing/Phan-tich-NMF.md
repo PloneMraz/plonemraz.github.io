@@ -2,9 +2,9 @@
 title: 'Đọc thử một cơ chế "Danh – Nghĩa – Hệ"'
 date: 2026-08-14
 lang: vi
-summary: 'Gần đây tôi đọc một loạt bài của một tác giả dựng lên cùng một khuôn khổ khái niệm, xuất hiện dưới vài cái tên khác nhau: trong một bài tiếng Anh thì gọi là Name – Meaning –…'
+summary: 'Mổ xẻ cơ chế Danh – Nghĩa – Hệ: chỗ nào nó làm được, chỗ nào nó hụt, và vì sao cái hụt đó không phải lỗi vặt mà nằm ở nền móng.'
 permalink: /vault/blog/danh-nghia-he/
-tags: []
+tags: [review,]
 ---
 
 Gần đây tôi đọc một loạt bài của một tác giả dựng lên cùng một khuôn khổ khái niệm, xuất hiện dưới vài cái tên khác nhau: trong một bài tiếng Anh thì gọi là *Name – Meaning – Frame*, trong các bản tiếng Việt thì là *Danh – Nghĩa – Hệ*, rồi *Tam Định* (Định Danh – Định Nghĩa – Định Hệ). Ý tưởng lõi gọn và dễ thích: Nghĩa của một từ không nằm sẵn trong bản thân từ đó, mà sinh ra từ việc đặt Danh vào một Hệ quy chiếu. Cùng một chữ "nước", đặt vào Hệ vật lý thì ra "H₂O, các pha rắn lỏng khí"; đặt vào Hệ kinh tế thì ra "tài nguyên khan hiếm, hàng hóa mua bán được"; đặt vào Hệ văn hóa thì ra "biểu tượng của sự thanh tẩy". Cùng một Danh, ba cái Hệ, ba cái Nghĩa khác hẳn nhau. Tác giả viết điều này lại thành một công thức: Nghĩa = một hàm của (Danh, Hệ).
