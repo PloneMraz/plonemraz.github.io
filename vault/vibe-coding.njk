@@ -3,4 +3,52 @@ layout: base.njk
 title: Vibe Coding
 section: code
 permalink: /vault/vibe-coding/
+summary: "Repositories built by Plone Mraz — each entry carries a snapshot of the README and a link to the live repository."
 ---
+<article class="prose section-intro">
+  <h1>Vibe Coding</h1>
+  <p class="lede">
+    <span data-l="en">Repositories, and what they were built for.</span>
+    <span data-l="vi">Các repo, và chúng được dựng để làm gì.</span>
+  </p>
+
+  <div data-l="en" lang="en">
+    <p>
+      Software written here, mostly with AI assistance and mostly to make a structure
+      testable rather than to ship a product. Each entry carries a snapshot of that
+      repository's README so it can be read without leaving, plus a link to the repository
+      itself.
+    </p>
+    <p>
+      The snapshot is a snapshot. The repository keeps moving; where the two disagree, the
+      repository is right and the copy here is out of date.
+    </p>
+    <p><strong>Nothing listed here yet.</strong></p>
+  </div>
+
+  <div data-l="vi" lang="vi">
+    <p>
+      Phần mềm viết ở đây, phần lớn có AI hỗ trợ, và phần lớn nhằm làm cho một cấu trúc
+      kiểm được chứ không nhằm ra sản phẩm. Mỗi mục mang một bản chụp README của repo đó để
+      đọc được ngay tại chỗ, kèm link về chính repo.
+    </p>
+    <p>
+      Bản chụp thì chỉ là bản chụp. Repo vẫn chạy tiếp; chỗ nào hai bên lệch nhau thì repo
+      đúng, còn bản ở đây là bản cũ.
+    </p>
+    <p><strong>Chưa có mục nào.</strong></p>
+  </div>
+
+  {%- if collections.code.length %}
+  <h2><span data-l="en">Repositories</span> <span data-l="vi">Các repo</span></h2>
+  <ul class="entry-list">
+    {%- for post in collections.code %}
+    <li>
+      <a class="e-title" href="{{ post.url }}">{{ post.data.title }}</a>
+      {%- if post.data.language %}<span class="e-meta">{{ post.data.language }}</span>{% endif %}
+      {%- if post.data.summary %}<span class="e-sum">{{ post.data.summary }}</span>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+</article>
