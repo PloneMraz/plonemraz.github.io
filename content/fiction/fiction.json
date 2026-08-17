@@ -1,4 +1,5 @@
 {
   "layout": "post.njk",
-  "section": "fiction"
+  "section": "fiction",
+  "permalink": "/vault/fiction/{{ page.fileSlug | slugify }}/"
 }
