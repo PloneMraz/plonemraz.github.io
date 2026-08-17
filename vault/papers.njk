@@ -3,4 +3,81 @@ layout: base.njk
 title: Papers
 section: papers
 permalink: /vault/papers/
+summary: "Fourteen working papers and preprints by Huỳnh Mai Phúc, each deposited with a permanent DOI."
 ---
+<article class="prose section-intro">
+  <h1><span data-l="en">Papers</span> <span data-l="vi">Công trình</span></h1>
+  <p class="lede">
+    <span data-l="en">{{ papers.length }} working papers and preprints. Every one deposited with a permanent DOI.</span>
+    <span data-l="vi">{{ papers.length }} bài nghiên cứu và tiền ấn phẩm. Mỗi bài đều được nộp lưu kèm DOI vĩnh viễn.</span>
+  </p>
+
+  <div data-l="en" lang="en">
+    <p>
+      The centre of this collection is a research programme with a single subject: the
+      operation by which configurations come into being and hold, and the way that
+      operation becomes articulable from within reality by the cognizing entities the same
+      operation produces. Seven numbered papers articulate it — not seven theories of
+      seven separate things, but seven questions asked of one operation, each disclaiming
+      what the others answer.
+    </p>
+    <p>
+      Around that centre sit three other kinds of document. An overview that maps the
+      architecture, together with a report on what the programme was built with and a
+      protocol for putting it to work on a case. Applied work carrying the framework into
+      clinical domains as bounded, falsifiable proposals. And a co-ranked pair of agent
+      specifications describing the same relational structure for an agent in a purely
+      informational environment and for one with a body.
+    </p>
+    <p>
+      None is peer-reviewed. All are written in English. Each page here carries the
+      abstract, the keywords, a direct PDF, and the DOI record — cite by DOI, since that
+      is the stable identifier and carries the version history.
+    </p>
+  </div>
+
+  <div data-l="vi" lang="vi">
+    <p>
+      Trung tâm của tuyển tập này là một chương trình nghiên cứu có một chủ đề duy nhất:
+      cái vận hành mà qua đó các cấu hình đi tới chỗ tồn tại và giữ vững, cùng cách mà vận
+      hành ấy trở nên phát biểu được từ bên trong thực tại, bởi chính những thực thể nhận
+      thức do nó sinh ra. Bảy bài đánh số phát biểu điều đó — không phải bảy lý thuyết về
+      bảy thứ riêng biệt, mà bảy câu hỏi đặt ra cho một vận hành, mỗi bài khước từ phần mà
+      các bài khác trả lời.
+    </p>
+    <p>
+      Quanh cái trung tâm ấy là ba loại tài liệu khác. Một bản tổng quan vẽ lại kiến trúc,
+      kèm một báo cáo về việc chương trình được dựng bằng gì, và một giao thức để đem nó ra
+      làm việc trên một trường hợp cụ thể. Phần ứng dụng mang khuôn khổ sang lĩnh vực lâm
+      sàng dưới dạng đề xuất có giới hạn và có thể bác bỏ. Và một cặp đặc tả tác tử đồng
+      hạng, mô tả cùng một cấu trúc quan hệ cho tác tử trong môi trường thuần thông tin và
+      cho tác tử có thân xác.
+    </p>
+    <p>
+      Không bài nào qua bình duyệt. Tất cả viết bằng tiếng Anh. Mỗi trang ở đây có tóm tắt,
+      từ khoá, bản PDF trực tiếp và bản ghi DOI — nên trích dẫn bằng DOI, vì đó mới là định
+      danh ổn định và giữ lịch sử phiên bản.
+    </p>
+  </div>
+
+  {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview],
+                ['applied', ui.label.applied], ['specs', ui.label.specs]] %}
+  <h2><span data-l="en">{{ g[1].en }}</span> <span data-l="vi">{{ g[1].vi }}</span></h2>
+  <ul class="entry-list">
+    {%- for p in papers %}{% if p.group == g[0] %}
+    <li>
+      <a class="e-title" href="/vault/papers/{{ p.slug }}/">
+        {%- if p.code %}<span class="e-code">{{ p.code }}</span> {% endif -%}
+        {{ p.title }}</a>
+      <span class="e-meta">
+        {{ p.pages }} <span data-l="en">pages</span><span data-l="vi">trang</span>
+        &middot; <a class="e-doi" href="https://doi.org/{{ p.doi }}">{{ p.doi }}</a>
+      </span>
+      <span class="e-sum">
+        <span data-l="en">Asks</span><span data-l="vi">Câu hỏi</span>: {{ p.asks }}.
+      </span>
+    </li>
+    {% endif %}{%- endfor %}
+  </ul>
+  {%- endfor %}
+</article>

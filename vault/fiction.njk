@@ -3,4 +3,43 @@ layout: base.njk
 title: Fiction
 section: fiction
 permalink: /vault/fiction/
+summary: "Fiction by Plone Mraz — stories rather than argument. Nothing published here yet."
 ---
+<article class="prose section-intro">
+  <h1>Fiction</h1>
+  <p class="lede">
+    <span data-l="en">Stories rather than argument.</span>
+    <span data-l="vi">Truyện, chứ không phải lập luận.</span>
+  </p>
+
+  <div data-l="en" lang="en">
+    <p>
+      This section is for fiction. The papers describe a structure and defend it; the
+      essays read frameworks and check them. Neither is the right shape for a story, so
+      stories live here instead, under no obligation to prove anything.
+    </p>
+    <p><strong>Nothing published here yet.</strong> Pieces will appear as they are finished.</p>
+  </div>
+
+  <div data-l="vi" lang="vi">
+    <p>
+      Mục này dành cho truyện. Các công trình thì mô tả một cấu trúc rồi bảo vệ nó; các bài
+      viết thì đọc và kiểm các khuôn khổ. Không dạng nào hợp để kể một câu chuyện, nên
+      truyện nằm riêng ở đây, không phải chứng minh điều gì cả.
+    </p>
+    <p><strong>Chưa có bài nào.</strong> Truyện sẽ xuất hiện khi viết xong.</p>
+  </div>
+
+  {%- if collections.fiction.length %}
+  <h2><span data-l="en">Pieces</span> <span data-l="vi">Các truyện</span></h2>
+  <ul class="entry-list">
+    {%- for post in collections.fiction %}
+    <li>
+      <a class="e-title" href="{{ post.url }}">{{ post.data.title }}</a>
+      <span class="e-meta">{{ post.date | readableDate }} &middot; {{ post.data.lang | upper }}</span>
+      {%- if post.data.summary %}<span class="e-sum">{{ post.data.summary }}</span>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+</article>

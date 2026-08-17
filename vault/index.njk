@@ -3,4 +3,60 @@ layout: base.njk
 title: Blog
 section: blog
 permalink: /vault/
+summary: "Essays by Huỳnh Mai Phúc, written in Vietnamese — readings of other people's frameworks, and plain-language renderings of the corpus."
 ---
+<article class="prose section-intro">
+  <h1><span data-l="en">Writing</span> <span data-l="vi">Bài viết</span></h1>
+  <p class="lede">
+    <span data-l="en">Essays, written in Vietnamese.</span>
+    <span data-l="vi">Các bài viết, bằng tiếng Việt.</span>
+  </p>
+
+  <div data-l="en" lang="en">
+    <p>
+      Two kinds of essay sit here. The first reads a framework someone else has built —
+      taking the author's own text as the evidence, and stating where the framework holds
+      and where it gives way. The second renders, in plain language, a structure set out
+      formally in the papers, so that it can be used without reading the papers first.
+    </p>
+    <p>
+      Both are written to be checkable. Where a claim comes from a source, the source is
+      named; where the author changed his mind mid-reading, the retraction is left in
+      rather than tidied away.
+    </p>
+  </div>
+
+  <div data-l="vi" lang="vi">
+    <p>
+      Ở đây có hai loại bài. Loại thứ nhất đọc một khuôn khổ do người khác dựng lên — lấy
+      chính văn bản của tác giả làm bằng chứng, rồi nói rõ chỗ nào khuôn khổ ấy đứng được
+      và chỗ nào nó gãy. Loại thứ hai diễn đạt bằng ngôn ngữ thường một cấu trúc đã được
+      trình bày chặt chẽ trong các công trình, để dùng được mà không cần đọc công trình
+      trước.
+    </p>
+    <p>
+      Cả hai đều viết sao cho kiểm được. Chỗ nào có nguồn thì nêu nguồn; chỗ nào tác giả
+      đổi ý giữa chừng thì giữ lại dấu vết rút lại, không dọn đi cho gọn.
+    </p>
+  </div>
+
+  <h2>
+    <span data-l="en">{{ collections.posts.length }} essays</span>
+    <span data-l="vi">{{ collections.posts.length }} bài</span>
+  </h2>
+
+  <ul class="entry-list">
+    {%- for post in collections.posts %}
+    <li>
+      <a class="e-title" href="{{ post.url }}">{{ post.data.title }}</a>
+      <span class="e-meta">
+        {{ post.date | readableDate }} &middot; {{ post.data.lang | upper }}
+        {%- for t in post.data.tags %} <span class="e-tag">#{{ t }}</span>{% endfor %}
+      </span>
+      {%- if post.data.summary %}
+      <span class="e-sum">{{ post.data.summary }}</span>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</article>

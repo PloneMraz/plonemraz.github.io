@@ -3,4 +3,43 @@ layout: base.njk
 title: Books
 section: books
 permalink: /vault/books/
+summary: "Books kept for download. Each entry lists its format and size before you download it."
 ---
+<article class="prose section-intro">
+  <h1><span data-l="en">Books</span> <span data-l="vi">Sách</span></h1>
+  <p class="lede">
+    <span data-l="en">Kept here to be downloaded.</span>
+    <span data-l="vi">Để ở đây cho tải về.</span>
+  </p>
+
+  <div data-l="en" lang="en">
+    <p>
+      Longer works held as files rather than as pages. Each entry states its format and
+      size before you commit to the download, and the file is served directly — no
+      redirect, no sign-in, no wrapper.
+    </p>
+    <p><strong>Nothing here yet.</strong></p>
+  </div>
+
+  <div data-l="vi" lang="vi">
+    <p>
+      Những tác phẩm dài, giữ dưới dạng tệp chứ không phải trang web. Mỗi mục ghi rõ định
+      dạng và dung lượng trước khi anh quyết định tải, và tệp được phục vụ trực tiếp —
+      không chuyển hướng, không đăng nhập, không lớp trung gian nào.
+    </p>
+    <p><strong>Chưa có gì ở đây.</strong></p>
+  </div>
+
+  {%- if books.length %}
+  <h2><span data-l="en">Titles</span> <span data-l="vi">Danh mục</span></h2>
+  <ul class="entry-list">
+    {%- for b in books %}
+    <li>
+      <a class="e-title" href="/vault/books/{{ b.slug }}/">{{ b.title }}</a>
+      <span class="e-meta">{{ b.ext }} &middot; {{ b.size }}</span>
+      {%- if b.description %}<span class="e-sum">{{ b.description }}</span>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+</article>

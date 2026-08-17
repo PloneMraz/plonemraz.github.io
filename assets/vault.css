@@ -686,3 +686,56 @@ body.lbox-open { overflow: hidden; }
   line-height: 0;
 }
 .gem-visual img { width: 100%; height: auto; display: block; }
+
+/* ============================================================
+   Trang cửa ngõ mỗi mục: giới thiệu + danh mục
+   ============================================================ */
+.section-intro { max-width: 42rem; margin-inline: auto; }
+.section-intro h2 {
+  margin: 2.75rem 0 .75rem;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.entry-list { list-style: none; margin: 0; padding: 0; }
+.entry-list li {
+  padding: .85rem 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.entry-list li:last-child { border-bottom: 0; }
+
+.entry-list .e-title {
+  display: block;
+  font-weight: 600;
+  color: var(--foreground);
+  text-decoration: none;
+  line-height: 1.35;
+}
+.entry-list .e-title:hover { color: var(--link); }
+.entry-list .e-code {
+  font: 600 .8125rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--link);
+}
+.entry-list .e-meta {
+  display: block;
+  margin-top: .2rem;
+  font-size: .8125rem;
+  color: var(--muted-foreground);
+}
+.entry-list .e-tag { color: var(--link); }
+.entry-list .e-doi {
+  font: .75rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+.entry-list .e-doi:hover { color: var(--link); }
+.entry-list .e-sum {
+  display: block;
+  margin-top: .3rem;
+  font-size: .9375rem;
+  color: var(--muted-foreground);
+}
