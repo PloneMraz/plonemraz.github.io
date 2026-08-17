@@ -68,10 +68,6 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
 }
 
 .brand {
-  /* Hút hết khoảng trống thừa để nút ngôn ngữ và thương hiệu dính
-     nhau bên trái, còn menu bị đẩy hẳn sang phải. Không có dòng này
-     thì space-between dàn đều ba khối và thương hiệu rơi vào giữa. */
-  margin-right: auto;
   display: inline-flex;
   align-items: center;
   gap: .6rem;
@@ -489,6 +485,10 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
 /* Nút đổi ngôn ngữ nằm trong thanh ngang, bên trái thương hiệu.
    Không làm mờ nữa: ở đây nó không đè lên nội dung nào. */
 .langtoggle {
+  /* Hút khoảng trống thừa: nút bám sát ngay sau thương hiệu, còn
+     menu bị đẩy hẳn sang phải. Không có nó thì space-between dàn
+     đều ba khối và nút trôi vào giữa màn hình. */
+  margin-right: auto;
   flex: none;
   padding: .3rem .55rem;
   border-radius: calc(var(--radius) - 5px);
@@ -499,11 +499,19 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
   cursor: pointer;
   transition: border-color .15s ease;
 }
-.langtoggle:hover { border-color: var(--link); }
-
-/* EN xanh azure, VIE đỏ tươi — nhìn là biết đang ở ngôn ngữ nào */
+/* EN xanh azure, VIE đỏ tươi — nhìn là biết đang ở ngôn ngữ nào.
+   Viền đổi màu theo chữ, nếu không thì chữ đỏ nằm trong viền xanh. */
 .langtoggle [data-l="en"] { color: var(--link); }
 .langtoggle [data-l="vi"] { color: var(--destructive); }
+
+html[data-ui-lang="en"] .langtoggle {
+  border-color: color-mix(in oklab, var(--link) 55%, transparent);
+}
+html[data-ui-lang="vi"] .langtoggle {
+  border-color: color-mix(in oklab, var(--destructive) 55%, transparent);
+}
+html[data-ui-lang="en"] .langtoggle:hover { border-color: var(--link); }
+html[data-ui-lang="vi"] .langtoggle:hover { border-color: var(--destructive); }
 
 /* --- Màn hẹp ------------------------------------------------ */
 /* Ngưỡng nâng từ 60rem lên 68rem: nav có 8 mục nên ở khoảng
