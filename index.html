@@ -75,14 +75,14 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   right: clamp(1rem, 3vw, 2rem);
   bottom: clamp(1rem, 3vh, 2rem);
   z-index: 5;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
+  width: 34px;
+  height: 26px;
+  border-radius: calc(var(--radius) - 5px);
   border: 1px solid var(--border);
   background: color-mix(in oklab, var(--card) 88%, transparent);
   backdrop-filter: blur(8px);
   color: var(--muted-foreground);
-  font: 600 .8125rem/1 ui-sans-serif, system-ui, sans-serif;
+  font: 600 .6875rem/1 ui-sans-serif, system-ui, sans-serif;
   cursor: pointer;
   transition: color .15s ease, border-color .15s ease;
 }

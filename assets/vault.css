@@ -163,11 +163,11 @@ html[data-sidebar="closed"] .sidebar { transform: translateX(-100%); }
   left: var(--sidebar-w);
   transform: translate(-50%, -50%);
   z-index: 35;
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 40px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: calc(var(--radius) - 5px);
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--muted-foreground);
@@ -481,14 +481,14 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
   right: clamp(1rem, 3vw, 2rem);
   bottom: clamp(1rem, 3vh, 2rem);
   z-index: 40;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
+  width: 34px;
+  height: 26px;
+  border-radius: calc(var(--radius) - 5px);
   border: 1px solid var(--border);
   background: color-mix(in oklab, var(--card) 88%, transparent);
   backdrop-filter: blur(8px);
   color: var(--muted-foreground);
-  font: 600 .8125rem/1 ui-sans-serif, system-ui, sans-serif;
+  font: 600 .6875rem/1 ui-sans-serif, system-ui, sans-serif;
   cursor: pointer;
   transition: color .15s ease, border-color .15s ease;
 }
@@ -739,3 +739,7 @@ body.lbox-open { overflow: hidden; }
   font-size: .9375rem;
   color: var(--muted-foreground);
 }
+
+/* Mục liên hệ ở cuối trang Tác giả (trang Contact riêng đã bỏ) */
+.contact-list { list-style: none; margin: 0; padding: 0; }
+.contact-list li { padding: .3rem 0; text-align: left; }
