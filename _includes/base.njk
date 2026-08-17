@@ -1,4 +1,7 @@
-{%- macro t(s) -%}<span data-l="en">{{ s.en }}</span><span data-l="vi">{{ s.vi }}</span>{%- endmacro -%}
+{#  Khoang trang giua hai the la CO Y: trinh duyet chi hien mot ban
+    nen khong anh huong gi, nhung may doc van ban thuan se thay
+    "Home Trang chu" thay vi "HomeTrang chu" dinh lien.  #}
+{%- macro t(s) -%}<span data-l="en">{{ s.en }}</span> <span data-l="vi">{{ s.vi }}</span>{%- endmacro -%}
 <!DOCTYPE html>
 <html lang="{{ lang or 'en' }}" data-ui-lang="en" data-sidebar="open">
 <head>
@@ -101,7 +104,7 @@
       <li>
         <a href="/vault/ps-gems/{{ a.slug }}/" class="{% if a.slug == albumSlug %}on{% endif %}">
           <span class="name">{{ a.title }}</span>
-          <span class="meta">{{ a.count }} <span data-l="en">images</span><span data-l="vi">ảnh</span></span>
+          <span class="meta">{{ a.count }} <span data-l="en">images</span> <span data-l="vi">ảnh</span></span>
         </a>
       </li>
       {%- endfor %}
@@ -208,7 +211,7 @@
 {%- endif %}
 
 <button class="langtoggle" type="button" aria-label="Switch interface language">
-  <span data-l="en">EN</span><span data-l="vi">VI</span>
+  <span data-l="en">EN</span> <span data-l="vi">VI</span>
 </button>
 
 <script>
@@ -376,7 +379,7 @@
     var hits = match(q).slice(0, 12);
     if (!hits.length) {
       panel.innerHTML = '<p class="search-empty">' +
-        '<span data-l="en">No match</span><span data-l="vi">Không có kết quả</span></p>';
+        '<span data-l="en">No match</span> <span data-l="vi">Không có kết quả</span></p>';
     } else {
       panel.innerHTML = hits.map(function (it) {
         var tags = (it.tags || []).map(function (t) {
