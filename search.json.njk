@@ -14,6 +14,28 @@ eleventyExcludeFromCollections: true
 "url": {{ post.url | dump | safe }}
 },
 {%- endfor %}
+{%- for post in collections.fiction %}
+{
+"type": "fiction",
+"title": {{ post.data.title | dump | safe }},
+"summary": {{ (post.data.summary or "") | dump | safe }},
+"tags": {{ (post.data.tags or []) | dump | safe }},
+"lang": {{ (post.data.lang or "") | dump | safe }},
+"date": {{ (post.date | readableDate) | dump | safe }},
+"url": {{ post.url | dump | safe }}
+},
+{%- endfor %}
+{%- for post in collections.code %}
+{
+"type": "code",
+"title": {{ post.data.title | dump | safe }},
+"summary": {{ (post.data.summary or "") | dump | safe }},
+"tags": {{ (post.data.tags or []) | dump | safe }},
+"lang": {{ (post.data.lang or "") | dump | safe }},
+"date": {{ (post.data.language or "") | dump | safe }},
+"url": {{ post.url | dump | safe }}
+},
+{%- endfor %}
 {%- for p in papers %}
 {
 "type": "paper",

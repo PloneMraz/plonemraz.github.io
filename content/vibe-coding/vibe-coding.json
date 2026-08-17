@@ -1,4 +1,5 @@
 {
   "layout": "project.njk",
-  "section": "code"
+  "section": "code",
+  "permalink": "/vault/vibe-coding/{{ page.fileSlug | slugify }}/"
 }

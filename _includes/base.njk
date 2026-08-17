@@ -379,7 +379,7 @@
         return '<a href="' + esc(it.url) + '">' +
           '<span class="r-title">' + esc(it.title) + '</span>' +
           (sum ? '<span class="r-sum">' + esc(sum) + '</span>' : '') +
-          '<span class="r-meta">' + (it.type === 'paper' ? 'Paper' : 'Post') +
+          '<span class="r-meta">' + ({paper:'Paper', fiction:'Fiction', code:'Repo'}[it.type] || 'Post') +
           (it.date ? ' · ' + esc(it.date) : '') + ' ' + tags + '</span></a>';
       }).join('');
     }

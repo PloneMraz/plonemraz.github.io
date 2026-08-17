@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const ROOT = "content/my oc";
+const ROOT = "content/p's gems";
 const EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
 
 function slugify(name) {
@@ -30,7 +30,7 @@ function imagesIn(dir) {
 }
 
 /**
- * Mỗi thư mục con của content/my oc/ là một album (một nhân vật).
+ * Mỗi thư mục con của content/p's gems/ là một album (một nhân vật).
  * Bên trong có thể chia tiếp thành nhóm — Anime, Realistic… — mỗi
  * thư mục con nữa là một nhóm. Ảnh nằm thẳng trong thư mục nhân
  * vật cũng được nhận, xếp vào nhóm không tên.

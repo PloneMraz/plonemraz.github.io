@@ -1,0 +1,5 @@
+{
+  "layout": "post.njk",
+  "section": "blog",
+  "permalink": "/vault/blog/{{ page.fileSlug | slugify }}/"
+}

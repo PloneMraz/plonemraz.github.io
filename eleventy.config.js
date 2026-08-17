@@ -40,7 +40,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("visual/**");
   eleventyConfig.ignores.add("content/**/*.docx");
   eleventyConfig.ignores.add("content/**/*.txt");
-  eleventyConfig.ignores.add("content/my oc/**");
+  eleventyConfig.ignores.add("content/p's gems/**");
   eleventyConfig.ignores.add("content/books/**");
 
   // --- Ảnh: <picture> hai cỡ, tải lười ---
@@ -57,7 +57,7 @@ module.exports = function (eleventyConfig) {
 
   // --- Bài viết, mới nhất lên đầu ---
   eleventyConfig.addCollection("posts", (api) =>
-    api.getFilteredByGlob("content/writing/*.md").sort((a, b) => b.date - a.date)
+    api.getFilteredByGlob("content/blog/*.md").sort((a, b) => b.date - a.date)
   );
 
   eleventyConfig.addCollection("fiction", (api) =>
