@@ -87,11 +87,18 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   cursor: pointer;
   transition: color .15s ease, border-color .15s ease;
 }
-.langtoggle:hover { border-color: var(--link); }
-
-/* EN xanh azure, VIE đỏ tươi */
+/* EN xanh azure, VIE đỏ tươi; viền đổi theo chữ */
 .langtoggle [data-l="en"] { color: var(--link); }
 .langtoggle [data-l="vi"] { color: var(--destructive); }
+
+html[data-ui-lang="en"] .langtoggle {
+  border-color: color-mix(in oklab, var(--link) 55%, transparent);
+}
+html[data-ui-lang="vi"] .langtoggle {
+  border-color: color-mix(in oklab, var(--destructive) 55%, transparent);
+}
+html[data-ui-lang="en"] .langtoggle:hover { border-color: var(--link); }
+html[data-ui-lang="vi"] .langtoggle:hover { border-color: var(--destructive); }
 
 /* --- Nền orb --------------------------------------------------
    Lệch ~15° lên góc trên bên phải: dịch phải 30%, lên 8%
