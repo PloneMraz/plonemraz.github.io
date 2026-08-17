@@ -64,7 +64,7 @@
 
   <nav class="topnav" id="topnav">
     <a href="/">{{ t(ui.nav.home) }}</a>
-    <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">{{ t(ui.nav.blog) }}</a>
+    <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">Blog</a>
     <a href="/vault/papers/"  class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
     {#  Ba mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
     <a href="/vault/ps-gems/"     class="{% if section == 'ai-gen' %}on{% endif %}">P&#39;s Gems</a>
@@ -72,7 +72,6 @@
     <a href="/vault/vibe-coding/" class="{% if section == 'code' %}on{% endif %}">Vibe Coding</a>
     <a href="/vault/books/"   class="{% if section == 'books' %}on{% endif %}">{{ t(ui.nav.books) }}</a>
     <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
-    <a href="/vault/contact/" class="{% if section == 'contact' %}on{% endif %}">{{ t(ui.nav.contact) }}</a>
   </nav>
 </header>
 

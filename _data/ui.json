@@ -4,10 +4,6 @@
       "en": "Home",
       "vi": "Trang chủ"
     },
-    "blog": {
-      "en": "Blog",
-      "vi": "Bài viết"
-    },
     "papers": {
       "en": "Papers",
       "vi": "Công trình"
@@ -15,10 +11,6 @@
     "about": {
       "en": "About Author",
       "vi": "Tác giả"
-    },
-    "contact": {
-      "en": "Contact",
-      "vi": "Liên hệ"
     },
     "books": {
       "en": "Books",
