@@ -232,33 +232,50 @@
     save('ui-lang', next);
   });
 
-  /* ---------- Menu ngang trên màn hẹp ---------- */
-  var burger = document.querySelector('.burger'),
-      topnav = document.querySelector('.topnav');
-  if (burger && topnav) {
-    burger.addEventListener('click', function () {
-      var open = topnav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
-
-  /* ---------- Thanh dọc ----------
-     Mặc định mở ở mọi cỡ màn hình. Chỉ đổi trạng thái qua hai lối:
-     bấm nút tròn, hoặc bấm một mục trong danh sách — bấm mục thì
-     đóng lại để nhường chỗ cho phần đọc. Trạng thái ghi vào
-     localStorage nên nó theo người đọc sang trang kế tiếp. */
+  /* ---------- Hai thanh điều hướng ----------
+     Quy tắc: mở cái này thì đóng cái kia, và bấm ra ngoài thì đóng
+     cả hai. Thanh dọc chỉ tự đóng khi màn HẸP — ở màn rộng nó là
+     một cột của bố cục chứ không phải lớp đè, đóng nó mỗi lần bấm
+     vào bài đọc sẽ làm cả trang nhảy qua nhảy lại. */
+  var narrow = window.matchMedia('(max-width: 68rem)');
+  var burger = document.querySelector('.burger');
+  var topnav = document.querySelector('.topnav');
   var handle = document.getElementById('side-handle');
+
+  function setTopnav(open) {
+    if (!topnav) return;
+    topnav.classList.toggle('open', open);
+    if (burger) burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function topnavOpen() { return topnav && topnav.classList.contains('open'); }
+
   function setSidebar(state) {
     root.setAttribute('data-sidebar', state);
     save('sidebar', state);
     if (handle) handle.setAttribute('aria-expanded', state === 'open' ? 'true' : 'false');
   }
-  if (handle) {
-    setSidebar(root.getAttribute('data-sidebar') || 'open');
-    handle.addEventListener('click', function () {
-      setSidebar(root.getAttribute('data-sidebar') === 'open' ? 'closed' : 'open');
+  function sidebarOpen() { return root.getAttribute('data-sidebar') !== 'closed'; }
+
+  if (burger) {
+    burger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !topnavOpen();
+      setTopnav(open);
+      if (open && narrow.matches) setSidebar('closed');
     });
   }
+
+  if (handle) {
+    setSidebar(sidebarOpen() ? 'open' : 'closed');
+    handle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var next = sidebarOpen() ? 'closed' : 'open';
+      setSidebar(next);
+      if (next === 'open') setTopnav(false);
+    });
+  }
+
+  // Bấm một mục trong danh sách thì đóng thanh dọc, nhường chỗ đọc
   var list = document.querySelector('.sidebar .sidebar-scroll');
   if (list) {
     list.addEventListener('click', function (e) {
@@ -266,50 +283,24 @@
     });
   }
 
-  /* ---------- Lightbox ----------
-     Mỗi thumbnail là một <a> trỏ thẳng tới ảnh lớn, nên khi tắt JS
-     thì bấm vào vẫn mở được ảnh — chỉ là mở ở tab riêng. */
-  var lbox = document.getElementById('lbox');
-  if (lbox) {
-    var shots = [].slice.call(document.querySelectorAll('.shot'));
-    var img = document.getElementById('lbox-img');
-    var counter = document.getElementById('lbox-count');
-    var at = 0;
+  // Bấm ra bất kỳ chỗ nào khác — kể cả chỗ trống — thì đóng
+  document.addEventListener('click', function (e) {
+    var sidebar = document.getElementById('sidebar');
+    if (topnavOpen() && !e.target.closest('.topnav') && !e.target.closest('.burger')) {
+      setTopnav(false);
+    }
+    if (narrow.matches && sidebarOpen() && sidebar &&
+        !e.target.closest('#sidebar') && !e.target.closest('.side-handle')) {
+      setSidebar('closed');
+    }
+  });
 
-    function show(i) {
-      at = (i + shots.length) % shots.length;
-      img.src = shots[at].getAttribute('data-full');
-      counter.textContent = (at + 1) + ' / ' + shots.length;
-    }
-    function open(i) {
-      show(i);
-      lbox.classList.add('on');
-      document.body.classList.add('lbox-open');
-    }
-    function close() {
-      lbox.classList.remove('on');
-      document.body.classList.remove('lbox-open');
-      img.src = '';
-    }
-
-    shots.forEach(function (a, i) {
-      a.addEventListener('click', function (e) { e.preventDefault(); open(i); });
-    });
-    document.getElementById('lbox-close').addEventListener('click', close);
-    document.getElementById('lbox-prev').addEventListener('click', function (e) {
-      e.stopPropagation(); show(at - 1);
-    });
-    document.getElementById('lbox-next').addEventListener('click', function (e) {
-      e.stopPropagation(); show(at + 1);
-    });
-    lbox.addEventListener('click', function (e) { if (e.target === lbox) close(); });
-    document.addEventListener('keydown', function (e) {
-      if (!lbox.classList.contains('on')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') show(at - 1);
-      if (e.key === 'ArrowRight') show(at + 1);
-    });
-  }
+  // Esc đóng cả hai
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (topnavOpen()) setTopnav(false);
+    if (narrow.matches && sidebarOpen()) setSidebar('closed');
+  });
 
   /* ---------- Tìm kiếm ----------
      Khớp theo tên bài và tag. Gõ #tag để lọc riêng theo tag; tag

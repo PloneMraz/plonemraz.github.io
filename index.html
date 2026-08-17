@@ -86,7 +86,11 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   cursor: pointer;
   transition: color .15s ease, border-color .15s ease;
 }
-.langtoggle:hover { color: var(--foreground); border-color: var(--link); }
+/* Mờ đi khi không dùng tới, giống nút trong vault */
+.langtoggle { opacity: .32; }
+.langtoggle:hover,
+.langtoggle:focus-visible,
+.langtoggle:active { opacity: 1; color: var(--foreground); border-color: var(--link); }
 
 /* --- Nền orb --------------------------------------------------
    Lệch ~15° lên góc trên bên phải: dịch phải 30%, lên 8%
