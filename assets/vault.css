@@ -60,7 +60,7 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: .75rem;
   padding: 0 clamp(1rem, 3vw, 2rem);
   border-bottom: 1px solid var(--border);
   background: color-mix(in oklab, var(--background) 88%, transparent);
@@ -68,6 +68,10 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
 }
 
 .brand {
+  /* Hút hết khoảng trống thừa để nút ngôn ngữ và thương hiệu dính
+     nhau bên trái, còn menu bị đẩy hẳn sang phải. Không có dòng này
+     thì space-between dàn đều ba khối và thương hiệu rơi vào giữa. */
+  margin-right: auto;
   display: inline-flex;
   align-items: center;
   gap: .6rem;
@@ -482,26 +486,24 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
 }
 
 /* --- Nút đổi ngôn ngữ --------------------------------------- */
+/* Nút đổi ngôn ngữ nằm trong thanh ngang, bên trái thương hiệu.
+   Không làm mờ nữa: ở đây nó không đè lên nội dung nào. */
 .langtoggle {
-  position: fixed;
-  right: clamp(1rem, 3vw, 2rem);
-  bottom: clamp(1rem, 3vh, 2rem);
-  z-index: 40;
-  width: 34px;
-  height: 26px;
+  flex: none;
+  padding: .3rem .55rem;
   border-radius: calc(var(--radius) - 5px);
   border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 88%, transparent);
-  backdrop-filter: blur(8px);
-  color: var(--muted-foreground);
-  font: 600 .6875rem/1 ui-sans-serif, system-ui, sans-serif;
+  background: transparent;
+  font: 700 .75rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .04em;
   cursor: pointer;
-  transition: opacity .2s ease, color .15s ease, border-color .15s ease;
+  transition: border-color .15s ease;
 }
-.langtoggle { opacity: .32; }
-.langtoggle:hover,
-.langtoggle:focus-visible,
-.langtoggle:active { opacity: 1; color: var(--foreground); border-color: var(--link); }
+.langtoggle:hover { border-color: var(--link); }
+
+/* EN xanh azure, VIE đỏ tươi — nhìn là biết đang ở ngôn ngữ nào */
+.langtoggle [data-l="en"] { color: var(--link); }
+.langtoggle [data-l="vi"] { color: var(--destructive); }
 
 /* --- Màn hẹp ------------------------------------------------ */
 /* Ngưỡng nâng từ 60rem lên 68rem: nav có 8 mục nên ở khoảng

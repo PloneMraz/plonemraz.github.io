@@ -30,6 +30,7 @@
     l = (navigator.language || '').toLowerCase().indexOf('vi') === 0 ? 'vi' : 'en';
   }
   document.documentElement.setAttribute('data-ui-lang', l);
+  document.documentElement.lang = l;
 })();
 </script>
 <link rel="stylesheet" href="theme.css">
@@ -81,16 +82,16 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   border: 1px solid var(--border);
   background: color-mix(in oklab, var(--card) 88%, transparent);
   backdrop-filter: blur(8px);
-  color: var(--muted-foreground);
-  font: 600 .6875rem/1 ui-sans-serif, system-ui, sans-serif;
+  font: 700 .75rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .04em;
   cursor: pointer;
   transition: color .15s ease, border-color .15s ease;
 }
-/* Mờ đi khi không dùng tới, giống nút trong vault */
-.langtoggle { opacity: .32; }
-.langtoggle:hover,
-.langtoggle:focus-visible,
-.langtoggle:active { opacity: 1; color: var(--foreground); border-color: var(--link); }
+.langtoggle:hover { border-color: var(--link); }
+
+/* EN xanh azure, VIE đỏ tươi */
+.langtoggle [data-l="en"] { color: var(--link); }
+.langtoggle [data-l="vi"] { color: var(--destructive); }
 
 /* --- Nền orb --------------------------------------------------
    Lệch ~15° lên góc trên bên phải: dịch phải 30%, lên 8%
@@ -368,7 +369,7 @@ h1 {
 </main>
 
 <button class="langtoggle" type="button" aria-label="Switch interface language">
-  <span data-l="en">EN</span> <span data-l="vi">VI</span>
+  <span data-l="en">EN</span> <span data-l="vi">VIE</span>
 </button>
 
 <script>
@@ -377,6 +378,7 @@ h1 {
   document.querySelector('.langtoggle').addEventListener('click', function () {
     var next = root.getAttribute('data-ui-lang') === 'en' ? 'vi' : 'en';
     root.setAttribute('data-ui-lang', next);
+    root.lang = next;
     try { localStorage.setItem('ui-lang', next); } catch (e) {}
   });
 })();
