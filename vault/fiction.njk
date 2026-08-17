@@ -3,35 +3,50 @@ layout: base.njk
 title: Fiction
 section: fiction
 permalink: /vault/fiction/
-summary: "Fiction by Plone Mraz — stories rather than argument. Nothing published here yet."
+summary: "Invented texts — content that does not exist in reality and cannot be checked against it. Kept apart from the rest of the site for that reason."
 ---
 <article class="prose section-intro">
   <h1>Fiction</h1>
   <p class="lede">
-    <span data-l="en">Stories rather than argument.</span>
-    <span data-l="vi">Truyện, chứ không phải lập luận.</span>
+    <span data-l="en">Invented. Not real, and not checkable.</span>
+    <span data-l="vi">Giả tưởng. Không có thật, và không kiểm được.</span>
   </p>
 
   <div data-l="en" lang="en">
     <p>
-      This section is for fiction. The papers describe a structure and defend it; the
-      essays read frameworks and check them. Neither is the right shape for a story, so
-      stories live here instead, under no obligation to prove anything.
+      Fiction here is not a genre. It is a status: any text whose content does not exist
+      in reality and cannot be checked against it. A story belongs here, but so does
+      anything else built out of what was invented rather than observed.
     </p>
-    <p><strong>Nothing published here yet.</strong> Pieces will appear as they are finished.</p>
+    <p>
+      Everything else on this site is offered as checkable. The papers state what would
+      show them false. The essays trace each claim back to the text it came from. This
+      section is the opposite, and is kept separate for exactly that reason: so that no
+      reader has to work out which kind of text they are holding. Nothing here is put
+      forward as true, and nothing here can be verified.
+    </p>
+    <p><strong>Nothing published here yet.</strong></p>
   </div>
 
   <div data-l="vi" lang="vi">
     <p>
-      Mục này dành cho truyện. Các công trình thì mô tả một cấu trúc rồi bảo vệ nó; các bài
-      viết thì đọc và kiểm các khuôn khổ. Không dạng nào hợp để kể một câu chuyện, nên
-      truyện nằm riêng ở đây, không phải chứng minh điều gì cả.
+      Fiction ở đây không phải một thể loại. Nó là một trạng thái: mọi văn bản có nội dung
+      không tồn tại trong thực tế và không đối chiếu được với thực tế. Một truyện kể thuộc
+      về đây, nhưng bất cứ thứ gì khác dựng lên từ cái được bịa ra thay vì cái được quan
+      sát cũng vậy.
     </p>
-    <p><strong>Chưa có bài nào.</strong> Truyện sẽ xuất hiện khi viết xong.</p>
+    <p>
+      Mọi phần còn lại của trang này đều được đưa ra kèm cách kiểm. Các công trình nêu rõ
+      điều gì sẽ chứng minh chúng sai. Các bài viết truy từng luận điểm về đúng văn bản
+      sinh ra nó. Mục này thì ngược lại, và được tách riêng đúng vì lẽ đó: để không người
+      đọc nào phải tự đoán mình đang cầm loại văn bản nào. Không thứ gì ở đây được đưa ra
+      như là thật, và không thứ gì ở đây kiểm chứng được.
+    </p>
+    <p><strong>Chưa có bài nào.</strong></p>
   </div>
 
   {%- if collections.fiction.length %}
-  <h2><span data-l="en">Pieces</span> <span data-l="vi">Các truyện</span></h2>
+  <h2><span data-l="en">Pieces</span> <span data-l="vi">Các bài</span></h2>
   <ul class="entry-list">
     {%- for post in collections.fiction %}
     <li>
