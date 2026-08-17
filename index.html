@@ -178,6 +178,9 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  /* Canh giữa để khi hàng nút xuống dòng trên màn hẹp, cả hai hàng
+     vẫn nằm giữa viên thuốc thay vì dồn về trái. */
+  justify-content: center;
   gap: clamp(.6rem, 2vw, 1.125rem) clamp(.75rem, 3vw, 1.5rem);
   padding: clamp(.55rem, 2vw, .9rem) clamp(.75rem, 3vw, 1.5rem);
   width: fit-content;
@@ -231,6 +234,17 @@ h1 {
    tính bằng rem, nên dưới ~540px chiều cao chúng ngừng co lại và
    khối sẽ tràn — mà overflow:hidden thì cắt cụt chứ không hiện
    thanh cuộn. Ở đây hạ hẳn cận dưới xuống. */
+/* Màn hẹp: orb đang neo kích thước CHỈ theo chiều cao, nên trên
+   điện thoại nó rộng gấp 2.5 lần màn hình và chỉ 40% bề ngang lọt
+   vào khung. Thêm 145vw vào min() và kéo nó vào trong, còn 69%. */
+@media (max-width: 40rem) {
+  #orb-layer {
+    --orb-x: 8%;
+    --orb-y: -14%;
+    --orb-size: min(105vh, 145vw, 700px);
+  }
+}
+
 @media (max-height: 540px) {
   .logo    { width: 64px; height: 64px; }
   h1       { font-size: 2.25rem; margin: .75rem 0 .25rem; }
