@@ -22,12 +22,20 @@ module.exports = function (eleventyConfig) {
   // để mọi liên kết cũ từ bên ngoài vẫn sống.
   eleventyConfig.addPassthroughCopy({ "content/corpus": "corpus" });
   eleventyConfig.addPassthroughCopy({ "content/books": "books" });
+
+  /* File xác minh chủ sở hữu của Google/Bing phải nằm đúng nguyên
+     tên ở gốc site. Eleventy coi mọi .html là template và đổi thành
+     URL dạng thư mục (/google-abc/ thay vì /google-abc.html), nên
+     phải chép nguyên trạng và loại khỏi khâu dựng trang. */
+  eleventyConfig.addPassthroughCopy("google*.html");
+  eleventyConfig.addPassthroughCopy("BingSiteAuth.xml");
   eleventyConfig.addPassthroughCopy({ visual: "visual" });
   eleventyConfig.addPassthroughCopy({ assets: "assets" });
 
   // --- Không dựng thành trang ---
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add("index.html");
+  eleventyConfig.ignores.add("google*.html");
   eleventyConfig.ignores.add("content/corpus/**");
   eleventyConfig.ignores.add("visual/**");
   eleventyConfig.ignores.add("content/**/*.docx");
