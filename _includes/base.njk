@@ -41,6 +41,7 @@
     l = (navigator.language || '').toLowerCase().indexOf('vi') === 0 ? 'vi' : 'en';
   }
   r.setAttribute('data-ui-lang', l);
+  r.lang = l;   // để trình đọc màn hình và trình duyệt biết đúng ngôn ngữ đang hiện
   r.setAttribute('data-sidebar', get('sidebar') === 'closed' ? 'closed' : 'open');
 })();
 </script>
@@ -52,6 +53,10 @@
 {% include "orb.njk" %}
 
 <header class="topbar">
+  <button class="langtoggle" type="button" aria-label="Switch interface language">
+    <span data-l="en">EN</span> <span data-l="vi">VIE</span>
+  </button>
+
   <a class="brand" href="/">
     <img src="/visual/icon.ico" alt="" width="28" height="28">
     <span>Plone Mraz</span>
@@ -209,10 +214,6 @@
 </div>
 {%- endif %}
 
-<button class="langtoggle" type="button" aria-label="Switch interface language">
-  <span data-l="en">EN</span> <span data-l="vi">VI</span>
-</button>
-
 <script>
 (function () {
   var root = document.documentElement;
@@ -222,6 +223,7 @@
   var input = document.getElementById('search-input');
   function applyLang(l) {
     root.setAttribute('data-ui-lang', l);
+    root.lang = l;
     if (input) input.placeholder = input.getAttribute('data-ph-' + l) || 'Search';
   }
   applyLang(root.getAttribute('data-ui-lang') || 'en');
