@@ -1,0 +1,91 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# Plone Mraz
+
+> Huỳnh Mai Phúc (Plone Mraz) — self-funded independent researcher working outside any
+> institution, Vietnam. A research programme on the operation by which configurations
+> come into being and hold, plus applied work, essays, and original characters.
+
+Every paper and dataset is deposited with a permanent DOI. Papers are written in
+English; essays are written in Vietnamese. The site interface is bilingual — both
+languages are present in the HTML and toggled with CSS, so raw page text will contain
+each label twice. This file is the clean index.
+
+- Site: https://plonemraz.github.io
+- ORCID: https://orcid.org/0009-0009-0571-7151
+- Contact: plone.mraz@gmail.com
+- Feed: https://plonemraz.github.io/feed.xml
+- Sitemap: https://plonemraz.github.io/sitemap.xml
+
+## Meta-Philosophy — the seven numbered papers
+
+Seven articulations of one operation, each answering a different question of it.
+{% for p in papers %}{% if p.group == "programme" %}
+- [{{ p.code }} — {{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): asks {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+{%- endif %}{% endfor %}
+
+## Overview and related documents
+{% for p in papers %}{% if p.group == "overview" %}
+- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+{%- endif %}{% endfor %}
+
+## Applied work
+
+Carried into clinical domains as bounded, falsifiable proposals. Neither document is a
+clinical recommendation.
+{% for p in papers %}{% if p.group == "applied" %}
+- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+{%- endif %}{% endfor %}
+
+## Agent specifications
+
+A co-ranked pair specifying the same relational structure for agents of differing scope.
+{% for p in papers %}{% if p.group == "specs" %}
+- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+{%- endif %}{% endfor %}
+
+## Writing
+
+Essays, in Vietnamese.
+{% for post in collections.posts %}
+- [{{ post.data.title | safe }}]({{ site.url }}{{ post.url }}): {{ post.data.summary | safe }} ({{ post.date | readableDate }}{% if post.data.tags.length %}, tags: {{ post.data.tags | join(", ") }}{% endif %})
+{%- endfor %}
+
+## P's Gems — original characters
+{% if albums.length %}
+Image albums, one per character.
+{% for a in albums %}
+- [{{ a.title | safe }}]({{ site.url }}/vault/ps-gems/{{ a.slug }}/): {{ a.count }} images
+{%- endfor %}
+{% else %}
+No albums yet.
+{% endif %}
+{%- if books.length %}
+## Books
+{% for b in books %}
+- [{{ b.title | safe }}]({{ site.url }}/vault/books/{{ b.slug }}/): {{ b.ext }}, {{ b.size }}{% if b.description %} — {{ b.description | safe }}{% endif %}
+{%- endfor %}
+{%- endif %}
+{%- if collections.fiction.length %}
+## Fiction
+{% for post in collections.fiction %}
+- [{{ post.data.title | safe }}]({{ site.url }}{{ post.url }}): {{ post.data.summary | safe }}
+{%- endfor %}
+{%- endif %}
+{%- if collections.code.length %}
+## Vibe Coding
+{% for post in collections.code %}
+- [{{ post.data.title | safe }}]({{ site.url }}{{ post.url }}){% if post.data.repo %} — repository: {{ post.data.repo }}{% endif %}
+{%- endfor %}
+{%- endif %}
+
+## Pages
+
+- [Front page]({{ site.url }}/)
+- [Vault — writing index]({{ site.url }}/vault/)
+- [Papers index]({{ site.url }}/vault/papers/)
+- [P's Gems index]({{ site.url }}/vault/ps-gems/)
+- [About the author]({{ site.url }}/vault/about/): background, working method, publication record
+- [Contact]({{ site.url }}/vault/contact/)
