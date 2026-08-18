@@ -46,6 +46,10 @@
   r.setAttribute('data-sidebar', get('sidebar') === 'closed' ? 'closed' : 'open');
 })();
 </script>
+{#  Umami — đo lượt xem và sự kiện. Không dùng cookie nên không
+    cần banner đồng ý.  #}
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="9f201127-5390-459b-800c-6595e8aba080"></script>
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/assets/vault.css">
 </head>
@@ -315,9 +319,27 @@
      là tĩnh, không có máy chủ, nên muốn đếm được thì phải cắm một
      dịch vụ vào đúng hàm này. Chừng nào chưa cắm, lượt bấm chỉ nằm
      trong trình duyệt người đọc. */
+  var VOTE_GAP = 800;        // bỏ qua bấm dồn dập dưới ngưỡng này
+  var lastVoteAt = 0;
+
   function sendVote(key, value) {
-    // TODO: gọi tới dịch vụ đếm khi đã chọn được backend.
-    // vd: navigator.sendBeacon(ENDPOINT, JSON.stringify({key: key, value: value}));
+    /* Ba lớp chặn mềm. Không lớp nào chống được người cố tình — site
+       tĩnh không có máy chủ để kiểm — nhưng chúng loại được bấm nhầm,
+       bấm dồn, và đổi ý qua lại. Cách phát hiện phá thật sự là so số
+       phiếu với số khách duy nhất trong Umami. */
+    var now = Date.now();
+    if (now - lastVoteAt < VOTE_GAP) return;   // (1) chặn bấm dồn
+    lastVoteAt = now;
+
+    var sentKey = 'voted:' + key;              // (2) mỗi phiên chỉ gửi một lần
+    try {
+      if (sessionStorage.getItem(sentKey)) return;
+      sessionStorage.setItem(sentKey, '1');
+    } catch (e) {}
+
+    if (window.umami && typeof window.umami.track === 'function') {
+      window.umami.track('vote', { post: key, value: value });   // (3) kèm URL bài
+    }
   }
 
   var voteBlocks = [].slice.call(document.querySelectorAll('.vote'));
