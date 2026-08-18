@@ -7,5 +7,10 @@ layout: base.njk
     <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
     &middot; {{ lang | upper }}
   </p>
+
+  {% include "vote.njk" %}
+
   {{ content | safe }}
+
+  {% include "vote.njk" %}
 </article>

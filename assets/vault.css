@@ -762,3 +762,47 @@ body.lbox-open { overflow: hidden; }
 /* Mục liên hệ ở cuối trang Tác giả (trang Contact riêng đã bỏ) */
 .contact-list { list-style: none; margin: 0; padding: 0; }
 .contact-list li { padding: .3rem 0; text-align: left; }
+
+/* ============================================================
+   Nút phản hồi ở đầu và cuối mỗi bài
+   ============================================================ */
+.vote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem .9rem;
+  margin: 1.75rem 0;
+  padding: .7rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.vote-label { font-size: .875rem; color: var(--muted-foreground); }
+.vote-buttons { display: flex; gap: .45rem; margin-left: auto; }
+
+.vote-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 30px;
+  border-radius: calc(var(--radius) - 5px);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+.vote-btn:hover { color: var(--foreground); border-color: var(--muted-foreground); }
+
+/* Đã chọn: xanh cho đồng ý, đỏ cho không — cùng bảng màu với nút
+   ngôn ngữ, nên người đọc nhận ra ngay ý nghĩa hai màu. */
+.vote-btn.up[aria-pressed="true"] {
+  color: var(--link);
+  border-color: var(--link);
+  background: color-mix(in oklab, var(--link) 12%, transparent);
+}
+.vote-btn.down[aria-pressed="true"] {
+  color: var(--destructive);
+  border-color: var(--destructive);
+  background: color-mix(in oklab, var(--destructive) 12%, transparent);
+}
