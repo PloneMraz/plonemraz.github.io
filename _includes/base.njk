@@ -305,6 +305,54 @@
     if (narrow.matches && sidebarOpen()) setSidebar('closed');
   });
 
+  /* ---------- Nút phản hồi ----------
+     Hai khối .vote trên mỗi bài (đầu và cuối) dùng chung một khoá,
+     nên bấm ở đâu thì cả hai cùng đổi. Lựa chọn lưu trong máy người
+     đọc để họ quay lại vẫn thấy mình đã bỏ phiếu, và để không bỏ
+     phiếu hai lần.
+
+     GHI CHÚ QUAN TRỌNG: sendVote() hiện KHÔNG gửi đi đâu cả. Site
+     là tĩnh, không có máy chủ, nên muốn đếm được thì phải cắm một
+     dịch vụ vào đúng hàm này. Chừng nào chưa cắm, lượt bấm chỉ nằm
+     trong trình duyệt người đọc. */
+  function sendVote(key, value) {
+    // TODO: gọi tới dịch vụ đếm khi đã chọn được backend.
+    // vd: navigator.sendBeacon(ENDPOINT, JSON.stringify({key: key, value: value}));
+  }
+
+  var voteBlocks = [].slice.call(document.querySelectorAll('.vote'));
+  if (voteBlocks.length) {
+    var voteKey = voteBlocks[0].getAttribute('data-vote-key');
+    var storeKey = 'vote:' + voteKey;
+    var current = null;
+    try { current = localStorage.getItem(storeKey); } catch (e) {}
+
+    function paint() {
+      voteBlocks.forEach(function (block) {
+        [].slice.call(block.querySelectorAll('.vote-btn')).forEach(function (b) {
+          b.setAttribute('aria-pressed',
+            b.getAttribute('data-vote') === current ? 'true' : 'false');
+        });
+      });
+    }
+    paint();
+
+    voteBlocks.forEach(function (block) {
+      block.addEventListener('click', function (e) {
+        var btn = e.target.closest('.vote-btn');
+        if (!btn) return;
+        var picked = btn.getAttribute('data-vote');
+        current = (current === picked) ? null : picked;
+        try {
+          if (current) localStorage.setItem(storeKey, current);
+          else localStorage.removeItem(storeKey);
+        } catch (err) {}
+        paint();
+        if (current) sendVote(voteKey, current);
+      });
+    });
+  }
+
   /* ---------- Tìm kiếm ----------
      Khớp theo tên bài và tag. Gõ #tag để lọc riêng theo tag; tag
      lồng nhau nên #triet-hoc bắt luôn #triet-hoc/ban-the.
