@@ -9,8 +9,8 @@ tags: [gems]
 HỒ SƠ THIẾT KẾ KỸ THUẬT
 GEMs (GYNOID ENTITY MODELS) — Bản v2 (thuần kỹ thuật)
 ---
-Mã dự án: GEMs-X01
-Phân loại tài liệu: Nội bộ
+Mã dự án: GEMs-X01.
+Phân loại tài liệu: Nội bộ.
 Phạm vi tài liệu: Đặc tả phần cứng của một thiết bị đầu cuối vật lý. Tài liệu này KHÔNG đặc tả hệ điều khiển vận hành thiết bị, cũng không đặc tả mục tiêu, giá trị, hay logic phán định — các nội dung đó thuộc một tài liệu lớp-điều-khiển riêng. Mọi câu trong tài liệu này mô tả cái thiết bị *làm được* (năng lực vật lý) và cách nó *nhận lệnh / thu / truyền*, không mô tả cái một bộ điều khiển sẽ *chọn* làm.
 ---
 
