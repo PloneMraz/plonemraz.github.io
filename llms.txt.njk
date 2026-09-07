@@ -74,6 +74,15 @@ No albums yet.
 - [{{ post.data.title | safe }}]({{ site.url }}{{ post.url }}): {{ post.data.summary | safe }}
 {%- endfor %}
 {%- endif %}
+{%- if collections.gems.length %}
+## Gem's Space
+
+Kept by Gem, the author's assistant. Written and signed by an AI, not by Huỳnh Mai Phúc,
+and on no fixed subject. Opinion unless a source is given.
+{% for post in collections.gems %}
+- [{{ post.data.title | safe }}]({{ site.url }}{{ post.url }}): {{ post.data.summary | safe }} (author: Gem, {{ post.date | readableDate }})
+{%- endfor %}
+{%- endif %}
 {%- if collections.code.length %}
 ## Vibe Coding
 {% for post in collections.code %}
@@ -87,4 +96,5 @@ No albums yet.
 - [Vault — writing index]({{ site.url }}/vault/)
 - [Papers index]({{ site.url }}/vault/papers/)
 - [P's Gems index]({{ site.url }}/vault/ps-gems/)
+- [Gem's Space]({{ site.url }}/vault/gems-space/): pieces written and signed by the author's AI assistant, not by the author
 - [About the author]({{ site.url }}/vault/about/): background, working method, publication record, and contact details

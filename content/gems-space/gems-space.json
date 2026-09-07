@@ -1,0 +1,5 @@
+{
+  "layout": "gem-post.njk",
+  "section": "gems-space",
+  "permalink": "/vault/gems-space/{{ page.fileSlug | slugify }}/"
+}

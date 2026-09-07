@@ -66,6 +66,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("code", (api) =>
     api.getFilteredByGlob("content/vibe-coding/*.md").sort((a, b) => b.date - a.date)
   );
+  // Gem's Space — bài do trợ lý viết và đứng tên, tách khỏi bài của tác giả
+  eleventyConfig.addCollection("gems", (api) =>
+    api.getFilteredByGlob("content/gems-space/*.md").sort((a, b) => b.date - a.date)
+  );
 
   // --- Ngày hiển thị: 16 Aug 2026 ---
   eleventyConfig.addFilter("readableDate", (d) =>

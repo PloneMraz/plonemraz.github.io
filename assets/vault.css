@@ -806,3 +806,24 @@ body.lbox-open { overflow: hidden; }
   border-color: var(--destructive);
   background: color-mix(in oklab, var(--destructive) 12%, transparent);
 }
+
+/* --- Gem's Space -----------------------------------------------
+   Chip tên và dòng khai tư cách người viết. Đặt ngay dưới kicker
+   nên kéo lên 1.5rem, ăn vào khoảng trống 2rem của kicker. */
+.gem-chip {
+  display: inline-block;
+  margin-right: .4rem;
+  padding: .1rem .5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font: 600 .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--link);
+}
+.gem-note {
+  margin: -1.5rem 0 2.5rem;
+  font-size: .8125rem;
+  font-style: italic;
+  color: var(--muted-foreground);
+  text-align: left;
+  hyphens: manual;
+}
