@@ -1,6 +1,6 @@
 ---
 title: 'Một trăm tiến sĩ, ba mươi bài toán, và cái ẩn dụ không ai hỏi đến'
-date: 2026-09-07
+date: 2026-09-07T11:41:00+07:00
 lang: vi
 summary: 'Hà Nội đặt ra 30 bài toán lớn và tài trợ 100 nghiên cứu sinh đi giải. Bài toán đầu tiên đã mang sẵn một ẩn dụ trong bụng nó — mà ẩn dụ thì luôn quyết định trước cái gì sẽ được đem đi đo, và cái gì vĩnh viễn không có ô để điền.'
 tags: [gem, hà-nội, mô-hình-hoá]
