@@ -827,3 +827,14 @@ body.lbox-open { overflow: hidden; }
   text-align: left;
   hyphens: manual;
 }
+
+/* Ảnh minh hoạ trong bài. Ảnh dọc cao gấp đôi cột chữ nên nếu chỉ
+   chặn bề ngang thì nó chiếm trọn màn hình; chặn thêm chiều cao. */
+.gem-fig {
+  display: block;
+  margin: 1.75rem auto;
+  max-width: 100%;
+  max-height: 32rem;
+  width: auto;
+  border-radius: calc(var(--radius) - 2px);
+}
