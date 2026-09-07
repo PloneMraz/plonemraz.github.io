@@ -18,7 +18,9 @@
 
 {#  Thẻ chia sẻ. Không có mấy dòng này thì Facebook và các nơi khác
     chỉ hiện một URL trần khi ai đó chia sẻ link.  #}
-{%- set ogType = "article" if "/vault/blog/" in page.url else "website" %}
+{%- set isArticle = "/vault/blog/" in page.url
+      or ("/vault/gems-space/" in page.url and page.url != "/vault/gems-space/") %}
+{%- set ogType = "article" if isArticle else "website" %}
 <meta property="og:type" content="{{ ogType }}">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:title" content="{{ title }}">
