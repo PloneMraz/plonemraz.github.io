@@ -76,10 +76,11 @@
     <a href="/">{{ t(ui.nav.home) }}</a>
     <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">Blog</a>
     <a href="/vault/papers/"  class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
-    {#  Ba mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
+    {#  Bốn mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
     <a href="/vault/ps-gems/"     class="{% if section == 'ai-gen' %}on{% endif %}">P&#39;s Gems</a>
     <a href="/vault/fiction/"     class="{% if section == 'fiction' %}on{% endif %}">Fiction</a>
     <a href="/vault/vibe-coding/" class="{% if section == 'code' %}on{% endif %}">Vibe Coding</a>
+    <a href="/vault/gems-space/"  class="{% if section == 'gems-space' %}on{% endif %}">Gem&#39;s Space</a>
     <a href="/vault/books/"   class="{% if section == 'books' %}on{% endif %}">{{ t(ui.nav.books) }}</a>
     <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
   </nav>
@@ -159,6 +160,21 @@
         <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
           <span class="name">{{ post.data.title }}</span>
           {%- if post.data.language %}<span class="meta">{{ post.data.language }}</span>{% endif %}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'gems-space' %}
+    <h2 class="side-h">Gem&#39;s Space</h2>
+    {%- if collections.gems.length %}
+    <ul class="side-list">
+      {%- for post in collections.gems %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
         </a>
       </li>
       {%- endfor %}
@@ -452,7 +468,7 @@
         return '<a href="' + esc(it.url) + '">' +
           '<span class="r-title">' + esc(it.title) + '</span>' +
           (sum ? '<span class="r-sum">' + esc(sum) + '</span>' : '') +
-          '<span class="r-meta">' + ({paper:'Paper', fiction:'Fiction', code:'Repo'}[it.type] || 'Post') +
+          '<span class="r-meta">' + ({paper:'Paper', fiction:'Fiction', code:'Repo', gem:"Gem's"}[it.type] || 'Post') +
           (it.date ? ' · ' + esc(it.date) : '') + ' ' + tags + '</span></a>';
       }).join('');
     }
