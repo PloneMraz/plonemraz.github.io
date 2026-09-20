@@ -6,7 +6,15 @@ layout: base.njk
   <p class="kicker">
     {%- if language %}<span class="lang-chip">{{ language }}</span>{% endif %}
     {%- if page.date %} <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>{% endif %}
+    {%- for t in tags %} <span class="tag">#{{ t }}</span>{% endfor %}
   </p>
+
+  {#  Tóm tắt làm phụ đề — thứ trước đây nằm ở trang giới thiệu của
+      mục. Ở đây nó đứng TRƯỚC bản chụp README, nên đọc như lời giới
+      thiệu của chính người viết về repo, chứ không lẫn vào README.  #}
+  {%- if summary %}
+  <p class="lede">{{ summary }}</p>
+  {%- endif %}
 
   {%- if repo %}
   <p class="paper-actions">
