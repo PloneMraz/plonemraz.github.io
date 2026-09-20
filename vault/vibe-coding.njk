@@ -39,16 +39,11 @@ summary: "Repositories built by Plone Mraz — each entry carries a snapshot of 
     <p><strong>Chưa có mục nào.</strong></p>
   </div>
 
-  {%- if collections.code.length %}
-  <h2><span data-l="en">Repositories</span> <span data-l="vi">Các repo</span></h2>
-  <ul class="entry-list">
-    {%- for post in collections.code %}
-    <li>
-      <a class="e-title" href="{{ post.url }}">{{ post.data.title }}</a>
-      {%- if post.data.language %}<span class="e-meta">{{ post.data.language }}</span>{% endif %}
-      {%- if post.data.summary %}<span class="e-sum">{{ post.data.summary }}</span>{% endif %}
-    </li>
-    {%- endfor %}
-  </ul>
-  {%- endif %}
+  {#  Danh sách đầy đủ nằm ở phần điều hướng, nên không lặp lại ở
+      đây: trang giới thiệu để giới thiệu, không để làm mục lục —
+      và nó sẽ không phình ra theo số bài.  #}
+  <p class="note">
+    <span data-l="en">The full list is in the menu.</span>
+    <span data-l="vi">Danh sách đầy đủ nằm trong menu.</span>
+  </p>
 </article>

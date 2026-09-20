@@ -1021,3 +1021,11 @@ body.lbox-open { overflow: hidden; }
   font-size: .75rem;
   color: var(--muted-foreground);
 }
+
+/* Dòng chỉ chỗ ở cuối trang giới thiệu mỗi mục. Là chú thích, không
+   phải văn xuôi của bài, nên hạ xuống một bậc. */
+.section-intro .note {
+  margin-top: 2rem;
+  font-size: .9375rem;
+  color: var(--muted-foreground);
+}
