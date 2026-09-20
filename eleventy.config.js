@@ -71,6 +71,14 @@ module.exports = function (eleventyConfig) {
     api.getFilteredByGlob("content/gems-space/*.md").sort((a, b) => b.date - a.date)
   );
 
+  /* GEMs — tài liệu, KHÔNG phải bài viết: xếp theo trường `order`
+     trong front matter chứ không theo ngày. Tên collection phải là
+     gemsDocs vì "gems" đã thuộc về Gem's Space ở trên. */
+  eleventyConfig.addCollection("gemsDocs", (api) =>
+    api.getFilteredByGlob("content/gems/*.md")
+       .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
+  );
+
   // --- Ngày hiển thị: 16 Aug 2026 ---
   eleventyConfig.addFilter("readableDate", (d) =>
     new Date(d).toLocaleDateString("en-GB", {

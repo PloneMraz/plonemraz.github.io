@@ -838,3 +838,78 @@ body.lbox-open { overflow: hidden; }
   width: auto;
   border-radius: calc(var(--radius) - 2px);
 }
+
+/* --- GEMs: tài liệu kỹ thuật ---------------------------------- */
+
+/* Nhãn trạng thái của chương: đã đóng / bảng sơ bộ / đang viết. */
+.gems-status {
+  display: inline-block;
+  padding: .1rem .5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font: 600 .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--link);
+}
+
+/* Bảng — quy tắc bảng ĐẦU TIÊN của trang. Trước GEMs không bài nào
+   dùng bảng, mà đặc tả thì sống bằng bảng.
+   display:block để bảng tự cuộn ngang trong cột chữ: bảng bốn cột
+   trên điện thoại mà không có khoản này là vỡ cả trang. */
+.prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: .9375rem;
+  line-height: 1.5;
+}
+.prose th,
+.prose td {
+  padding: .5rem .75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+  hyphens: manual;
+}
+.prose th {
+  font-weight: 600;
+  background: color-mix(in oklab, var(--muted) 60%, transparent);
+  white-space: nowrap;
+}
+.prose tbody tr:nth-child(even) td {
+  background: color-mix(in oklab, var(--muted) 25%, transparent);
+}
+
+/* Chuyển chương. Hai ô cạnh nhau, ô sau đẩy sang phải; màn hẹp thì
+   xếp dọc. */
+.doc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin: 3rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.doc-nav a {
+  flex: 1 1 12rem;
+  padding: .7rem .9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.doc-nav a:hover { border-color: var(--link); }
+.doc-next { text-align: right; margin-left: auto; }
+.doc-nav .doc-dir {
+  display: block;
+  font-size: .75rem;
+  color: var(--muted-foreground);
+}
+.doc-nav .doc-name {
+  display: block;
+  margin-top: .15rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
