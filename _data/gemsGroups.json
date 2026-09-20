@@ -1,7 +1,10 @@
 [
- { "key": "foundation", "en": "Foundation",  "vi": "Nền tảng" },
- { "key": "systems",    "en": "Systems",     "vi": "Hệ thống" },
- { "key": "energy",     "en": "Energy",      "vi": "Năng lượng" },
- { "key": "interfaces", "en": "Interfaces",  "vi": "Mối nối" },
- { "key": "status",     "en": "Status",      "vi": "Trạng thái" }
+ { "key": "overview",     "en": "Overview",     "vi": "Tổng quan" },
+ { "key": "hardware",     "en": "Hardware",     "vi": "Phần cứng" },
+ { "key": "software",     "en": "Software",     "vi": "Phần mềm" },
+ { "key": "controller",   "en": "Controller",   "vi": "Bộ điều khiển" },
+ { "key": "protocols",    "en": "Protocols",    "vi": "Giao thức" },
+ { "key": "build",        "en": "Build",        "vi": "Dựng" },
+ { "key": "implications", "en": "Implications", "vi": "Hệ quả" },
+ { "key": "resources",    "en": "Resources",    "vi": "Tài nguyên" }
 ]
