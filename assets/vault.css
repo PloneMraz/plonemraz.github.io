@@ -92,7 +92,88 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
 .topnav a:hover { color: var(--foreground); }
 .topnav a.on { color: var(--foreground); border-bottom-color: var(--link); }
 
-.burger { display: none; }
+/* --- Nút và bảng điều hướng của màn hẹp ----------------------
+   Màn rộng không dùng tới: nút ẩn, bảng ẩn, tấm che ẩn. */
+:root { --np-w: min(88vw, 340px); }
+
+/* Bảng ở trạng thái đóng nằm ngoài mép phải. Không cắt thì trang bị
+   tràn ngang và cuộn được sang phải — chữ trong bài bị đẩy khỏi màn.
+   Dùng clip chứ không hidden: hidden sẽ biến <html> thành khối cuộn
+   và phá position:fixed của thanh trên. */
+html { overflow-x: clip; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  height: 1.5px;
+  background: var(--foreground);
+  border-radius: 2px;
+}
+
+.navpanel {
+  display: none;
+  position: fixed;
+  top: var(--topbar-h);
+  right: 0;
+  bottom: 0;
+  width: var(--np-w);
+  z-index: 28;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* chừa đáy cho ô tìm kiếm ghim ở đó */
+  padding: .75rem .85rem 5rem;
+  background: var(--background);
+  border-left: 1px solid var(--border);
+  transform: translateX(100%);
+  transition: transform .25s ease;
+}
+html[data-nav="open"] .navpanel { transform: none; }
+
+/* Tấm che: làm mờ bài đang đọc và bắt cú chạm ra ngoài để đóng. */
+.np-scrim {
+  display: none;
+  position: fixed;
+  inset: var(--topbar-h) 0 0 0;
+  z-index: 27;
+  background: color-mix(in oklab, var(--background) 55%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+html[data-nav="open"] .np-scrim { opacity: 1; pointer-events: auto; }
+
+.np-tabs { list-style: none; margin: 0; padding: 0; }
+.np-tabs > li { border-bottom: 1px solid var(--border); }
+.np-tabs > li:last-child { border-bottom: 0; }
+.np-tabs > li > a {
+  display: block;
+  padding: .8rem .6rem;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color .15s ease;
+}
+.np-tabs > li > a:hover { color: var(--foreground); }
+.np-tabs > li.on > a { color: var(--foreground); font-weight: 600; }
+
+/* Danh sách của mục đang đứng, xổ ngay bên trong mục đó. Dùng lại
+   nguyên bộ .side-h / .side-list / .side-sub nên trông giống hệt
+   cột dọc trên màn rộng. */
+.np-list { padding: 0 0 .85rem; }
+.np-list .side-h:first-child { margin-top: .25rem; }
+.np-list .side-list a { padding-left: .65rem; }
 
 /* --- Thanh dọc ---------------------------------------------- */
 .sidebar {
@@ -150,47 +231,6 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   opacity: .8;
 }
 
-/* Đóng/mở. Mặc định mở ở mọi cỡ màn hình; trạng thái do thuộc tính
-   data-sidebar trên <html> quyết định và được đặt ngay trong <head>
-   nên không thấy chớp lúc tải. */
-.sidebar { transition: transform .25s ease; }
-html[data-sidebar="closed"] .sidebar { transform: translateX(-100%); }
-
-/* Nút tròn bám cạnh phải thanh dọc, chạy theo cạnh khi đóng/mở */
-.side-handle {
-  position: fixed;
-  top: 50%;
-  left: var(--sidebar-w);
-  transform: translate(-50%, -50%);
-  z-index: 35;
-  width: 24px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: calc(var(--radius) - 5px);
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--muted-foreground);
-  cursor: pointer;
-  transition: left .25s ease, transform .25s ease, opacity .2s ease,
-              color .15s ease, border-color .15s ease;
-}
-/* Mờ đi khi không dùng tới, rõ lại khi rê chuột / chạm / bấm.
-   Trên điện thoại chúng nằm đè lên chữ, mà bỏ hẳn thì không mở
-   được thanh bên nữa — nên làm nhạt thay vì giấu. */
-.side-handle { opacity: .32; }
-.side-handle:hover,
-.side-handle:focus-visible,
-.side-handle:active { opacity: 1; color: var(--foreground); border-color: var(--link); }
-.side-handle svg { transition: transform .25s ease; }
-
-/* Đóng: nút về sát mép trái, mũi tên quay ngược */
-html[data-sidebar="closed"] .side-handle {
-  left: 0;
-  transform: translate(.35rem, -50%);
-}
-html[data-sidebar="closed"] .side-handle svg { transform: rotate(180deg); }
-
 /* --- Khung nội dung ----------------------------------------- */
 .content {
   position: relative;
@@ -202,7 +242,6 @@ html[data-sidebar="closed"] .side-handle svg { transform: rotate(180deg); }
   transition: margin-left .25s ease;
 }
 body.no-sidebar .content,
-html[data-sidebar="closed"] .content { margin-left: 0; }
 
 /* Cột đọc: hẹp vừa tầm mắt, và căn GIỮA vùng còn lại thay vì dán
    sát mép trái. Khi thanh dọc mở, vùng còn lại là phần bên phải
@@ -395,14 +434,24 @@ html[data-sidebar="closed"] .content { margin-left: 0; }
   overscroll-behavior: contain;
   padding: 1.5rem 1rem;
 }
+/* Chừa chỗ cho ô tìm kiếm ghim đáy, nếu không mục cuối bị nó che. */
+.sidebar .sidebar-scroll { padding-bottom: 5rem; }
 
-/* --- Ô tìm kiếm: ghim đáy thanh dọc ------------------------- */
+/* --- Ô tìm kiếm ---------------------------------------------
+   Không còn nằm trong cột dọc: màn rộng thì nó tự ghim đáy cột dọc
+   bằng position:fixed, màn hẹp thì ghim đỉnh bảng điều hướng. Một
+   phần tử duy nhất nên không trùng id, không phải đồng bộ hai ô. */
 .search {
-  position: relative;
-  flex: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-w);
+  z-index: 21;
   padding: .75rem;
   border-top: 1px solid var(--border);
+  background: var(--background);
 }
+body.no-sidebar .search { display: none; }
 
 .search-box {
   display: flex;
@@ -517,54 +566,33 @@ html[data-ui-lang="vi"] .langtoggle:hover { border-color: var(--destructive); }
 /* Ngưỡng nâng từ 60rem lên 68rem: nav có 8 mục nên ở khoảng
    960-1080px nó chật và tràn. Cho hamburger xuất hiện sớm hơn. */
 @media (max-width: 68rem) {
-  .burger {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
-    padding: 0 8px;
-    border: 1px solid var(--border);
-    border-radius: calc(var(--radius) - 2px);
-    background: transparent;
-    cursor: pointer;
-  }
-  .burger span {
-    display: block;
-    height: 1.5px;
-    background: var(--foreground);
-    border-radius: 2px;
-  }
-
-  .topnav {
-    position: fixed;
-    top: var(--topbar-h);
-    left: 0;
-    right: 0;
-    z-index: 25;
-    flex-direction: column;
-    gap: 0;
-    padding: .5rem 1rem 1rem;
-    border-bottom: 1px solid var(--border);
-    background: color-mix(in oklab, var(--background) 96%, transparent);
-    backdrop-filter: blur(10px);
-    display: none;
-  }
-  .topnav.open { display: flex; }
-  .topnav a { padding: .7rem .25rem; border-bottom: 1px solid var(--border); }
-  .topnav a:last-child { border-bottom: 0; }
-  .topnav a.on { border-bottom-color: var(--border); color: var(--link); }
-
-  /* Màn hẹp: thanh dọc phủ LÊN nội dung thay vì đẩy nó sang phải,
-     vì không còn đủ bề ngang để chia đôi. */
-  :root { --sidebar-w: min(84vw, 288px); }
-  .sidebar { background: var(--background); }
+  /* Màn hẹp: thanh ngang và cột dọc biến mất, tất cả dồn vào bảng
+     điều hướng mở bằng MỘT nút ở góc trên bên phải. */
+  .topnav { display: none; }
+  .sidebar { display: none; }
   .content { margin-left: 0; }
+
+  .nav-toggle { display: inline-flex; }
+  .navpanel   { display: block; }
+
+  /* Ô tìm kiếm vẫn ghim đáy như ở màn rộng, chỉ đổi từ đáy cột dọc
+     sang đáy bảng điều hướng, và trượt cùng bảng. */
+  .search {
+    left: auto;
+    right: 0;
+    width: var(--np-w);
+    z-index: 29;
+    border-left: 1px solid var(--border);
+    background: var(--background);
+    transform: translateX(100%);
+    transition: transform .25s ease;
+  }
+  html[data-nav="open"] .search { transform: none; }
+  body.no-sidebar .search { display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sidebar, .content, .side-handle, .side-handle svg { transition: none; }
+  .sidebar, .content, .navpanel, .np-scrim { transition: none; }
 }
 
 /* ============================================================
