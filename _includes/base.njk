@@ -60,7 +60,7 @@
 {% include "orb.njk" %}
 
 {%- set tabs = [
-  { url: "/",                   key: "home",       en: ui.nav.home.en,   vi: ui.nav.home.vi },
+  { url: "/",                   key: "home",       en: ui.nav.home.en,   vi: ui.nav.home.vi,  solo: true },
   { url: "/vault/",             key: "blog",       en: "Blog",           vi: "Blog" },
   { url: "/vault/papers/",      key: "papers",     en: ui.nav.papers.en, vi: ui.nav.papers.vi },
   { url: "/vault/ps-gems/",     key: "ai-gen",     en: "P's Gems",       vi: "P's Gems" },
@@ -69,7 +69,7 @@
   { url: "/vault/gems/",        key: "gems",       en: "GEMs",           vi: "GEMs" },
   { url: "/vault/gems-space/",  key: "gems-space", en: "Gem's Space",    vi: "Gem's Space" },
   { url: "/vault/books/",       key: "books",      en: ui.nav.books.en,  vi: ui.nav.books.vi },
-  { url: "/vault/about/",       key: "about",      en: ui.nav.about.en,  vi: ui.nav.about.vi }
+  { url: "/vault/about/",       key: "about",      en: ui.nav.about.en,  vi: ui.nav.about.vi, solo: true }
 ] -%}
 
 <header class="topbar">
@@ -105,7 +105,7 @@
 {% if not hideSidebar %}
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-scroll">
-{% include "section-list.njk" %}
+{% set navSection = section %}{% include "section-list.njk" %}
   </div>
 </aside>
 {% endif %}
@@ -115,11 +115,26 @@
 <div class="navpanel" id="navpanel">
   <ul class="np-tabs">
     {%- for tb in tabs %}
-    <li class="{% if section == tb.key %}on{% endif %}">
-      <a href="{{ tb.url }}"><span data-l="en">{{ tb.en }}</span> <span data-l="vi">{{ tb.vi }}</span></a>
-      {%- if section == tb.key and not hideSidebar %}
-      <div class="np-list">
-{% include "section-list.njk" %}
+    {%- set isOn = (section == tb.key) %}
+    <li class="{% if isOn %}on{% endif %}">
+      {%- if tb.solo %}
+      <a class="np-link" href="{{ tb.url }}"><span data-l="en">{{ tb.en }}</span> <span data-l="vi">{{ tb.vi }}</span></a>
+      {%- else %}
+      <div class="np-row">
+        <a class="np-link" href="{{ tb.url }}"><span data-l="en">{{ tb.en }}</span> <span data-l="vi">{{ tb.vi }}</span></a>
+        {#  Bấm tên tab thì CHUYỂN TRANG; bấm mũi tên thì chỉ xổ danh
+            sách ngay tại chỗ, không rời trang đang đọc.  #}
+        <button class="np-expand" type="button" aria-controls="np-{{ tb.key }}"
+                aria-expanded="{% if isOn %}true{% else %}false{% endif %}"
+                aria-label="{{ tb.en }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+      </div>
+      <div class="np-list" id="np-{{ tb.key }}"{% if not isOn %} hidden{% endif %}>
+        {%- set navSection = tb.key %}{% include "section-list.njk" %}
       </div>
       {%- endif %}
     </li>
@@ -209,6 +224,22 @@
   }
 
   if (navScrim) navScrim.addEventListener('click', function () { setNav(false); });
+
+  /* Nút mũi tên: xổ danh sách của một tab ngay trong bảng, không rời
+     trang. Bấm vào TÊN tab thì vẫn chuyển trang như thường. */
+  if (navPanel) {
+    navPanel.addEventListener('click', function (e) {
+      var btn = e.target.closest('.np-expand');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var list = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!list) return;
+      var open = list.hasAttribute('hidden');
+      if (open) list.removeAttribute('hidden'); else list.setAttribute('hidden', '');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
 
   // Chọn một mục thì đóng bảng, nhường chỗ đọc
   if (navPanel) {

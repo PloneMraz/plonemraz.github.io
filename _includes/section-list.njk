@@ -1,6 +1,12 @@
-{#  Danh sách của MỤC ĐANG ĐỨNG. Dùng ở hai nơi: cột dọc trên màn
-    rộng, và bảng điều hướng trên màn hẹp. Một nguồn, hai chỗ hiện.  #}
-  {%- if section == 'papers' %}
+{#  Danh sách bài của MỘT mục bất kỳ — mục nào là do biến
+    `navSection` quyết định, đặt ngay trước khi include.
+    Dùng ở hai nơi: cột dọc màn rộng (navSection = mục đang
+    đứng) và bảng điều hướng màn hẹp (mỗi tab một lần).
+
+    Lớp `side-h--solo` đánh dấu tiêu đề của những mục chỉ có
+    MỘT nhóm: trong bảng nó bị ẩn đi vì tên tab ngay trên đó
+    đã nói đúng chừng ấy rồi.  #}
+  {%- if navSection == 'papers' %}
     {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview],
                ['applied', ui.label.applied], ['specs', ui.label.specs]] %}
     <h2 class="side-h">{{ t(g[1]) }}</h2>
@@ -17,8 +23,8 @@
     </ul>
     {%- endfor %}
 
-  {%- elif section == 'ai-gen' %}
-    <h2 class="side-h">Albums</h2>
+  {%- elif navSection == 'ai-gen' %}
+    <h2 class="side-h side-h--solo">Albums</h2>
     {%- if albums.length %}
     <ul class="side-list">
       {%- for a in albums %}
@@ -32,8 +38,8 @@
     </ul>
     {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
 
-  {%- elif section == 'fiction' %}
-    <h2 class="side-h">Fiction</h2>
+  {%- elif navSection == 'fiction' %}
+    <h2 class="side-h side-h--solo">Fiction</h2>
     {%- if collections.fiction.length %}
     <ul class="side-list">
       {%- for post in collections.fiction %}
@@ -47,8 +53,8 @@
     </ul>
     {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
 
-  {%- elif section == 'books' %}
-    <h2 class="side-h">{{ t(ui.nav.books) }}</h2>
+  {%- elif navSection == 'books' %}
+    <h2 class="side-h side-h--solo">{{ t(ui.nav.books) }}</h2>
     {%- if books.length %}
     <ul class="side-list">
       {%- for b in books %}
@@ -62,8 +68,8 @@
     </ul>
     {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
 
-  {%- elif section == 'code' %}
-    <h2 class="side-h">Repositories</h2>
+  {%- elif navSection == 'code' %}
+    <h2 class="side-h side-h--solo">Repositories</h2>
     {%- if collections.code.length %}
     <ul class="side-list">
       {%- for post in collections.code %}
@@ -77,7 +83,7 @@
     </ul>
     {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
 
-  {%- elif section == 'gems' %}
+  {%- elif navSection == 'gems' %}
     {#  Mục lục tài liệu: có nhóm, có tầng, có thứ tự — KHÔNG theo
         thời gian. Nhóm lấy từ _data/gemsGroups.json, nhóm rỗng thì
         không vẽ. Tầng do macro trong gems-tree.njk lo.  #}
@@ -101,12 +107,12 @@
     {%- endif %}
     {%- endfor %}
     {%- else %}
-    <h2 class="side-h">GEMs</h2>
+    <h2 class="side-h side-h--solo">GEMs</h2>
     <p class="side-empty">{{ t(ui.label.empty) }}</p>
     {%- endif %}
 
-  {%- elif section == 'gems-space' %}
-    <h2 class="side-h">Gem&#39;s Space</h2>
+  {%- elif navSection == 'gems-space' %}
+    <h2 class="side-h side-h--solo">Gem&#39;s Space</h2>
     {%- if collections["gems-space"].length %}
     <ul class="side-list">
       {%- for post in collections["gems-space"] %}
@@ -121,7 +127,7 @@
     {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
 
   {%- else %}
-    <h2 class="side-h">{{ t(ui.label.posts) }}</h2>
+    <h2 class="side-h side-h--solo">{{ t(ui.label.posts) }}</h2>
     <ul class="side-list">
       {%- for post in collections.posts %}
       <li>
