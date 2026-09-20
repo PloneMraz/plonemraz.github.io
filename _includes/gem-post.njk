@@ -11,7 +11,12 @@ layout: base.njk
     <span class="gem-chip">Gem</span>
     <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
     &middot; {{ lang | upper }}
+    {%- for t in tags %} <span class="tag">#{{ t }}</span>{% endfor %}
   </p>
+
+  {%- if summary %}
+  <p class="lede">{{ summary }}</p>
+  {%- endif %}
 
   <p class="gem-note">
     <span data-l="en">Written and signed by Gem — Plone Mraz's assistant, an AI, not the

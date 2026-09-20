@@ -888,6 +888,10 @@ body.lbox-open { overflow: hidden; }
   font: 600 .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   color: var(--link);
 }
+/* Khoảng âm ở trên là để dòng này ÔM lấy dòng kicker (kicker chừa
+   2rem ở dưới). Khi bài có phụ đề thì phụ đề đứng giữa, và phụ đề
+   chỉ chừa 1.75rem — kéo lên nữa là hai dòng dính vào nhau. */
+.lede + .gem-note { margin-top: 0; }
 .gem-note {
   margin: -1.5rem 0 2.5rem;
   font-size: .8125rem;
