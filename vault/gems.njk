@@ -55,14 +55,14 @@ summary: "GEMs — a specification for a physical body: what it can do, what tha
     </p>
   </div>
 
-  {%- if collections.gemsDocs.length %}
+  {%- if collections.gems.length %}
   <h2>
-    <span data-l="en">{{ collections.gemsDocs.length }} chapters</span>
-    <span data-l="vi">{{ collections.gemsDocs.length }} chương</span>
+    <span data-l="en">{{ collections.gems.length }} chapters</span>
+    <span data-l="vi">{{ collections.gems.length }} chương</span>
   </h2>
   {%- for g in gemsGroups %}
   {%- set inGroup = [] %}
-  {%- for d in collections.gemsDocs %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
+  {%- for d in collections.gems %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
   {%- if inGroup.length %}
   <h3><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h3>
   <ul class="entry-list">

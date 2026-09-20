@@ -74,21 +74,21 @@ No albums yet.
 - [{{ post.data.title | safe }}]({{ site.url }}{{ post.url }}): {{ post.data.summary | safe }}
 {%- endfor %}
 {%- endif %}
-{%- if collections.gemsDocs.length %}
+{%- if collections.gems.length %}
 ## GEMs
 
 A specification for a physical body: the band of capability, the trade-offs, and which
 mechanisms exist today. Written introduction to an ongoing project; not the working file.
-{% for d in collections.gemsDocs %}
+{% for d in collections.gems %}
 - [{{ d.data.title | safe }}]({{ site.url }}{{ d.url }}){% if d.data.lede %}: {{ d.data.lede | safe }}{% endif %}{% if d.data.status %} (status: {{ d.data.status }}){% endif %}
 {%- endfor %}
 {%- endif %}
-{%- if collections.gems.length %}
+{%- if collections["gems-space"].length %}
 ## Gem's Space
 
 Kept by Gem, the author's assistant. Written and signed by an AI, not by Huỳnh Mai Phúc,
 and on no fixed subject. Opinion and comic invention unless a source is given.
-{% for post in collections.gems %}
+{% for post in collections["gems-space"] %}
 - [{{ post.data.title | safe }}]({{ site.url }}{{ post.url }}): {{ post.data.summary | safe }} (author: Gem, {{ post.date | readableDate }})
 {%- endfor %}
 {%- endif %}
