@@ -155,25 +155,56 @@ html[data-nav="open"] .navpanel { transform: none; }
 html[data-nav="open"] .np-scrim { opacity: 1; pointer-events: auto; }
 
 .np-tabs { list-style: none; margin: 0; padding: 0; }
-.np-tabs > li { border-bottom: 1px solid var(--border); }
+.np-tabs > li {
+  border-bottom: 1px solid var(--border);
+  border-left: 2px solid transparent;
+}
 .np-tabs > li:last-child { border-bottom: 0; }
-.np-tabs > li > a {
+.np-tabs > li.on { border-left-color: var(--link); }
+
+/* Tên tab và nút xổ nằm cùng một hàng: bấm tên thì chuyển trang,
+   bấm mũi tên thì chỉ xổ danh sách ra tại chỗ. */
+.np-row { display: flex; align-items: center; }
+
+.np-link {
+  flex: 1;
   display: block;
   padding: .8rem .6rem;
-  color: var(--muted-foreground);
+  color: var(--foreground);
   text-decoration: none;
   font-size: 1rem;
   transition: color .15s ease;
 }
-.np-tabs > li > a:hover { color: var(--foreground); }
-.np-tabs > li.on > a { color: var(--foreground); font-weight: 600; }
+.np-tabs > li.on .np-link { color: var(--link); font-weight: 600; }
+.np-link:hover { color: var(--link); }
 
-/* Danh sách của mục đang đứng, xổ ngay bên trong mục đó. Dùng lại
-   nguyên bộ .side-h / .side-list / .side-sub nên trông giống hệt
-   cột dọc trên màn rộng. */
+.np-expand {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color .15s ease;
+}
+.np-expand:hover { color: var(--foreground); }
+.np-expand svg { transition: transform .2s ease; }
+.np-expand[aria-expanded="true"] svg { transform: rotate(180deg); }
+.np-expand[aria-expanded="true"] { color: var(--foreground); }
+
+/* Danh sách của một tab, xổ ngay bên trong tab đó. Dùng lại nguyên
+   bộ .side-h / .side-list / .side-sub nên trông giống cột dọc. */
 .np-list { padding: 0 0 .85rem; }
 .np-list .side-h:first-child { margin-top: .25rem; }
 .np-list .side-list a { padding-left: .65rem; }
+
+/* Mục nào chỉ có MỘT nhóm thì tiêu đề nhóm là thừa trong bảng: tên
+   tab ngay phía trên đã nói đúng chừng ấy. Cột dọc màn rộng thì vẫn
+   giữ, vì ở đó không có tên tab nào đứng trên nó. */
+.np-list .side-h--solo { display: none; }
 
 /* --- Thanh dọc ---------------------------------------------- */
 .sidebar {
@@ -190,13 +221,17 @@ html[data-nav="open"] .np-scrim { opacity: 1; pointer-events: auto; }
   backdrop-filter: blur(8px);
 }
 
+/* Tiêu đề nhóm. Sáng hơn các mục bên dưới — trước đây cả tiêu đề
+   lẫn mục đều dùng --muted-foreground nên cột dọc chỉ còn một sắc
+   xám. Phân tầng ở đây bằng ĐỘ SÁNG và CỠ CHỮ, không thêm màu mới. */
 .side-h {
   margin: 1.5rem .5rem .5rem;
   font-size: .6875rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--foreground);
+  opacity: .72;
 }
 .side-h:first-child { margin-top: 0; }
 
