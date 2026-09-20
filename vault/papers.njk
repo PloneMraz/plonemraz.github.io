@@ -60,24 +60,11 @@ summary: "Fourteen working papers and preprints by Huỳnh Mai Phúc, each depos
     </p>
   </div>
 
-  {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview],
-                ['applied', ui.label.applied], ['specs', ui.label.specs]] %}
-  <h2><span data-l="en">{{ g[1].en }}</span> <span data-l="vi">{{ g[1].vi }}</span></h2>
-  <ul class="entry-list">
-    {%- for p in papers %}{% if p.group == g[0] %}
-    <li>
-      <a class="e-title" href="/vault/papers/{{ p.slug }}/">
-        {%- if p.code %}<span class="e-code">{{ p.code }}</span> {% endif -%}
-        {{ p.title }}</a>
-      <span class="e-meta">
-        {{ p.pages }} <span data-l="en">pages</span><span data-l="vi">trang</span>
-        &middot; <a class="e-doi" href="https://doi.org/{{ p.doi }}">{{ p.doi }}</a>
-      </span>
-      <span class="e-sum">
-        <span data-l="en">Asks</span><span data-l="vi">Câu hỏi</span>: {{ p.asks }}.
-      </span>
-    </li>
-    {% endif %}{%- endfor %}
-  </ul>
-  {%- endfor %}
+  {#  Danh sách đầy đủ nằm ở phần điều hướng, nên không lặp lại ở
+      đây: trang giới thiệu để giới thiệu, không để làm mục lục —
+      và nó sẽ không phình ra theo số bài.  #}
+  <p class="note">
+    <span data-l="en">The full list is in the menu.</span>
+    <span data-l="vi">Danh sách đầy đủ nằm trong menu.</span>
+  </p>
 </article>

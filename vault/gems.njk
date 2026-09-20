@@ -73,32 +73,11 @@ summary: "GEMs — a physical body and everything that makes one: hardware, soft
     </p>
   </div>
 
-  {%- if collections.gems.length %}
-  <h2>
-    <span data-l="en">{{ collections.gems.length }} chapters</span>
-    <span data-l="vi">{{ collections.gems.length }} chương</span>
-  </h2>
-  {%- for g in gemsGroups %}
-  {%- set tops = [] %}
-  {%- for d in collections.gems %}{% if d.data.group == g.key and (d.data.docPath | gemsDepth) == 1 %}{% set tops = (tops.push(d), tops) %}{% endif %}{% endfor %}
-  {%- if tops.length %}
-  <h3><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h3>
-  <ul class="entry-list">
-    {%- for d in tops %}
-    <li>
-      <a class="e-title" href="{{ d.url }}">{{ d.data.title }}</a>
-      {%- if d.data.status %}<span class="e-meta">{{ d.data.status }}</span>{% endif %}
-      {%- if d.data.lede %}<span class="e-sum">{{ d.data.lede }}</span>{% endif %}
-      {{ docTree(collections.gems, d.data.docPath, "doc-kids", page.url) }}
-    </li>
-    {%- endfor %}
-  </ul>
-  {%- endif %}
-  {%- endfor %}
-  {%- else %}
-  <p>
-    <strong data-l="en">No chapters published yet.</strong>
-    <strong data-l="vi">Chưa có chương nào.</strong>
+  {#  Danh sách đầy đủ nằm ở phần điều hướng, nên không lặp lại ở
+      đây: trang giới thiệu để giới thiệu, không để làm mục lục —
+      và nó sẽ không phình ra theo số bài.  #}
+  <p class="note">
+    <span data-l="en">The full list is in the menu.</span>
+    <span data-l="vi">Danh sách đầy đủ nằm trong menu.</span>
   </p>
-  {%- endif %}
 </article>

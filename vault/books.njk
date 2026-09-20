@@ -30,16 +30,11 @@ summary: "Books kept for download. Each entry lists its format and size before y
     <p><strong>Chưa có gì ở đây.</strong></p>
   </div>
 
-  {%- if books.length %}
-  <h2><span data-l="en">Titles</span> <span data-l="vi">Danh mục</span></h2>
-  <ul class="entry-list">
-    {%- for b in books %}
-    <li>
-      <a class="e-title" href="/vault/books/{{ b.slug }}/">{{ b.title }}</a>
-      <span class="e-meta">{{ b.ext }} &middot; {{ b.size }}</span>
-      {%- if b.description %}<span class="e-sum">{{ b.description }}</span>{% endif %}
-    </li>
-    {%- endfor %}
-  </ul>
-  {%- endif %}
+  {#  Danh sách đầy đủ nằm ở phần điều hướng, nên không lặp lại ở
+      đây: trang giới thiệu để giới thiệu, không để làm mục lục —
+      và nó sẽ không phình ra theo số bài.  #}
+  <p class="note">
+    <span data-l="en">The full list is in the menu.</span>
+    <span data-l="vi">Danh sách đầy đủ nằm trong menu.</span>
+  </p>
 </article>

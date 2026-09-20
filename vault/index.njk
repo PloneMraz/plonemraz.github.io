@@ -48,23 +48,11 @@ summary: "Essays by Huỳnh Mai Phúc, written in Vietnamese — Observing reali
     </p>
   </div>
 
-  <h2>
-    <span data-l="en">{{ collections.posts.length }} essays</span>
-    <span data-l="vi">{{ collections.posts.length }} bài</span>
-  </h2>
-
-  <ul class="entry-list">
-    {%- for post in collections.posts %}
-    <li>
-      <a class="e-title" href="{{ post.url }}">{{ post.data.title }}</a>
-      <span class="e-meta">
-        {{ post.date | readableDate }} &middot; {{ post.data.lang | upper }}
-        {%- for t in post.data.tags %} <span class="e-tag">#{{ t }}</span>{% endfor %}
-      </span>
-      {%- if post.data.summary %}
-      <span class="e-sum">{{ post.data.summary }}</span>
-      {%- endif %}
-    </li>
-    {%- endfor %}
-  </ul>
+  {#  Danh sách đầy đủ nằm ở phần điều hướng, nên không lặp lại ở
+      đây: trang giới thiệu để giới thiệu, không để làm mục lục —
+      và nó sẽ không phình ra theo số bài.  #}
+  <p class="note">
+    <span data-l="en">The full list is in the menu.</span>
+    <span data-l="vi">Danh sách đầy đủ nằm trong menu.</span>
+  </p>
 </article>
