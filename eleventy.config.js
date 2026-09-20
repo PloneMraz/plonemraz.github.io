@@ -66,15 +66,18 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("code", (api) =>
     api.getFilteredByGlob("content/vibe-coding/*.md").sort((a, b) => b.date - a.date)
   );
-  // Gem's Space — bài do trợ lý viết và đứng tên, tách khỏi bài của tác giả
-  eleventyConfig.addCollection("gems", (api) =>
+  /* Gem's Space — bài do trợ lý viết và đứng tên, tách khỏi bài của
+     tác giả. Tên collection có gạch nối cho khớp với `section` và
+     với thư mục, nên trong template phải gọi bằng ngoặc vuông:
+     collections["gems-space"], chứ collections.gems-space sẽ bị
+     Nunjucks hiểu thành một phép trừ. */
+  eleventyConfig.addCollection("gems-space", (api) =>
     api.getFilteredByGlob("content/gems-space/*.md").sort((a, b) => b.date - a.date)
   );
 
   /* GEMs — tài liệu, KHÔNG phải bài viết: xếp theo trường `order`
-     trong front matter chứ không theo ngày. Tên collection phải là
-     gemsDocs vì "gems" đã thuộc về Gem's Space ở trên. */
-  eleventyConfig.addCollection("gemsDocs", (api) =>
+     trong front matter chứ không theo ngày. */
+  eleventyConfig.addCollection("gems", (api) =>
     api.getFilteredByGlob("content/gems/*.md")
        .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
   );

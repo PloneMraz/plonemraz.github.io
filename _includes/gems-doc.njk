@@ -18,8 +18,8 @@ layout: base.njk
 
   {{ content | safe }}
 
-  {%- set prev = collections.gemsDocs | getPreviousCollectionItem(page) %}
-  {%- set next = collections.gemsDocs | getNextCollectionItem(page) %}
+  {%- set prev = collections.gems | getPreviousCollectionItem(page) %}
+  {%- set next = collections.gems | getNextCollectionItem(page) %}
   {%- if prev or next %}
   <nav class="doc-nav">
     {%- if prev %}

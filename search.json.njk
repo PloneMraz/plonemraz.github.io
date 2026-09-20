@@ -25,7 +25,7 @@ eleventyExcludeFromCollections: true
 "url": {{ post.url | dump | safe }}
 },
 {%- endfor %}
-{%- for d in collections.gemsDocs %}
+{%- for d in collections.gems %}
 {
 "type": "gemsdoc",
 "title": {{ d.data.title | dump | safe }},
@@ -36,7 +36,7 @@ eleventyExcludeFromCollections: true
 "url": {{ d.url | dump | safe }}
 },
 {%- endfor %}
-{%- for post in collections.gems %}
+{%- for post in collections["gems-space"] %}
 {
 "type": "gem",
 "title": {{ post.data.title | dump | safe }},

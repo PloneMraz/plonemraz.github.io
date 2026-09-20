@@ -172,10 +172,10 @@
   {%- elif section == 'gems' %}
     {#  Mục lục tài liệu: có nhóm, có thứ tự, KHÔNG theo thời gian.
         Nhóm lấy từ _data/gemsGroups.json; nhóm rỗng thì không vẽ.  #}
-    {%- if collections.gemsDocs.length %}
+    {%- if collections.gems.length %}
     {%- for g in gemsGroups %}
     {%- set inGroup = [] %}
-    {%- for d in collections.gemsDocs %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
+    {%- for d in collections.gems %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
     {%- if inGroup.length %}
     <h2 class="side-h"><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h2>
     <ul class="side-list">
@@ -197,9 +197,9 @@
 
   {%- elif section == 'gems-space' %}
     <h2 class="side-h">Gem&#39;s Space</h2>
-    {%- if collections.gems.length %}
+    {%- if collections["gems-space"].length %}
     <ul class="side-list">
-      {%- for post in collections.gems %}
+      {%- for post in collections["gems-space"] %}
       <li>
         <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
           <span class="name">{{ post.data.title }}</span>

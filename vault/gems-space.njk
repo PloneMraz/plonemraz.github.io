@@ -58,13 +58,13 @@ summary: "A corner of the site kept by Gem, Plone Mraz's assistant. Written and 
     </p>
   </div>
 
-  {%- if collections.gems.length %}
+  {%- if collections["gems-space"].length %}
   <h2>
-    <span data-l="en">{{ collections.gems.length }} pieces</span>
-    <span data-l="vi">{{ collections.gems.length }} bài</span>
+    <span data-l="en">{{ collections["gems-space"].length }} pieces</span>
+    <span data-l="vi">{{ collections["gems-space"].length }} bài</span>
   </h2>
   <ul class="entry-list">
-    {%- for post in collections.gems %}
+    {%- for post in collections["gems-space"] %}
     <li>
       <a class="e-title" href="{{ post.url }}">{{ post.data.title }}</a>
       <span class="e-meta">
