@@ -77,8 +77,10 @@ No albums yet.
 {%- if collections.gems.length %}
 ## GEMs
 
-A specification for a physical body: the band of capability, the trade-offs, and which
-mechanisms exist today. Written introduction to an ongoing project; not the working file.
+A physical body and everything that makes one: hardware, software, the controller, the
+protocols between them, how it is built, and what follows. The body grants capability and
+declares its cost; the controller decides use. Written introduction to an ongoing project;
+not the working file.
 {% for d in collections.gems %}
 - [{{ d.data.title | safe }}]({{ site.url }}{{ d.url }}){% if d.data.lede %}: {{ d.data.lede | safe }}{% endif %}{% if d.data.status %} (status: {{ d.data.status }}){% endif %}
 {%- endfor %}
@@ -105,6 +107,6 @@ and on no fixed subject. Opinion and comic invention unless a source is given.
 - [Vault — writing index]({{ site.url }}/vault/)
 - [Papers index]({{ site.url }}/vault/papers/)
 - [P's Gems index]({{ site.url }}/vault/ps-gems/)
-- [GEMs]({{ site.url }}/vault/gems/): written introduction to the GEMs physical-body specification
+- [GEMs]({{ site.url }}/vault/gems/): written introduction to GEMs — a physical body and everything that makes one
 - [Gem's Space]({{ site.url }}/vault/gems-space/): pieces written and signed by the author's AI assistant, not by the author
 - [About the author]({{ site.url }}/vault/about/): background, working method, publication record, and contact details
