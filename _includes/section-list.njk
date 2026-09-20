@@ -1,0 +1,135 @@
+{#  Danh sách của MỤC ĐANG ĐỨNG. Dùng ở hai nơi: cột dọc trên màn
+    rộng, và bảng điều hướng trên màn hẹp. Một nguồn, hai chỗ hiện.  #}
+  {%- if section == 'papers' %}
+    {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview],
+               ['applied', ui.label.applied], ['specs', ui.label.specs]] %}
+    <h2 class="side-h">{{ t(g[1]) }}</h2>
+    <ul class="side-list">
+      {%- for p in papers %}{% if p.group == g[0] %}
+      <li>
+        <a href="/vault/papers/{{ p.slug }}/"
+           class="{% if p.slug == paperSlug %}on{% endif %}">
+          {%- if p.code %}<span class="code">{{ p.code }}</span>{% endif %}
+          <span class="name">{{ p.title }}</span>
+        </a>
+      </li>
+      {% endif %}{%- endfor %}
+    </ul>
+    {%- endfor %}
+
+  {%- elif section == 'ai-gen' %}
+    <h2 class="side-h">Albums</h2>
+    {%- if albums.length %}
+    <ul class="side-list">
+      {%- for a in albums %}
+      <li>
+        <a href="/vault/ps-gems/{{ a.slug }}/" class="{% if a.slug == albumSlug %}on{% endif %}">
+          <span class="name">{{ a.title }}</span>
+          <span class="meta">{{ a.count }} <span data-l="en">images</span> <span data-l="vi">ảnh</span></span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'fiction' %}
+    <h2 class="side-h">Fiction</h2>
+    {%- if collections.fiction.length %}
+    <ul class="side-list">
+      {%- for post in collections.fiction %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'books' %}
+    <h2 class="side-h">{{ t(ui.nav.books) }}</h2>
+    {%- if books.length %}
+    <ul class="side-list">
+      {%- for b in books %}
+      <li>
+        <a href="/vault/books/{{ b.slug }}/" class="{% if b.slug == bookSlug %}on{% endif %}">
+          <span class="name">{{ b.title }}</span>
+          <span class="meta">{{ b.ext }} · {{ b.size }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'code' %}
+    <h2 class="side-h">Repositories</h2>
+    {%- if collections.code.length %}
+    <ul class="side-list">
+      {%- for post in collections.code %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          {%- if post.data.language %}<span class="meta">{{ post.data.language }}</span>{% endif %}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'gems' %}
+    {#  Mục lục tài liệu: có nhóm, có tầng, có thứ tự — KHÔNG theo
+        thời gian. Nhóm lấy từ _data/gemsGroups.json, nhóm rỗng thì
+        không vẽ. Tầng do macro trong gems-tree.njk lo.  #}
+    {%- if collections.gems.length %}
+    {%- for g in gemsGroups %}
+    {%- set tops = [] %}
+    {%- for d in collections.gems %}{% if d.data.group == g.key and (d.data.docPath | gemsDepth) == 1 %}{% set tops = (tops.push(d), tops) %}{% endif %}{% endfor %}
+    {%- if tops.length %}
+    <h2 class="side-h"><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h2>
+    <ul class="side-list">
+      {%- for d in tops %}
+      <li>
+        <a href="{{ d.url }}" class="{% if d.url == page.url %}on{% endif %}">
+          <span class="name">{{ d.data.title }}</span>
+          {%- if d.data.status %}<span class="meta">{{ d.data.status }}</span>{% endif %}
+        </a>
+        {{ docTree(collections.gems, d.data.docPath, "side-sub", page.url) }}
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    {%- endfor %}
+    {%- else %}
+    <h2 class="side-h">GEMs</h2>
+    <p class="side-empty">{{ t(ui.label.empty) }}</p>
+    {%- endif %}
+
+  {%- elif section == 'gems-space' %}
+    <h2 class="side-h">Gem&#39;s Space</h2>
+    {%- if collections["gems-space"].length %}
+    <ul class="side-list">
+      {%- for post in collections["gems-space"] %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- else %}
+    <h2 class="side-h">{{ t(ui.label.posts) }}</h2>
+    <ul class="side-list">
+      {%- for post in collections.posts %}
+      <li>
+        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
+          <span class="name">{{ post.data.title }}</span>
+          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  {%- endif %}

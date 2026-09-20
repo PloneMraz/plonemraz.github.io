@@ -4,7 +4,7 @@
 {%- macro t(s) -%}<span data-l="en">{{ s.en }}</span> <span data-l="vi">{{ s.vi }}</span>{%- endmacro -%}
 {%- from "gems-tree.njk" import docTree -%}
 <!DOCTYPE html>
-<html lang="{{ lang or 'en' }}" data-ui-lang="en" data-sidebar="open">
+<html lang="{{ lang or 'en' }}" data-ui-lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +46,6 @@
   }
   r.setAttribute('data-ui-lang', l);
   r.lang = l;   // để trình đọc màn hình và trình duyệt biết đúng ngôn ngữ đang hiện
-  r.setAttribute('data-sidebar', get('sidebar') === 'closed' ? 'closed' : 'open');
 })();
 </script>
 {#  Umami — đo lượt xem và sự kiện. Không dùng cookie nên không
@@ -60,198 +59,90 @@
 
 {% include "orb.njk" %}
 
+{%- set tabs = [
+  { url: "/",                   key: "home",       en: ui.nav.home.en,   vi: ui.nav.home.vi },
+  { url: "/vault/",             key: "blog",       en: "Blog",           vi: "Blog" },
+  { url: "/vault/papers/",      key: "papers",     en: ui.nav.papers.en, vi: ui.nav.papers.vi },
+  { url: "/vault/ps-gems/",     key: "ai-gen",     en: "P's Gems",       vi: "P's Gems" },
+  { url: "/vault/fiction/",     key: "fiction",    en: "Fiction",        vi: "Fiction" },
+  { url: "/vault/vibe-coding/", key: "code",       en: "Vibe Coding",    vi: "Vibe Coding" },
+  { url: "/vault/gems/",        key: "gems",       en: "GEMs",           vi: "GEMs" },
+  { url: "/vault/gems-space/",  key: "gems-space", en: "Gem's Space",    vi: "Gem's Space" },
+  { url: "/vault/books/",       key: "books",      en: ui.nav.books.en,  vi: ui.nav.books.vi },
+  { url: "/vault/about/",       key: "about",      en: ui.nav.about.en,  vi: ui.nav.about.vi }
+] -%}
+
 <header class="topbar">
   <a class="brand" href="/">
     <img src="/visual/plonemraz-64.webp" alt="" width="28" height="28">
     <span>Plone Mraz</span>
   </a>
 
+  {#  Thanh ngang cho màn rộng. Màn hẹp thì nó ẩn đi và mười mục này
+      chuyển vào bảng điều hướng bên dưới.  #}
+  <nav class="topnav">
+    {%- for tb in tabs %}
+    <a href="{{ tb.url }}" class="{% if section == tb.key %}on{% endif %}"><span data-l="en">{{ tb.en }}</span> <span data-l="vi">{{ tb.vi }}</span></a>
+    {%- endfor %}
+  </nav>
+
   <button class="langtoggle" type="button" aria-label="Switch interface language">
     <span data-l="en">EN</span> <span data-l="vi">VIE</span>
   </button>
 
-  <button class="burger" type="button" aria-expanded="false" aria-controls="topnav"
-          aria-label="Menu">
+  {#  MỘT nút duy nhất cho màn hẹp, góc trên bên phải. Nó mở bảng
+      chứa cả mười mục lẫn danh sách của mục đang đứng — trước đây
+      là hai nút mở hai thanh riêng.  #}
+  <button class="nav-toggle" id="nav-toggle" type="button"
+          aria-expanded="false" aria-controls="navpanel" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-
-  <nav class="topnav" id="topnav">
-    <a href="/">{{ t(ui.nav.home) }}</a>
-    <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">Blog</a>
-    <a href="/vault/papers/"  class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
-    {#  Năm mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
-    <a href="/vault/ps-gems/"     class="{% if section == 'ai-gen' %}on{% endif %}">P&#39;s Gems</a>
-    <a href="/vault/fiction/"     class="{% if section == 'fiction' %}on{% endif %}">Fiction</a>
-    <a href="/vault/vibe-coding/" class="{% if section == 'code' %}on{% endif %}">Vibe Coding</a>
-    <a href="/vault/gems/"        class="{% if section == 'gems' %}on{% endif %}">GEMs</a>
-    <a href="/vault/gems-space/"  class="{% if section == 'gems-space' %}on{% endif %}">Gem&#39;s Space</a>
-    <a href="/vault/books/"   class="{% if section == 'books' %}on{% endif %}">{{ t(ui.nav.books) }}</a>
-    <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
-  </nav>
 </header>
 
+{#  Cột dọc — chỉ có trên màn rộng, và luôn hiện. Không còn nút
+    đóng/mở: màn rộng thì thừa chỗ, màn hẹp thì nó đã nằm trong
+    bảng điều hướng rồi.  #}
 {% if not hideSidebar %}
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-scroll">
-  {%- if section == 'papers' %}
-    {%- for g in [['programme', ui.label.programme], ['overview', ui.label.overview],
-               ['applied', ui.label.applied], ['specs', ui.label.specs]] %}
-    <h2 class="side-h">{{ t(g[1]) }}</h2>
-    <ul class="side-list">
-      {%- for p in papers %}{% if p.group == g[0] %}
-      <li>
-        <a href="/vault/papers/{{ p.slug }}/"
-           class="{% if p.slug == paperSlug %}on{% endif %}">
-          {%- if p.code %}<span class="code">{{ p.code }}</span>{% endif %}
-          <span class="name">{{ p.title }}</span>
-        </a>
-      </li>
-      {% endif %}{%- endfor %}
-    </ul>
-    {%- endfor %}
-
-  {%- elif section == 'ai-gen' %}
-    <h2 class="side-h">Albums</h2>
-    {%- if albums.length %}
-    <ul class="side-list">
-      {%- for a in albums %}
-      <li>
-        <a href="/vault/ps-gems/{{ a.slug }}/" class="{% if a.slug == albumSlug %}on{% endif %}">
-          <span class="name">{{ a.title }}</span>
-          <span class="meta">{{ a.count }} <span data-l="en">images</span> <span data-l="vi">ảnh</span></span>
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
-
-  {%- elif section == 'fiction' %}
-    <h2 class="side-h">Fiction</h2>
-    {%- if collections.fiction.length %}
-    <ul class="side-list">
-      {%- for post in collections.fiction %}
-      <li>
-        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
-          <span class="name">{{ post.data.title }}</span>
-          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
-
-  {%- elif section == 'books' %}
-    <h2 class="side-h">{{ t(ui.nav.books) }}</h2>
-    {%- if books.length %}
-    <ul class="side-list">
-      {%- for b in books %}
-      <li>
-        <a href="/vault/books/{{ b.slug }}/" class="{% if b.slug == bookSlug %}on{% endif %}">
-          <span class="name">{{ b.title }}</span>
-          <span class="meta">{{ b.ext }} · {{ b.size }}</span>
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
-
-  {%- elif section == 'code' %}
-    <h2 class="side-h">Repositories</h2>
-    {%- if collections.code.length %}
-    <ul class="side-list">
-      {%- for post in collections.code %}
-      <li>
-        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
-          <span class="name">{{ post.data.title }}</span>
-          {%- if post.data.language %}<span class="meta">{{ post.data.language }}</span>{% endif %}
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
-
-  {%- elif section == 'gems' %}
-    {#  Mục lục tài liệu: có nhóm, có tầng, có thứ tự — KHÔNG theo
-        thời gian. Nhóm lấy từ _data/gemsGroups.json, nhóm rỗng thì
-        không vẽ. Tầng do macro trong gems-tree.njk lo.  #}
-    {%- if collections.gems.length %}
-    {%- for g in gemsGroups %}
-    {%- set tops = [] %}
-    {%- for d in collections.gems %}{% if d.data.group == g.key and (d.data.docPath | gemsDepth) == 1 %}{% set tops = (tops.push(d), tops) %}{% endif %}{% endfor %}
-    {%- if tops.length %}
-    <h2 class="side-h"><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h2>
-    <ul class="side-list">
-      {%- for d in tops %}
-      <li>
-        <a href="{{ d.url }}" class="{% if d.url == page.url %}on{% endif %}">
-          <span class="name">{{ d.data.title }}</span>
-          {%- if d.data.status %}<span class="meta">{{ d.data.status }}</span>{% endif %}
-        </a>
-        {{ docTree(collections.gems, d.data.docPath, "side-sub", page.url) }}
-      </li>
-      {%- endfor %}
-    </ul>
-    {%- endif %}
-    {%- endfor %}
-    {%- else %}
-    <h2 class="side-h">GEMs</h2>
-    <p class="side-empty">{{ t(ui.label.empty) }}</p>
-    {%- endif %}
-
-  {%- elif section == 'gems-space' %}
-    <h2 class="side-h">Gem&#39;s Space</h2>
-    {%- if collections["gems-space"].length %}
-    <ul class="side-list">
-      {%- for post in collections["gems-space"] %}
-      <li>
-        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
-          <span class="name">{{ post.data.title }}</span>
-          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-    {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
-
-  {%- else %}
-    <h2 class="side-h">{{ t(ui.label.posts) }}</h2>
-    <ul class="side-list">
-      {%- for post in collections.posts %}
-      <li>
-        <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
-          <span class="name">{{ post.data.title }}</span>
-          <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-  {%- endif %}
-  </div>
-
-  <div class="search" id="search">
-    <div class="search-panel" id="search-panel" hidden></div>
-    <div class="search-box">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-        <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
-      </svg>
-      <input type="search" id="search-input" autocomplete="off" spellcheck="false"
-             placeholder="Search" data-ph-en="Search" data-ph-vi="Tìm kiếm"
-             aria-label="Search">
-    </div>
+{% include "section-list.njk" %}
   </div>
 </aside>
-
-{#  Nút tròn bám cạnh phải của thanh dọc, chạy theo cạnh đó khi
-    đóng/mở. Đóng thì nằm sát mép trái trình duyệt.  #}
-<button class="side-handle" type="button" id="side-handle"
-        aria-controls="sidebar" aria-expanded="true" aria-label="Toggle list">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M15 5l-7 7 7 7"/>
-  </svg>
-</button>
 {% endif %}
+
+{#  Bảng điều hướng của màn hẹp. Mười mục; mục đang đứng xổ sẵn
+    danh sách bên trong nó.  #}
+<div class="navpanel" id="navpanel">
+  <ul class="np-tabs">
+    {%- for tb in tabs %}
+    <li class="{% if section == tb.key %}on{% endif %}">
+      <a href="{{ tb.url }}"><span data-l="en">{{ tb.en }}</span> <span data-l="vi">{{ tb.vi }}</span></a>
+      {%- if section == tb.key and not hideSidebar %}
+      <div class="np-list">
+{% include "section-list.njk" %}
+      </div>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
+<div class="np-scrim" id="np-scrim"></div>
+
+{#  Ô tìm kiếm đứng riêng, KHÔNG nằm trong cột dọc nữa: màn rộng thì
+    nó ghim đáy cột dọc như cũ, màn hẹp thì nó ghim đỉnh bảng điều
+    hướng. Một phần tử, hai chỗ đứng — tránh trùng id.  #}
+<div class="search" id="search">
+  <div class="search-panel" id="search-panel" hidden></div>
+  <div class="search-box">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+    </svg>
+    <input type="search" id="search-input" autocomplete="off" spellcheck="false"
+           placeholder="Search" data-ph-en="Search" data-ph-vi="Tìm kiếm"
+           aria-label="Search">
+  </div>
+</div>
 
 <main class="content">
   {{ content | safe }}
@@ -287,74 +178,55 @@
     save('ui-lang', next);
   });
 
-  /* ---------- Hai thanh điều hướng ----------
-     Quy tắc: mở cái này thì đóng cái kia, và bấm ra ngoài thì đóng
-     cả hai. Thanh dọc chỉ tự đóng khi màn HẸP — ở màn rộng nó là
-     một cột của bố cục chứ không phải lớp đè, đóng nó mỗi lần bấm
-     vào bài đọc sẽ làm cả trang nhảy qua nhảy lại. */
-  var narrow = window.matchMedia('(max-width: 68rem)');
-  var burger = document.querySelector('.burger');
-  var topnav = document.querySelector('.topnav');
-  var handle = document.getElementById('side-handle');
+  /* ---------- Một bảng điều hướng duy nhất ----------
+     Trước đây có hai nút mở hai thanh: nút hamburger mở thanh ngang,
+     nút tròn mở thanh dọc. Trên màn rộng thì hợp lý, trên điện thoại
+     thì thành hai thứ làm gần như cùng một việc.
 
-  function setTopnav(open) {
-    if (!topnav) return;
-    topnav.classList.toggle('open', open);
-    if (burger) burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+     Nay: màn rộng KHÔNG có nút nào — thanh ngang và cột dọc đều luôn
+     hiện. Màn hẹp có đúng một nút ở góc trên bên phải, mở một bảng
+     chứa cả mười mục lẫn danh sách của mục đang đứng. */
+  var navToggle = document.getElementById('nav-toggle');
+  var navPanel  = document.getElementById('navpanel');
+  var navScrim  = document.getElementById('np-scrim');
+
+  function setNav(open) {
+    root.setAttribute('data-nav', open ? 'open' : 'closed');
+    if (navToggle) navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
-  function topnavOpen() { return topnav && topnav.classList.contains('open'); }
+  function navOpen() { return root.getAttribute('data-nav') === 'open'; }
 
-  function setSidebar(state) {
-    root.setAttribute('data-sidebar', state);
-    save('sidebar', state);
-    if (handle) handle.setAttribute('aria-expanded', state === 'open' ? 'true' : 'false');
-  }
-  function sidebarOpen() { return root.getAttribute('data-sidebar') !== 'closed'; }
+  /* KHÔNG lưu trạng thái này. Bảng là một lớp đè tạm, mở ra để chọn
+     rồi đóng — nhớ nó qua các lần tải chỉ làm người đọc mở trang lên
+     là thấy bảng chắn mất bài. */
+  setNav(false);
 
-  if (burger) {
-    burger.addEventListener('click', function (e) {
+  if (navToggle) {
+    navToggle.addEventListener('click', function (e) {
       e.stopPropagation();
-      var open = !topnavOpen();
-      setTopnav(open);
-      if (open && narrow.matches) setSidebar('closed');
+      setNav(!navOpen());
     });
   }
 
-  if (handle) {
-    setSidebar(sidebarOpen() ? 'open' : 'closed');
-    handle.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var next = sidebarOpen() ? 'closed' : 'open';
-      setSidebar(next);
-      if (next === 'open') setTopnav(false);
+  if (navScrim) navScrim.addEventListener('click', function () { setNav(false); });
+
+  // Chọn một mục thì đóng bảng, nhường chỗ đọc
+  if (navPanel) {
+    navPanel.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setNav(false);
     });
   }
 
-  // Bấm một mục trong danh sách thì đóng thanh dọc, nhường chỗ đọc
-  var list = document.querySelector('.sidebar .sidebar-scroll');
-  if (list) {
-    list.addEventListener('click', function (e) {
-      if (e.target.closest('a')) setSidebar('closed');
-    });
-  }
-
-  // Bấm ra bất kỳ chỗ nào khác — kể cả chỗ trống — thì đóng
+  // Bấm ra ngoài bảng thì đóng
   document.addEventListener('click', function (e) {
-    var sidebar = document.getElementById('sidebar');
-    if (topnavOpen() && !e.target.closest('.topnav') && !e.target.closest('.burger')) {
-      setTopnav(false);
-    }
-    if (narrow.matches && sidebarOpen() && sidebar &&
-        !e.target.closest('#sidebar') && !e.target.closest('.side-handle')) {
-      setSidebar('closed');
+    if (navOpen() && !e.target.closest('#navpanel') && !e.target.closest('#nav-toggle')) {
+      setNav(false);
     }
   });
 
-  // Esc đóng cả hai
+  // Esc đóng bảng
   document.addEventListener('keydown', function (e) {
-    if (e.key !== 'Escape') return;
-    if (topnavOpen()) setTopnav(false);
-    if (narrow.matches && sidebarOpen()) setSidebar('closed');
+    if (e.key === 'Escape' && navOpen()) setNav(false);
   });
 
   /* ---------- Nút phản hồi ----------
