@@ -248,12 +248,27 @@
     });
   }
 
-  // Bấm ra ngoài bảng thì đóng
+  /* Bấm ra ngoài bảng thì đóng — NHƯNG ô tìm kiếm không tính là
+     "ngoài". Nó nằm ngoài #navpanel trong cây DOM (vì màn rộng nó
+     phải ghim vào cột dọc), mà trên màn hẹp nó lại là một phần của
+     cùng một bảng. Không trừ nó ra thì chạm vào ô để gõ là bảng
+     đóng, ô trượt đi mất, người dùng gõ mà không thấy mình gõ gì. */
   document.addEventListener('click', function (e) {
-    if (navOpen() && !e.target.closest('#navpanel') && !e.target.closest('#nav-toggle')) {
+    if (navOpen() &&
+        !e.target.closest('#navpanel') &&
+        !e.target.closest('#nav-toggle') &&
+        !e.target.closest('#search')) {
       setNav(false);
     }
   });
+
+  // Chọn một kết quả tìm kiếm thì đóng bảng, giống như chọn trong danh sách
+  var searchBox = document.getElementById('search');
+  if (searchBox) {
+    searchBox.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setNav(false);
+    });
+  }
 
   // Esc đóng bảng
   document.addEventListener('keydown', function (e) {
