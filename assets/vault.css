@@ -396,8 +396,10 @@ body.no-sidebar .content,
   color: var(--link);
 }
 
-/* Câu hỏi bài đó trả lời — đọc như phụ đề, không phải câu cụt */
-.paper .lede {
+/* Phụ đề: tóm tắt một câu đứng ngay dưới tiêu đề. Trước đây chỉ
+   trang tài liệu có, nay bài blog và fiction cũng dùng — nên định
+   nghĩa một lần cho cả trang thay vì mỗi chỗ một kiểu. */
+.prose .lede {
   margin: 0 0 1.75rem;
   font-size: 1.0625rem;
   color: var(--muted-foreground);
@@ -1029,3 +1031,18 @@ body.lbox-open { overflow: hidden; }
   font-size: .9375rem;
   color: var(--muted-foreground);
 }
+
+/* --- Dòng meta dưới tiêu đề bài ------------------------------
+   Mang những thứ trước đây nằm ở trang giới thiệu của mục: thẻ với
+   bài viết, DOI với tài liệu. */
+.prose .kicker .tag {
+  color: var(--link);
+  white-space: nowrap;
+}
+.prose .kicker .e-doi {
+  font: inherit;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.prose .kicker .e-doi:hover { color: var(--link); border-bottom-color: var(--link); }

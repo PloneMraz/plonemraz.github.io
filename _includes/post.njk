@@ -3,10 +3,19 @@ layout: base.njk
 ---
 <article class="prose">
   <h1>{{ title }}</h1>
+
+  {#  Khối này mang những thứ trước đây nằm ở trang giới thiệu của
+      mục: thẻ và tóm tắt. Trang giới thiệu nay chỉ giới thiệu, nên
+      chúng chuyển về đúng bài mà chúng mô tả.  #}
   <p class="kicker">
     <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
     &middot; {{ lang | upper }}
+    {%- for t in tags %} <span class="tag">#{{ t }}</span>{% endfor %}
   </p>
+
+  {%- if summary %}
+  <p class="lede">{{ summary }}</p>
+  {%- endif %}
 
   {% include "vote.njk" %}
 
