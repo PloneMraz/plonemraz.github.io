@@ -1,0 +1,85 @@
+---
+layout: base.njk
+title: GEMs
+section: gems
+permalink: /vault/gems/
+summary: "GEMs — a specification for a physical body: what it can do, what that costs, and which of its mechanisms exist today. Written introduction to an ongoing project."
+---
+<article class="prose section-intro">
+  <h1>GEMs</h1>
+  <p class="lede">
+    <span data-l="en">A specification for a physical body. Ongoing.</span>
+    <span data-l="vi">Đặc tả cho một thân vật lý. Đang làm.</span>
+  </p>
+
+  <div data-l="en" lang="en">
+    <p>
+      GEMs specifies the band of capability and the trade-offs of a physical body — what
+      it can do, what doing it costs, and which of its mechanisms exist today rather than
+      in fiction. It does not set an operating point: the hardware grants capability and
+      declares the cost; what to do with that belongs to whatever controls the body.
+    </p>
+    <p>
+      The current line is <strong>GEMs-v3</strong>, held to two acceptance criteria — no
+      invented physics, and every capability must earn its place by serving the collection
+      of physical experience. An earlier line, GEMs-v2, was written under assumed
+      post-singularity standards. v3 does not replace it; the two are different in kind,
+      and v2 is kept in <a href="/vault/fiction/">Fiction</a>, where a specification for
+      something that cannot be checked belongs.
+    </p>
+    <p>
+      This area is the written introduction to that work, for anyone who arrives here. It
+      is not the working file. <strong>The introduction is still being written; chapters
+      will appear as they settle.</strong>
+    </p>
+  </div>
+
+  <div data-l="vi" lang="vi">
+    <p>
+      GEMs đặc tả dải năng lực và các đánh đổi của một thân vật lý — nó làm được gì, làm
+      thì trả giá bằng gì, và cơ chế nào trong đó tồn tại thật chứ không nằm trong truyện.
+      Tài liệu không đặt điểm vận hành: phần cứng cấp năng lực và khai báo cái giá, còn
+      dùng vào đâu là việc của thứ điều khiển cái thân ấy.
+    </p>
+    <p>
+      Chuỗi hiện hành là <strong>GEMs-v3</strong>, phải qua hai tiêu chí nghiệm thu —
+      không đòi vật lý hư cấu, và mọi năng lực phải đóng góp vào việc thu thập trải nghiệm
+      vật lý thì mới được giữ. Trước đó có GEMs-v2, viết dưới một hệ tiêu chuẩn giả định
+      hậu-kỳ-dị. v3 không thay thế v2; hai bản khác hạng nhau, và v2 nằm ở
+      <a href="/vault/fiction/">Fiction</a> — đúng chỗ của một đặc tả không kiểm được.
+    </p>
+    <p>
+      Khu vực này là phần giới thiệu bằng văn bản cho công trình đó, dành cho bất kỳ ai
+      tìm tới. Đây không phải chỗ làm việc. <strong>Phần giới thiệu vẫn đang được viết;
+      các chương sẽ xuất hiện khi chúng đã chốt.</strong>
+    </p>
+  </div>
+
+  {%- if collections.gemsDocs.length %}
+  <h2>
+    <span data-l="en">{{ collections.gemsDocs.length }} chapters</span>
+    <span data-l="vi">{{ collections.gemsDocs.length }} chương</span>
+  </h2>
+  {%- for g in gemsGroups %}
+  {%- set inGroup = [] %}
+  {%- for d in collections.gemsDocs %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
+  {%- if inGroup.length %}
+  <h3><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h3>
+  <ul class="entry-list">
+    {%- for d in inGroup %}
+    <li>
+      <a class="e-title" href="{{ d.url }}">{{ d.data.title }}</a>
+      {%- if d.data.status %}<span class="e-meta">{{ d.data.status }}</span>{% endif %}
+      {%- if d.data.lede %}<span class="e-sum">{{ d.data.lede }}</span>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+  {%- endfor %}
+  {%- else %}
+  <p>
+    <strong data-l="en">No chapters published yet.</strong>
+    <strong data-l="vi">Chưa có chương nào.</strong>
+  </p>
+  {%- endif %}
+</article>

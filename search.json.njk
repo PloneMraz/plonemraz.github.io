@@ -25,6 +25,17 @@ eleventyExcludeFromCollections: true
 "url": {{ post.url | dump | safe }}
 },
 {%- endfor %}
+{%- for d in collections.gemsDocs %}
+{
+"type": "gemsdoc",
+"title": {{ d.data.title | dump | safe }},
+"summary": {{ (d.data.lede or "") | dump | safe }},
+"tags": [],
+"lang": {{ (d.data.lang or "") | dump | safe }},
+"date": {{ (d.data.status or "") | dump | safe }},
+"url": {{ d.url | dump | safe }}
+},
+{%- endfor %}
 {%- for post in collections.gems %}
 {
 "type": "gem",

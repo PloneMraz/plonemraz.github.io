@@ -78,10 +78,11 @@
     <a href="/">{{ t(ui.nav.home) }}</a>
     <a href="/vault/"         class="{% if section == 'blog' %}on{% endif %}">Blog</a>
     <a href="/vault/papers/"  class="{% if section == 'papers' %}on{% endif %}">{{ t(ui.nav.papers) }}</a>
-    {#  Bốn mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
+    {#  Năm mục dưới dùng một tên chung cho cả hai ngôn ngữ.  #}
     <a href="/vault/ps-gems/"     class="{% if section == 'ai-gen' %}on{% endif %}">P&#39;s Gems</a>
     <a href="/vault/fiction/"     class="{% if section == 'fiction' %}on{% endif %}">Fiction</a>
     <a href="/vault/vibe-coding/" class="{% if section == 'code' %}on{% endif %}">Vibe Coding</a>
+    <a href="/vault/gems/"        class="{% if section == 'gems' %}on{% endif %}">GEMs</a>
     <a href="/vault/gems-space/"  class="{% if section == 'gems-space' %}on{% endif %}">Gem&#39;s Space</a>
     <a href="/vault/books/"   class="{% if section == 'books' %}on{% endif %}">{{ t(ui.nav.books) }}</a>
     <a href="/vault/about/"   class="{% if section == 'about' %}on{% endif %}">{{ t(ui.nav.about) }}</a>
@@ -167,6 +168,32 @@
       {%- endfor %}
     </ul>
     {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
+
+  {%- elif section == 'gems' %}
+    {#  Mục lục tài liệu: có nhóm, có thứ tự, KHÔNG theo thời gian.
+        Nhóm lấy từ _data/gemsGroups.json; nhóm rỗng thì không vẽ.  #}
+    {%- if collections.gemsDocs.length %}
+    {%- for g in gemsGroups %}
+    {%- set inGroup = [] %}
+    {%- for d in collections.gemsDocs %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
+    {%- if inGroup.length %}
+    <h2 class="side-h"><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h2>
+    <ul class="side-list">
+      {%- for d in inGroup %}
+      <li>
+        <a href="{{ d.url }}" class="{% if d.url == page.url %}on{% endif %}">
+          <span class="name">{{ d.data.title }}</span>
+          {%- if d.data.status %}<span class="meta">{{ d.data.status }}</span>{% endif %}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    {%- endfor %}
+    {%- else %}
+    <h2 class="side-h">GEMs</h2>
+    <p class="side-empty">{{ t(ui.label.empty) }}</p>
+    {%- endif %}
 
   {%- elif section == 'gems-space' %}
     <h2 class="side-h">Gem&#39;s Space</h2>
@@ -470,7 +497,7 @@
         return '<a href="' + esc(it.url) + '">' +
           '<span class="r-title">' + esc(it.title) + '</span>' +
           (sum ? '<span class="r-sum">' + esc(sum) + '</span>' : '') +
-          '<span class="r-meta">' + ({paper:'Paper', fiction:'Fiction', code:'Repo', gem:"Gem's"}[it.type] || 'Post') +
+          '<span class="r-meta">' + ({paper:'Paper', fiction:'Fiction', code:'Repo', gem:"Gem's", gemsdoc:'GEMs'}[it.type] || 'Post') +
           (it.date ? ' · ' + esc(it.date) : '') + ' ' + tags + '</span></a>';
       }).join('');
     }

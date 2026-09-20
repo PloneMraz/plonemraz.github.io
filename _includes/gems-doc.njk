@@ -1,0 +1,39 @@
+---
+layout: base.njk
+---
+{#  Chương trong GEMs. Khác bài viết ở một điểm: thứ tự do trường
+    `order` quyết định, không do ngày. Front matter dùng: title,
+    lede, group (khớp khoá trong _data/gemsGroups.json), order,
+    status (ví dụ "đã đóng" / "bảng sơ bộ" / "đang viết").  #}
+<article class="prose gems-doc">
+  <h1>{{ title }}</h1>
+
+  {%- if status %}
+  <p class="kicker"><span class="gems-status">{{ status }}</span></p>
+  {%- endif %}
+
+  {%- if lede %}
+  <p class="lede">{{ lede }}</p>
+  {%- endif %}
+
+  {{ content | safe }}
+
+  {%- set prev = collections.gemsDocs | getPreviousCollectionItem(page) %}
+  {%- set next = collections.gemsDocs | getNextCollectionItem(page) %}
+  {%- if prev or next %}
+  <nav class="doc-nav">
+    {%- if prev %}
+    <a class="doc-prev" href="{{ prev.url }}">
+      <span class="doc-dir"><span data-l="en">Previous</span> <span data-l="vi">Chương trước</span></span>
+      <span class="doc-name">{{ prev.data.title }}</span>
+    </a>
+    {%- endif %}
+    {%- if next %}
+    <a class="doc-next" href="{{ next.url }}">
+      <span class="doc-dir"><span data-l="en">Next</span> <span data-l="vi">Chương sau</span></span>
+      <span class="doc-name">{{ next.data.title }}</span>
+    </a>
+    {%- endif %}
+  </nav>
+  {%- endif %}
+</article>

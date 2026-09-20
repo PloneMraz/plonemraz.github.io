@@ -1,0 +1,7 @@
+[
+ { "key": "foundation", "en": "Foundation",  "vi": "Nền tảng" },
+ { "key": "systems",    "en": "Systems",     "vi": "Hệ thống" },
+ { "key": "energy",     "en": "Energy",      "vi": "Năng lượng" },
+ { "key": "interfaces", "en": "Interfaces",  "vi": "Mối nối" },
+ { "key": "status",     "en": "Status",      "vi": "Trạng thái" }
+]
