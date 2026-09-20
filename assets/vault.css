@@ -1046,3 +1046,34 @@ body.lbox-open { overflow: hidden; }
   border-bottom: 1px solid var(--border);
 }
 .prose .kicker .e-doi:hover { color: var(--link); border-bottom-color: var(--link); }
+
+/* --- Khối mã -------------------------------------------------
+   Trang chưa từng có quy tắc nào cho <pre>, nên khối mã trong các
+   bản chụp README cứ giãn hết cỡ theo dòng dài nhất — có khối rộng
+   1092px. Trên điện thoại, một phần tử rộng hơn màn hình kéo giãn
+   luôn khung nhìn, khung nhìn vượt ngưỡng 68rem, và trang chuyển
+   sang bố cục màn rộng: nút điều hướng văng ra ngoài mép phải.
+   Cho khối mã tự cuộn ngang bên trong là hết. */
+.prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  margin: 1.5rem 0;
+  padding: .9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--muted) 70%, transparent);
+  font: .8125rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: left;
+  hyphens: manual;
+}
+/* Trong khối mã thì thẻ code không cần nền và bo góc riêng nữa. */
+.prose pre code {
+  padding: 0;
+  background: none;
+  font: inherit;
+}
+
+/* Chuỗi dài không có chỗ ngắt — URL, định danh — cũng kéo giãn được
+   cả trang y như vậy. Cho phép bẻ chúng. */
+.prose { overflow-wrap: break-word; }
