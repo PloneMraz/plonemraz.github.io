@@ -1,5 +1,8 @@
 {
   "layout": "gems-doc.njk",
   "section": "gems",
-  "permalink": "/vault/gems/{{ page.fileSlug | slugify }}/"
+  "permalink": "/vault/gems/{{ page.filePathStem | replace('/content/gems/', '') }}/",
+  "eleventyComputed": {
+    "docPath": "{{ page.filePathStem | replace('/content/gems/', '') }}"
+  }
 }

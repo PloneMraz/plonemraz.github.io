@@ -913,3 +913,44 @@ body.lbox-open { overflow: hidden; }
   font-weight: 600;
   color: var(--foreground);
 }
+
+/* Mục lục GEMs, tầng con. Gạch dọc bên trái để mắt bám được tầng —
+   đệ quy nên tầng ba, tầng bốn tự thụt tiếp theo cùng quy tắc. */
+.side-sub {
+  list-style: none;
+  margin: .15rem 0 .35rem;
+  padding: 0 0 0 .75rem;
+  border-left: 1px solid var(--border);
+}
+.side-sub a {
+  display: block;
+  padding: .3rem .5rem;
+  border-radius: calc(var(--radius) - 6px);
+  text-decoration: none;
+  font-size: .9375rem;
+}
+.side-sub a:hover { background: color-mix(in oklab, var(--muted) 45%, transparent); }
+.side-sub a.on { color: var(--link); }
+.side-sub .name { display: block; color: inherit; }
+.side-sub .meta {
+  display: block;
+  font-size: .75rem;
+  color: var(--muted-foreground);
+}
+
+/* Cũng tầng con, nhưng trên trang mục của GEMs. */
+.doc-kids {
+  list-style: none;
+  margin: .4rem 0 0;
+  padding: 0 0 0 .9rem;
+  border-left: 1px solid var(--border);
+}
+.doc-kids li { padding: .25rem 0; }
+.doc-kids a { text-decoration: none; }
+.doc-kids .name { color: var(--foreground); }
+.doc-kids a:hover .name { color: var(--link); }
+.doc-kids .meta {
+  margin-left: .5rem;
+  font-size: .75rem;
+  color: var(--muted-foreground);
+}
