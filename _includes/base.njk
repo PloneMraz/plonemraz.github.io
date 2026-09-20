@@ -2,6 +2,7 @@
     nen khong anh huong gi, nhung may doc van ban thuan se thay
     "Home Trang chu" thay vi "HomeTrang chu" dinh lien.  #}
 {%- macro t(s) -%}<span data-l="en">{{ s.en }}</span> <span data-l="vi">{{ s.vi }}</span>{%- endmacro -%}
+{%- from "gems-tree.njk" import docTree -%}
 <!DOCTYPE html>
 <html lang="{{ lang or 'en' }}" data-ui-lang="en" data-sidebar="open">
 <head>
@@ -170,21 +171,23 @@
     {%- else %}<p class="side-empty">{{ t(ui.label.empty) }}</p>{%- endif %}
 
   {%- elif section == 'gems' %}
-    {#  Mục lục tài liệu: có nhóm, có thứ tự, KHÔNG theo thời gian.
-        Nhóm lấy từ _data/gemsGroups.json; nhóm rỗng thì không vẽ.  #}
+    {#  Mục lục tài liệu: có nhóm, có tầng, có thứ tự — KHÔNG theo
+        thời gian. Nhóm lấy từ _data/gemsGroups.json, nhóm rỗng thì
+        không vẽ. Tầng do macro trong gems-tree.njk lo.  #}
     {%- if collections.gems.length %}
     {%- for g in gemsGroups %}
-    {%- set inGroup = [] %}
-    {%- for d in collections.gems %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
-    {%- if inGroup.length %}
+    {%- set tops = [] %}
+    {%- for d in collections.gems %}{% if d.data.group == g.key and (d.data.docPath | gemsDepth) == 1 %}{% set tops = (tops.push(d), tops) %}{% endif %}{% endfor %}
+    {%- if tops.length %}
     <h2 class="side-h"><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h2>
     <ul class="side-list">
-      {%- for d in inGroup %}
+      {%- for d in tops %}
       <li>
         <a href="{{ d.url }}" class="{% if d.url == page.url %}on{% endif %}">
           <span class="name">{{ d.data.title }}</span>
           {%- if d.data.status %}<span class="meta">{{ d.data.status }}</span>{% endif %}
         </a>
+        {{ docTree(collections.gems, d.data.docPath, "side-sub", page.url) }}
       </li>
       {%- endfor %}
     </ul>

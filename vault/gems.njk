@@ -5,6 +5,7 @@ section: gems
 permalink: /vault/gems/
 summary: "GEMs — a physical body and everything that makes one: hardware, software, controller, protocols, how it is built, and what follows. Written introduction to an ongoing project."
 ---
+{%- from "gems-tree.njk" import docTree -%}
 <article class="prose section-intro">
   <h1>GEMs</h1>
   <p class="lede">
@@ -78,16 +79,17 @@ summary: "GEMs — a physical body and everything that makes one: hardware, soft
     <span data-l="vi">{{ collections.gems.length }} chương</span>
   </h2>
   {%- for g in gemsGroups %}
-  {%- set inGroup = [] %}
-  {%- for d in collections.gems %}{% if d.data.group == g.key %}{% set inGroup = (inGroup.push(d), inGroup) %}{% endif %}{% endfor %}
-  {%- if inGroup.length %}
+  {%- set tops = [] %}
+  {%- for d in collections.gems %}{% if d.data.group == g.key and (d.data.docPath | gemsDepth) == 1 %}{% set tops = (tops.push(d), tops) %}{% endif %}{% endfor %}
+  {%- if tops.length %}
   <h3><span data-l="en">{{ g.en }}</span> <span data-l="vi">{{ g.vi }}</span></h3>
   <ul class="entry-list">
-    {%- for d in inGroup %}
+    {%- for d in tops %}
     <li>
       <a class="e-title" href="{{ d.url }}">{{ d.data.title }}</a>
       {%- if d.data.status %}<span class="e-meta">{{ d.data.status }}</span>{% endif %}
       {%- if d.data.lede %}<span class="e-sum">{{ d.data.lede }}</span>{% endif %}
+      {{ docTree(collections.gems, d.data.docPath, "doc-kids", page.url) }}
     </li>
     {%- endfor %}
   </ul>

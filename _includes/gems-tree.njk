@@ -1,0 +1,33 @@
+{#  Mục lục GEMs, đệ quy — không giới hạn số tầng.
+
+    Tầng do VỊ TRÍ TỆP quyết định, không do front matter:
+      content/gems/hardware.md            -> /vault/gems/hardware/
+      content/gems/hardware/actuation.md  -> /vault/gems/hardware/actuation/
+    tức là muốn một chương có chương con thì tạo một thư mục trùng
+    tên với nó. Đường dẫn, vị trí tệp và vị trí trong mục lục vì thế
+    luôn là cùng một quyết định.
+
+    `order` thì quyết định THỨ TỰ ĐỌC trong một nhóm, tính cả chương
+    con. Quy ước đề nghị: chương mẹ lấy bội số của 10, chương con lấy
+    các số liền sau (10 rồi 11, 12; 20 rồi 21, 22).
+
+    RÀNG BUỘC ĐẶT TÊN TỆP: tên tệp đi thẳng vào đường dẫn, KHÔNG qua
+    khâu tạo slug. Nên đặt tên bằng chữ thường ASCII và gạch nối —
+    `joint-design.md`, không phải `Thiết kế khớp.md`.  #}
+{%- macro docTree(docs, parentPath, cls, currentUrl) %}
+{%- set kids = [] %}
+{%- for d in docs %}{% if (d.data.docPath | gemsParent) == parentPath %}{% set kids = (kids.push(d), kids) %}{% endif %}{% endfor %}
+{%- if kids.length %}
+<ul class="{{ cls }}">
+  {%- for d in kids %}
+  <li>
+    <a href="{{ d.url }}" class="{% if d.url == currentUrl %}on{% endif %}">
+      <span class="name">{{ d.data.title }}</span>
+      {%- if d.data.status %}<span class="meta">{{ d.data.status }}</span>{% endif %}
+    </a>
+    {{ docTree(docs, d.data.docPath, "side-sub", currentUrl) }}
+  </li>
+  {%- endfor %}
+</ul>
+{%- endif %}
+{%- endmacro %}

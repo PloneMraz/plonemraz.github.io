@@ -7,6 +7,7 @@
 // v7 xuat theo kieu ESM, ban CommonJS nam o .default
 const Image = require("@11ty/eleventy-img").default;
 const path = require("path");
+const gemsGroups = require("./_data/gemsGroups.json");
 
 /* Sinh ảnh lúc build: bản nhỏ cho lưới, bản lớn cho lightbox.
    Không phục vụ file gốc — bản 2000px WebP đã thừa cho màn hình,
@@ -75,11 +76,29 @@ module.exports = function (eleventyConfig) {
     api.getFilteredByGlob("content/gems-space/*.md").sort((a, b) => b.date - a.date)
   );
 
-  /* GEMs — tài liệu, KHÔNG phải bài viết: xếp theo trường `order`
-     trong front matter chứ không theo ngày. */
-  eleventyConfig.addCollection("gems", (api) =>
-    api.getFilteredByGlob("content/gems/*.md")
-       .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
+  /* GEMs — tài liệu, KHÔNG phải bài viết.
+     Quét cả thư mục con: tầng của mục lục và tầng của đường dẫn đều
+     do vị trí tệp quyết định. Thứ tự đọc thì theo nhóm trước, rồi
+     tới `order` trong front matter — không theo ngày. */
+  eleventyConfig.addCollection("gems", (api) => {
+    const gi = (d) => {
+      const i = gemsGroups.findIndex((g) => g.key === d.data.group);
+      return i < 0 ? gemsGroups.length : i;   // nhóm lạ thì xếp cuối
+    };
+    return api
+      .getFilteredByGlob("content/gems/**/*.md")
+      .sort((a, b) => gi(a) - gi(b) || (a.data.order || 0) - (b.data.order || 0));
+  });
+
+  /* Hai bộ lọc phục vụ mục lục đệ quy. docPath là đường dẫn tương
+     đối trong content/gems, ví dụ "hardware/actuation". */
+  eleventyConfig.addFilter("gemsParent", (p) => {
+    const s = String(p || "").split("/");
+    s.pop();
+    return s.join("/");
+  });
+  eleventyConfig.addFilter("gemsDepth", (p) =>
+    String(p || "").split("/").length
   );
 
   // --- Ngày hiển thị: 16 Aug 2026 ---
