@@ -90,6 +90,19 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => gi(a) - gi(b) || (a.data.order || 0) - (b.data.order || 0));
   });
 
+  /* Bản chụp README giữ nguyên các liên kết tương đối của repo —
+     LICENSE, src/..., CONTEXT.md. Trên site chúng trỏ vào chính
+     site và cho ra 404. Lọc này đưa chúng về đúng repo. Chỉ đụng
+     tới liên kết KHÔNG có lược đồ, không bắt đầu bằng / hoặc #. */
+  eleventyConfig.addFilter("repoLinks", function (html, repo) {
+    if (!repo) return html;
+    const base = String(repo).replace(/\/+$/, "") + "/blob/HEAD/";
+    return String(html).replace(
+      /href="(?!https?:|mailto:|#|\/)([^"]+)"/g,
+      (m, path) => `href="${base}${path}"`
+    );
+  });
+
   /* Hai bộ lọc phục vụ mục lục đệ quy. docPath là đường dẫn tương
      đối trong content/gems, ví dụ "hardware/actuation". */
   eleventyConfig.addFilter("gemsParent", (p) => {

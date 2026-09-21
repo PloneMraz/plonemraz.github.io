@@ -31,5 +31,5 @@ layout: base.njk
   </p>
   {%- endif %}
 
-  {{ content | safe }}
+  {{ content | repoLinks(repo) | safe }}
 </article>
