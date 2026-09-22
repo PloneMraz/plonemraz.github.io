@@ -44,6 +44,34 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("content/p's gems/**");
   eleventyConfig.ignores.add("content/books/**");
 
+  /* Neo tiêu đề. markdown-it không tự gắn `id`, nên mọi liên kết dạng
+     `...#64-emission-log` đều rơi về đầu trang. Các chương GEMs được
+     chép nguyên văn từ repo và trỏ vào nhau bằng đúng những neo đó,
+     nên `id` phải trùng khít slug của GitHub — nếu không, liên kết
+     chết mà không báo lỗi.
+
+     Quy tắc của GitHub: hạ chữ thường, bỏ mọi ký tự ngoài [a-z0-9 _-],
+     rồi đổi khoảng trắng thành gạch nối. Dấu chấm trong "6.4" biến mất
+     nên còn "64-emission-log"; dấu "/" trong "on-body / off-body" để
+     lại hai khoảng trắng nên thành gạch đôi "on-body--off-body". Trùng
+     id thì nối thêm -1, -2 như GitHub. */
+  const ghSlug = (s) =>
+    String(s).toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, "").trim().replace(/ /g, "-");
+
+  eleventyConfig.amendLibrary("md", (md) => {
+    md.core.ruler.push("heading_ids", (state) => {
+      const seen = new Map();
+      state.tokens.forEach((tok, i) => {
+        if (tok.type !== "heading_open" || tok.attrGet("id")) return;
+        const base = ghSlug(state.tokens[i + 1].content);
+        if (!base) return;
+        const n = seen.get(base) || 0;
+        seen.set(base, n + 1);
+        tok.attrSet("id", n ? `${base}-${n}` : base);
+      });
+    });
+  });
+
   // --- Ảnh: <picture> hai cỡ, tải lười ---
   eleventyConfig.addAsyncShortcode("photo", async function (src, alt, cls) {
     const meta = await Image(src, IMG);

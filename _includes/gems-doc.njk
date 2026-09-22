@@ -16,6 +16,23 @@ layout: base.njk
   <p class="lede">{{ lede }}</p>
   {%- endif %}
 
+  {#  Chương ở đây là BẢN CHỤP của chương trong repo. Repo vẫn chạy
+      tiếp, nên phải nói rõ chỗ nào là bản làm việc — cùng lối với
+      bản chụp README ở project.njk.  #}
+  {%- if source %}
+  <p class="paper-actions">
+    <a class="btn" href="{{ source }}">
+      <span data-l="en">Open on GitHub</span> <span data-l="vi">Mở trên GitHub</span>
+    </a>
+  </p>
+  <p class="note">
+    <span data-l="en">Snapshot of the chapter in the GEMs repository. The repository
+      itself is the current version.</span>
+    <span data-l="vi">Bản chụp chương này trong repo GEMs. Bản đang chạy nằm ở chính
+      repo.</span>
+  </p>
+  {%- endif %}
+
   {{ content | safe }}
 
   {%- set prev = collections.gems | getPreviousCollectionItem(page) %}
