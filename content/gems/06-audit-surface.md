@@ -3,7 +3,6 @@ title: 'Audit surface'
 lede: 'Attestation, emission log, low-power trace, contact amplitude'
 group: hardware
 order: 50
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/06-audit-surface.md
 ---

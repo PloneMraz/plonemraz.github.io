@@ -3,7 +3,6 @@ title: 'Energy'
 lede: 'Sources, the six levers, state levels, docking, floor power and sleep ceiling'
 group: hardware
 order: 20
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/03-energy.md
 ---

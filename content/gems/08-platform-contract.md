@@ -3,7 +3,6 @@ title: 'Platform contract'
 lede: 'What an external processing loop requires of a body, and where this body supplies it'
 group: protocols
 order: 10
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/08-platform-contract.md
 ---

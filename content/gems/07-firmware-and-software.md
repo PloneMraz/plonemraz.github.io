@@ -3,7 +3,6 @@ title: 'Firmware and software'
 lede: 'What runs on the body: responsibilities, rates, guarantees, and link-loss behaviour'
 group: software
 order: 10
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/07-firmware-and-software.md
 ---

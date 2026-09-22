@@ -3,7 +3,6 @@ title: 'Structure and motion'
 lede: 'Mass loop, convergence condition, protection, reach and payload, peak power'
 group: hardware
 order: 10
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/02-structure-and-motion.md
 ---

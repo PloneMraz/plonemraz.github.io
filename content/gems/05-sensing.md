@@ -3,7 +3,6 @@ title: 'Sensing'
 lede: 'Per-channel envelopes, aggregate rate, and the on-body/off-body compute split'
 group: hardware
 order: 40
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/05-sensing.md
 ---
