@@ -78,6 +78,13 @@
     <span>Plone Mraz</span>
   </a>
 
+  {#  Nút đổi ngôn ngữ đứng NGAY SAU thương hiệu, không phải sau menu:
+      nó thuộc về khối bên trái, và chính chỗ đứng này làm khoảng trống
+      của thanh rơi vào giữa nó với menu, đẩy menu sang phải.  #}
+  <button class="langtoggle" type="button" aria-label="Switch interface language">
+    <span data-l="en">EN</span> <span data-l="vi">VIE</span>
+  </button>
+
   {#  Thanh ngang cho màn rộng. Màn hẹp thì nó ẩn đi và mười mục này
       chuyển vào bảng điều hướng bên dưới.  #}
   <nav class="topnav">
@@ -85,10 +92,6 @@
     <a href="{{ tb.url }}" class="{% if section == tb.key %}on{% endif %}"><span data-l="en">{{ tb.en }}</span> <span data-l="vi">{{ tb.vi }}</span></a>
     {%- endfor %}
   </nav>
-
-  <button class="langtoggle" type="button" aria-label="Switch interface language">
-    <span data-l="en">EN</span> <span data-l="vi">VIE</span>
-  </button>
 
   {#  MỘT nút duy nhất cho màn hẹp, góc trên bên phải. Nó mở bảng
       chứa cả mười mục lẫn danh sách của mục đang đứng — trước đây
