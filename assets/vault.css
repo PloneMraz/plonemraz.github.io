@@ -572,12 +572,14 @@ body.no-sidebar .search { display: none; }
 }
 
 /* --- Nút đổi ngôn ngữ --------------------------------------- */
-/* Nút đổi ngôn ngữ nằm trong thanh ngang, bên trái thương hiệu.
+/* Nút đổi ngôn ngữ nằm trong thanh ngang, ngay sau thương hiệu.
    Không làm mờ nữa: ở đây nó không đè lên nội dung nào. */
 .langtoggle {
-  /* Hút khoảng trống thừa: nút bám sát ngay sau thương hiệu, còn
-     menu bị đẩy hẳn sang phải. Không có nó thì space-between dàn
-     đều ba khối và nút trôi vào giữa màn hình. */
+  /* Hút toàn bộ khoảng trống của thanh vào khe NGAY SAU nút này.
+     Kết quả: thương hiệu và nút dính nhau bên trái, menu bị đẩy hẳn
+     sang phải. Chỉ đúng khi nút đứng trước .topnav trong DOM — đứng
+     sau thì khoảng trống rơi ra ngoài cùng và cả ba khối dồn sang
+     trái. Màn hẹp .topnav ẩn đi, khi đó nó đẩy nút hamburger. */
   margin-right: auto;
   flex: none;
   padding: .3rem .55rem;
