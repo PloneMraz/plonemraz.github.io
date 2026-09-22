@@ -78,6 +78,28 @@ html[data-ui-lang="vi"] [data-l="en"] { display: none; }
   white-space: nowrap;
 }
 .brand img { border-radius: 50%; }
+/* Tên viết hoa và cao bằng logo bên cạnh. Chữ hoa không có phần
+   nhô lên hay thòng xuống, nên chiều cao nhìn thấy của nó ĐÚNG BẰNG
+   cap height — với font hệ thống là khoảng 0.7em. Muốn cap height
+   bằng 28px của logo thì font-size phải là 28 / 0.7 = 40px; đặt
+   thẳng 28px sẽ ra chữ chỉ cao chừng 20px, thấp hơn logo rõ rệt.
+   line-height 1 để hộp dòng không đội thanh 64px lên. */
+.brand span {
+  text-transform: uppercase;
+  /* 37px, không phải 40px. Chữ hoa cao 0.7em, nên 40px cho đúng 28px
+     — bằng hộp ảnh logo. Nhưng đĩa logo chỉ chiếm 26px trong hộp đó,
+     hai mép còn lại là khoảng trong suốt, nên 40px làm tên nhô cao
+     hơn logo thấy rõ. 26 / 0.7 = 37. Số này đo trên ảnh chụp thật,
+     không suy ra từ khai báo width/height của thẻ img. */
+  font-size: 37px;
+  line-height: 1;
+  /* Cắt hộp dòng về đúng chữ hoa. Không có dòng này thì hộp vẫn chừa
+     chỗ cho phần thòng xuống, mà align-items căn theo HỘP chứ không
+     theo chữ, nên tên bị đẩy xuống 2px so với tâm logo. Trình duyệt
+     nào chưa hỗ trợ thì bỏ qua và về đúng trạng thái lệch 2px đó —
+     xấu hơn một chút, không vỡ. */
+  text-box: trim-both cap alphabetic;
+}
 
 .topnav { display: flex; gap: clamp(.75rem, 2vw, 1.75rem); }
 .topnav a {
