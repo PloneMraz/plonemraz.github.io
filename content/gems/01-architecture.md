@@ -3,7 +3,6 @@ title: 'Architecture'
 lede: 'The invariant pillar, and the application frame it serves'
 group: overview
 order: 20
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/01-architecture.md
 ---

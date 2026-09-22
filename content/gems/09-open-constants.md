@@ -3,7 +3,6 @@ title: 'Open constants'
 lede: 'Values deliberately left unfilled, and why'
 group: resources
 order: 10
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/09-open-constants.md
 ---

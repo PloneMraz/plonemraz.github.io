@@ -3,7 +3,6 @@ title: 'Scope and acceptance criteria'
 lede: 'What must be true of anything in this specification, and the notation'
 group: overview
 order: 10
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/00-scope-and-criteria.md
 ---

@@ -3,7 +3,6 @@ title: 'Shell'
 lede: 'Programmable stiffness, self-healing, colour, and the three-layer division'
 group: hardware
 order: 30
-status: 'đã đóng'
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/04-shell.md
 ---
