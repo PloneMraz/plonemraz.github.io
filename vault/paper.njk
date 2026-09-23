@@ -6,7 +6,7 @@ pagination:
   size: 1
   alias: paper
   # Không có dòng này thì collections.all chỉ chứa trang đầu tiên,
-  # nên sitemap sẽ bỏ sót 13/14 trang tài liệu.
+  # nên sitemap sẽ bỏ sót mọi trang tài liệu trừ trang đầu.
   addAllPagesToCollections: true
 permalink: "/vault/papers/{{ paper.slug }}/"
 eleventyComputed:
