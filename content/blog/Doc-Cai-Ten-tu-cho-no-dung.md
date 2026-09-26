@@ -288,4 +288,4 @@ Hai câu hỏi ấy là một chuyện riêng, đủ lớn để cần một tà
 
 ---
 
-- Plone Mraz - 
+*— Plone Mraz —*

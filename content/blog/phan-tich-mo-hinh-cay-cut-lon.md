@@ -49,4 +49,4 @@ Như vậy, qua Case-Study của tác giả, ở dạng cô đọng nhất và t
 
 - lucisthelord (KEVIN - TUNG NGUYEN) - "MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/17mjuWUpJZ/
 - lucisthelord (KEVIN - TUNG NGUYEN) - "SỨC MẠNH CỦA MÔ HÌNH CÂY CỨT LỢN" - https://www.facebook.com/share/p/1BfDigHVRE/
-- Plone Mraz -
+*— Plone Mraz —*
