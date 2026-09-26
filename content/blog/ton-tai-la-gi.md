@@ -155,4 +155,4 @@ Bài viết này là điểm dừng chân hiện tại của tôi, không phải
 
 ---
 
-- Plone Mraz -
+*— Plone Mraz —*

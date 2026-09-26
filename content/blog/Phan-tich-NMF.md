@@ -97,4 +97,4 @@ Thứ ba, và quan trọng nhất: tôi phải luôn chừa chỗ cho cái sự 
 
 Cái cơ chế tôi vừa đọc làm tốt phần nó làm được, và tôi học được từ nó nhiều hơn tôi tưởng lúc mới mở ra — kể cả học từ những chỗ tôi đọc lộn nó. Nhưng nó nhắc tôi một điều tôi không muốn quên: một cơ chế tư duy đẹp và mạch lạc đến đâu, nếu dựng trên một viên gạch gốc không có thật, thì cái mạch lạc ấy chỉ là cái mạch lạc của một giấc mơ chặt chẽ. Việc khó không phải là dựng cho mạch lạc. Việc khó là dựng cho mạch lạc mà vẫn chạm đất.
 
-- Plone Mraz -
+*— Plone Mraz —*
