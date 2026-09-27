@@ -1,0 +1,4 @@
+{
+  "permalink": "/{{ lang }}/vault/blog/{{ translationOf }}/",
+  "isTranslation": true
+}

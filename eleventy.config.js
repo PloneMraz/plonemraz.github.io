@@ -85,6 +85,39 @@ module.exports = function (eleventyConfig) {
     </a>`;
   });
 
+  /* --- Bản dịch: mỗi bản một URL riêng ---
+     Bản dịch nằm trong thư mục `i18n/` của mục, ví dụ
+     content/blog/i18n/gian.en.md, khai `translationOf: gian` và `lang`.
+     URL của nó là /<lang>/ đặt trước URL bài gốc (i18n.json). Collection
+     `posts` chỉ quét content/blog/*.md nên bản dịch không lọt vào danh
+     sách bài, feed, search hay llms.txt; sitemap thì có, kèm hreflang.
+     `alternates` trả về cả nhóm — bài gốc và mọi bản dịch của nó — cho
+     bất kỳ trang nào trong nhóm, để <head> và nút chuyển ngữ dùng. */
+  const groups = new Map();   // URL của một trang trong nhóm -> nhóm
+  eleventyConfig.addCollection("translations", (api) => {
+    groups.clear();
+    const all = api.getAll();
+    const items = api.getFilteredByGlob("content/*/i18n/*.md");
+    for (const t of items) {
+      const section = t.inputPath.split("/").slice(-3)[0];
+      const origUrl = `/vault/${section}/${t.data.translationOf}/`;
+      const orig = all.find((p) => p.url === origUrl);
+      if (!orig) throw new Error(`${t.inputPath}: no original at ${origUrl}`);
+      let group = groups.get(origUrl);
+      if (!group) {
+        group = [{ lang: orig.data.lang || "en", url: origUrl, original: true }];
+        groups.set(origUrl, group);
+      }
+      group.push({ lang: t.data.lang, url: t.url, original: false });
+      groups.set(t.url, group);
+    }
+    return items;
+  });
+  eleventyConfig.addFilter("alternates", (url) => groups.get(url) || []);
+  // Tên một ngôn ngữ, viết bằng ngôn ngữ giao diện: "vi" | langName("en") -> "Vietnamese".
+  const LANG_NAMES = { en: { en: "English", vi: "tiếng Anh" }, vi: { en: "Vietnamese", vi: "tiếng Việt" } };
+  eleventyConfig.addFilter("langName", (code, ui) => (LANG_NAMES[code] || {})[ui] || code);
+
   // --- Bài viết, mới nhất lên đầu ---
   eleventyConfig.addCollection("posts", (api) =>
     api.getFilteredByGlob("content/blog/*.md").sort((a, b) => b.date - a.date)

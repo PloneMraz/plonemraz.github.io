@@ -40,3 +40,23 @@ tới, không xóa nó; comment đã sửa vẫn còn trong lịch sử sửa.
 
 Ghi lại (2026-09-27): 29 commit mang trailer `Claude-Session:`; lịch sử đã được
 viết lại để gỡ, nhưng các commit cũ có thể vẫn còn trong bộ nhớ đệm của GitHub.
+
+## 2. Bản dịch — mỗi bản một URL
+
+Bản dịch của một bài nằm trong thư mục `i18n/` của mục, cạnh bài gốc:
+`content/blog/i18n/<slug>.<lang>.md`. Front matter:
+
+    translationOf: <slug của bài gốc, ví dụ gian>
+    lang: en            # ngôn ngữ của bản dịch
+    title: '…'
+    date: …             # ngày của bài gốc
+    summary: '…'
+    translator: '…'     # ai dịch; bản do Claude nháp thì ghi rõ, và tác giả duyệt trước khi đăng
+
+URL của bản dịch là `/<lang>/` đặt trước URL bài gốc (`content/blog/i18n/i18n.json`),
+ví dụ `/en/vault/blog/gian/`. Collection `translations` nối bản dịch với bài gốc;
+bài gốc không có ở URL dự kiến thì build dừng và báo lỗi. Bản dịch không vào
+danh sách bài, feed, search hay llms.txt (chúng đọc `content/blog/*.md`); có trong
+sitemap, và `<head>` của cả nhóm có `hreflang`. Nút chuyển ngữ đưa người đọc
+sang bản ở ngôn ngữ vừa chọn nếu có; mở trang thì không tự chuyển. Hiện mới làm
+cho Blog; mục khác cần thư mục `i18n/` và `i18n.json` của riêng nó.

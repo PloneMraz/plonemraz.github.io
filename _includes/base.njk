@@ -4,7 +4,8 @@
 {%- macro t(s) -%}<span data-l="en">{{ s.en }}</span> <span data-l="vi">{{ s.vi }}</span>{%- endmacro -%}
 {%- from "gems-tree.njk" import docTree -%}
 <!DOCTYPE html>
-<html lang="{{ lang or 'en' }}" data-ui-lang="en">
+{%- set alts = page.url | alternates %}
+<html lang="{{ lang or 'en' }}" data-ui-lang="en"{% for a in alts %}{% if a.url != page.url %} data-alt-{{ a.lang }}="{{ a.url }}"{% endif %}{% endfor %}>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,12 @@
 <link rel="icon" href="/visual/plonemraz-32.png">
 <link rel="apple-touch-icon" href="/visual/plonemraz-180.png">
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+{%- for a in alts %}
+<link rel="alternate" hreflang="{{ a.lang }}" href="{{ site.url }}{{ a.url }}">
+{%- if a.original %}
+<link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ a.url }}">
+{%- endif %}
+{%- endfor %}
 <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="{{ site.title }}">
 
 {#  Thẻ chia sẻ. Không có mấy dòng này thì Facebook và các nơi khác
@@ -190,10 +197,15 @@
   }
   applyLang(root.getAttribute('data-ui-lang') || 'en');
 
+  /* Có bản của bài này ở ngôn ngữ vừa chọn thì sang bản đó; không
+     có thì chỉ đổi giao diện. Lúc mở trang thì không tự chuyển: một
+     đường dẫn được chia sẻ luôn mở đúng bản người gửi chọn. */
   document.querySelector('.langtoggle').addEventListener('click', function () {
     var next = root.getAttribute('data-ui-lang') === 'en' ? 'vi' : 'en';
-    applyLang(next);
     save('ui-lang', next);
+    var alt = root.getAttribute('data-alt-' + next);
+    if (alt) { location.href = alt; return; }
+    applyLang(next);
   });
 
   /* ---------- Một bảng điều hướng duy nhất ----------
