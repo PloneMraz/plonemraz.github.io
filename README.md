@@ -51,6 +51,7 @@ index.html            Front page, copied as-is (not a template)
 theme.css             Colour tokens, dark-only; shared by both halves
 eleventy.config.js    Build configuration
 package.json          Scripts: dev, build
+CLAUDE.md             Working rules for Claude Code — excluded from the build, like README.md
 
 vault/                Section index pages and paginated templates (papers, albums, books)
 content/              Source content, one folder per section (see below)
@@ -72,13 +73,15 @@ google*.html          Search-console verification, copied under its exact name
 
 ## Content sections
 
-Each folder under `content/` is one section. Its directory data file (`<folder>.json`)
-assigns the layout, the `section` key and the permalink, so a new file needs only its
-own front matter.
+Each folder under `content/` is one section. The Markdown sections (`blog`, `fiction`,
+`gems-space`, `vibe-coding`, `gems`) each have a directory data file (`<folder>.json`)
+that assigns the layout, the `section` key and the permalink, so a new file needs only
+its own front matter. The papers, albums and books are read by `_data/` and the
+templates in `vault/` instead.
 
 | Folder | Section | Layout | URL | Order |
 |---|---|---|---|---|
-| `content/blog/` | Essays | `post.njk` | `/vault/blog/<slug>/` | newest first |
+| `content/blog/` | Blog | `post.njk` | `/vault/blog/<slug>/` | newest first |
 | `content/fiction/` | Fiction | `post.njk` | `/vault/fiction/<slug>/` | newest first |
 | `content/gems-space/` | Gem's Space | `gem-post.njk` | `/vault/gems-space/<slug>/` | newest first |
 | `content/vibe-coding/` | Vibe Coding | `project.njk` | `/vault/vibe-coding/<slug>/` | newest first |
@@ -93,7 +96,7 @@ The section index pages live in `vault/`: `index.njk` (the blog, served at `/vau
 
 ## Adding content
 
-### A post (Essays, Fiction, Gem's Space)
+### A post (Blog, Fiction, Gem's Space)
 
 Drop a Markdown file into the section's folder:
 
@@ -107,8 +110,32 @@ tags: [some-tag]
 ---
 ```
 
-The slug comes from the file name. Images for Gem's Space posts live in
-`visual/gems-space/`.
+The slug comes from the file name, unless the front matter sets a `permalink`. Images
+used inside posts live in `visual/blog/` (Blog) and `visual/gems-space/` (Gem's Space).
+
+### A translation of a post (Blog)
+
+A post can have a version in the other language, at its own URL. Put it in the
+section's `i18n/` folder as `<slug>.<lang>.md`, for example
+`content/blog/i18n/gian.en.md`:
+
+```yaml
+---
+translationOf: gian    # slug of the post it is a version of
+lang: en
+title: '...'
+date: 2026-08-13       # the post's date
+summary: '...'
+translator: '...'      # kept on record, not shown on the page
+---
+```
+
+It is published at `/<lang>/` before the post's URL (`/en/vault/blog/gian/`, set by
+`content/blog/i18n/i18n.json`). The build stops if no post exists at the URL
+`translationOf` points to. Versions are not listed separately: lists, the feed,
+search and `llms.txt` read `content/blog/*.md` only; the sitemap has every version,
+and each version's `<head>` links them all with `hreflang`. Only the Blog has an
+`i18n/` folder so far; another section needs its own folder and `i18n.json`.
 
 ### A project page (Vibe Coding)
 
@@ -181,6 +208,13 @@ The vault is bilingual. Navigation and label text lives in `_data/ui.json` as
 `{ "en": ..., "vi": ... }` pairs. Pages render both languages, marked with `data-l`,
 and CSS hides the one that does not match `data-ui-lang` on `<html>`.
 
+Content is translated per post, each version at its own URL (see *A translation of a
+post*). The EN / VI toggle takes the reader to the version in the chosen language when
+there is one, and only switches the interface when there is not; opening a page never
+redirects. In the sidebar, a post with versions has one link per language, marked with
+`data-l`, so its title follows the toggle. Pages do not say which version is the
+original.
+
 ## Deployment
 
 Every push to `main` triggers [`deploy.yml`](.github/workflows/deploy.yml), which runs
@@ -192,7 +226,8 @@ cancels one that is still in progress.
 
 Both halves load the [Umami](https://umami.is/) script. The vote widget
 (`_includes/vote.njk`, with its script in `base.njk`) sends each vote as an Umami event
-and remembers the visitor's own choice in their browser's `localStorage`. The site has
+— at most once per post in a browser session — and remembers the visitor's own choice
+in their browser's `localStorage`. The site has
 no backend of its own.
 
 ## Citing the papers

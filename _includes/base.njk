@@ -296,10 +296,8 @@
      đọc để họ quay lại vẫn thấy mình đã bỏ phiếu, và để không bỏ
      phiếu hai lần.
 
-     GHI CHÚ QUAN TRỌNG: sendVote() hiện KHÔNG gửi đi đâu cả. Site
-     là tĩnh, không có máy chủ, nên muốn đếm được thì phải cắm một
-     dịch vụ vào đúng hàm này. Chừng nào chưa cắm, lượt bấm chỉ nằm
-     trong trình duyệt người đọc. */
+     sendVote() gửi mỗi phiếu thành một sự kiện Umami. Site tĩnh, không
+     có máy chủ riêng, nên Umami là nơi duy nhất phiếu được đếm. */
   var VOTE_GAP = 800;        // bỏ qua bấm dồn dập dưới ngưỡng này
   var lastVoteAt = 0;
 
