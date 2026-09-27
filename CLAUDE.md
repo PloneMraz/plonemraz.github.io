@@ -58,5 +58,9 @@ ví dụ `/en/vault/blog/gian/`. Collection `translations` nối bản dịch v�
 bài gốc không có ở URL dự kiến thì build dừng và báo lỗi. Bản dịch không vào
 danh sách bài, feed, search hay llms.txt (chúng đọc `content/blog/*.md`); có trong
 sitemap, và `<head>` của cả nhóm có `hreflang`. Nút chuyển ngữ đưa người đọc
-sang bản ở ngôn ngữ vừa chọn nếu có; mở trang thì không tự chuyển. Hiện mới làm
-cho Blog; mục khác cần thư mục `i18n/` và `i18n.json` của riêng nó.
+sang bản ở ngôn ngữ vừa chọn nếu có; mở trang thì không tự chuyển. Trang không
+nói bản nào là gốc, bản nào là dịch (Plone, 2026-09-27: người đọc chọn ngôn ngữ
+bằng nút là đủ); `translator` chỉ để ghi lại, không hiện. Ở mục lục thanh bên,
+bài song ngữ có một liên kết cho mỗi ngôn ngữ, mang `data-l`, nên tiêu đề đổi
+theo nút. Hiện mới làm cho Blog; mục khác cần thư mục `i18n/` và `i18n.json`
+của riêng nó.

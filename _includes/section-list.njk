@@ -130,11 +130,24 @@
     <h2 class="side-h side-h--solo">{{ t(ui.label.posts) }}</h2>
     <ul class="side-list">
       {%- for post in collections.posts %}
+      {%- set versions = post.url | alternates %}
       <li>
+        {%- if versions.length %}
+        {#  Bài song ngữ: mỗi ngôn ngữ một liên kết, nút chuyển ngữ chọn cái
+            nào hiện. Có bản cho cả hai ngôn ngữ giao diện thì mỗi cái hiện
+            đúng lúc của nó.  #}
+        {%- for v in versions %}
+        <a href="{{ v.url }}" data-l="{{ v.lang }}" lang="{{ v.lang }}" class="{% if v.url == page.url %}on{% endif %}">
+          <span class="name">{{ v.title }}</span>
+          <span class="meta">{{ post.date | readableDate }} · {{ v.lang | upper }}</span>
+        </a>
+        {%- endfor %}
+        {%- else %}
         <a href="{{ post.url }}" class="{% if post.url == page.url %}on{% endif %}">
           <span class="name">{{ post.data.title }}</span>
           <span class="meta">{{ post.date | readableDate }} · {{ post.data.lang | upper }}</span>
         </a>
+        {%- endif %}
       </li>
       {%- endfor %}
     </ul>

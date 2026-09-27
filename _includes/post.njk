@@ -13,22 +13,6 @@ layout: base.njk
     {%- for t in tags %} <span class="tag">#{{ t }}</span>{% endfor %}
   </p>
 
-  {#  Bản dịch: bài gốc chỉ sang các bản dịch; bản dịch nói nó dịch
-      từ đâu và chỉ về bản gốc.  #}
-  {%- set alts = page.url | alternates %}
-  {%- if alts.length %}
-  <p class="kicker translations">
-    {%- for a in alts %}{% if a.url != page.url %}
-    {%- if isTranslation and a.original %}
-    <a href="{{ a.url }}" hreflang="{{ a.lang }}"><span data-l="en">Translated from {{ a.lang | langName("en") }} · read the original</span> <span data-l="vi">Bản dịch từ {{ a.lang | langName("vi") }} · đọc bản gốc</span></a>
-    {%- else %}
-    <a href="{{ a.url }}" hreflang="{{ a.lang }}"><span data-l="en">Also in {{ a.lang | langName("en") }}</span> <span data-l="vi">Có bản {{ a.lang | langName("vi") }}</span></a>
-    {%- endif %}
-    {%- endif %}{% endfor %}
-    {%- if isTranslation and translator %} &middot; <span data-l="en">translated by</span> <span data-l="vi">người dịch:</span> {{ translator }}{% endif %}
-  </p>
-  {%- endif %}
-
   {%- if summary %}
   <p class="lede">{{ summary }}</p>
   {%- endif %}

@@ -38,5 +38,3 @@ I simply think this paperclip scenario isn’t a prediction worth worrying or pa
 The paperclip scenario is worth something as an exercise in thinking. But reading it as a prophecy is, I’m afraid, a mistake — a mistake both about what will happen and about where we ought to place our vigilance. Sometimes a result that sounds frightening isn’t the thing to fear. It’s a sign that we should go back and check the original assumption.
 
 *— Plone Mraz —*
-
-*Originally published on [Substack](https://plonemraz.substack.com/p/a-few-thoughts-on-nick-bostroms-paperclip).*

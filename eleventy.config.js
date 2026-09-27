@@ -105,18 +105,15 @@ module.exports = function (eleventyConfig) {
       if (!orig) throw new Error(`${t.inputPath}: no original at ${origUrl}`);
       let group = groups.get(origUrl);
       if (!group) {
-        group = [{ lang: orig.data.lang || "en", url: origUrl, original: true }];
+        group = [{ lang: orig.data.lang || "en", url: origUrl, title: orig.data.title, original: true }];
         groups.set(origUrl, group);
       }
-      group.push({ lang: t.data.lang, url: t.url, original: false });
+      group.push({ lang: t.data.lang, url: t.url, title: t.data.title, original: false });
       groups.set(t.url, group);
     }
     return items;
   });
   eleventyConfig.addFilter("alternates", (url) => groups.get(url) || []);
-  // Tên một ngôn ngữ, viết bằng ngôn ngữ giao diện: "vi" | langName("en") -> "Vietnamese".
-  const LANG_NAMES = { en: { en: "English", vi: "tiếng Anh" }, vi: { en: "Vietnamese", vi: "tiếng Việt" } };
-  eleventyConfig.addFilter("langName", (code, ui) => (LANG_NAMES[code] || {})[ui] || code);
 
   // --- Bài viết, mới nhất lên đầu ---
   eleventyConfig.addCollection("posts", (api) =>
