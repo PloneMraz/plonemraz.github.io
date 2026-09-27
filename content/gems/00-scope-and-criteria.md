@@ -5,6 +5,8 @@ group: overview
 order: 10
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/00-scope-and-criteria.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 ## What this specification is
 

@@ -5,6 +5,8 @@ group: hardware
 order: 50
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/06-audit-surface.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 This chapter does not come from reducing an earlier ambition. It comes from the
 platform contract of [08](/vault/gems/08-platform-contract/): two requirements the body
@@ -70,7 +72,7 @@ Two tiers, matching the on-board / off-board split of [01](/vault/gems/01-archit
 
 Budget:
 
-- **Full tier:** 41 DOF ([declared configuration](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/kinematics.md))
+- **Full tier:** 41 DOF ([declared configuration](/vault/gems/hardware/kinematics/))
   × 4 channels × 4 bytes × 500 Hz ≈ **328 kB/s ≈ 2.6 Mbps
   ≈ 1.18 GB/hour**. Against an 8 Gbps link: **0.03%**. On a 2 TB on-body SSD:
   ~1700 hours.
@@ -94,12 +96,12 @@ The system emits a trace of 'the loop is running weakly' — an observable
 behavioural or structural signal"*, and limits it: C5 *"is not a criterion for
 detecting a dead loop"*. Low power there is the strength of the loop, not the
 charge of the battery. The body does not produce that report — the loop does,
-and the loop is not specified here ([README](https://github.com/PloneMraz/GEMs/blob/HEAD/README.md#scope-boundary)). The
+and the loop is not specified here ([README](/vault/gems/body/#scope-boundary)). The
 body's obligation is to **carry** it, unaltered, including while it sleeps.
 
 | Field | Written by | Content | Serves |
 |---|---|---|---|
-| `loop_state` | **The loop**, through the intent interface ([firmware architecture §4](https://github.com/PloneMraz/GEMs/blob/HEAD/firmware/ARCHITECTURE.md#4-the-interface-to-the-edge-software)) | The loop's latest self-report, opaque to the body, carried byte for byte; `NONE` if the loop has never written one | **RSIL C5** |
+| `loop_state` | **The loop**, through the intent interface ([firmware architecture §4](/vault/gems/firmware/architecture/#4-the-interface-to-the-edge-software)) | The loop's latest self-report, opaque to the body, carried byte for byte; `NONE` if the loop has never written one | **RSIL C5** |
 | `loop_state_age` | The body | Time since `loop_state` was written, on the body's clock | C5 — a stale report must read as stale |
 | `body_state` | The body | Power-state level ([03.4](/vault/gems/03-energy/#34-four-state-levels)) and fault flags | Delegated watch during sleep |
 | `log_root` | The body | Merkle root of the latest sealed audit-log batch ([06.4](#64-audit-log)) | Ties the beacon to the record |

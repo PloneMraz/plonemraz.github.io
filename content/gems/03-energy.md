@@ -5,6 +5,8 @@ group: hardware
 order: 20
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/03-energy.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 Every trade in this specification is ultimately a division of a kilowatt-hour
 budget. This chapter states the budget, the measures that stretch it, and the

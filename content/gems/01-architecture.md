@@ -5,6 +5,8 @@ group: overview
 order: 20
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/01-architecture.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 ## The invariant pillar: one intelligence, two seats
 

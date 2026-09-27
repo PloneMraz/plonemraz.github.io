@@ -5,13 +5,15 @@ group: hardware
 order: 10
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/02-structure-and-motion.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 Structure, actuation and energy are one coupled loop. They cannot be specified
 separately, and cutting the loop anywhere leaves the other ends meaningless.
 
 > Every figure in this chapter is reproducible:
 > `python scripts/gems_budget.py --check` recomputes them and confirms each one
-> still appears here. See [`scripts/`](https://github.com/PloneMraz/GEMs/tree/HEAD/scripts/).
+> still appears here. See [`scripts/`](/vault/gems/scripts/).
 
 ## 2.1 The mass loop
 
@@ -186,7 +188,7 @@ size a body that cannot be built.
 **This specification declares peak-over-module, at the reduction ratio of the
 modules it was derived from — about 16:1, ~100 rpm no-load.** Torque density
 is not a ceiling of the motor: the same motor sold at 48:1 claims 159 Nm/kg at
-about half the speed ([electrical §6b](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/README.md#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26)).
+about half the speed ([electrical §6b](/vault/gems/hardware/electrical/#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26)).
 What the ratio trades is output speed, so a density figure without its ratio,
 like one without its basis, is a number waiting to be misread. The cost of
 standing at 80–90 is still real: part availability narrows to a handful of
@@ -196,11 +198,11 @@ take a higher ratio and lose speed, which the sizing here does not yet check.
 ### Why 80 is the floor
 
 The declared kinematics need **2475 Nm** summed across 31 joints at the 96 kg
-reference point ([joint-by-joint sizing](https://github.com/PloneMraz/GEMs/tree/HEAD/hardware/electrical/)); 1737 Nm of it scales with body mass and 738 Nm does not.
+reference point ([joint-by-joint sizing](/vault/gems/hardware/electrical/)); 1737 Nm of it scales with body mass and 738 Nm does not.
 The three trunk axes are sized from measured human trunk strength per kilogram
-([electrical §6a](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/README.md#6a-trunk-lateral-bend-torque--research-2026-09-26)),
+([electrical §6a](/vault/gems/hardware/electrical/#6a-trunk-lateral-bend-torque--research-2026-09-26)),
 the arms from the declared payload below
-([electrical §6b](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/README.md#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26)).
+([electrical §6b](/vault/gems/hardware/electrical/#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26)).
 Divide:
 
 | Density | Actuator mass | `f_act` |
@@ -225,10 +227,10 @@ figures cannot drift apart, because each is derivable from the other and
 **15 kg in one hand, arm straight and horizontal, load at the grip centre** —
 the posture of maximum gravitational moment. Shoulder roll carries the same
 posture abducted, at 11 kg. Decided 2026-09-26; the reasoning is at
-[electrical §6b](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/README.md#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26).
+[electrical §6b](/vault/gems/hardware/electrical/#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26).
 
 The lever is to the grip centre, not the fingertip: 0.61 m from the shoulder and 0.31 m from the elbow
-([`hardware/kinematics.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/kinematics.md#2-reach-and-segment-lengths)).
+([`hardware/kinematics.md`](/vault/gems/hardware/kinematics/#2-reach-and-segment-lengths)).
 The arm's own weight is added — its joint modules weighed at 80 Nm/kg from
 their own torque, plus structure and hand allowances that are `⟦IMPL⟧` until
 CAD exists:
@@ -286,7 +288,7 @@ AKH70-48 output bearing is rated 8680 N static, 18 times that bag.
 kilogram off the body is a kilogram onto the hands, which is why D-8 and the
 load cases are one decision, and why the reference design moved to 2 hours. At the module's 74 Nm rated torque no body in
 2.5 climbs stairs with a load for long; how long its peak may be held is the
-open question of [electrical §6b](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/README.md#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26).
+open question of [electrical §6b](/vault/gems/hardware/electrical/#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26).
 `scripts/gems_budget.py` prints both figures for any point.
 
 **A single joint is not the binding constraint, but the arms are the lever on

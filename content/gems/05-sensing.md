@@ -5,6 +5,8 @@ group: hardware
 order: 40
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/05-sensing.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 This is the primary axis: the body exists to acquire physical experience.
 Quantifying it forces a question that a single multiplier cannot answer.
@@ -59,7 +61,7 @@ on 2026-09-26.)
 | Thermal IR | 640×480, 30 fps, 16 bit | 0.15 Gbps | |
 | LiDAR / depth | 300k points/s | 0.04 Gbps | |
 | Microphone array | 16 ch, 48 kHz, 24 bit | 0.02 Gbps | High-sensitivity, directional |
-| Proprioception | 41 joints × 4 channels + IMU, 1 kHz | 0.006 Gbps | Joint count declared at [`hardware/kinematics.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/kinematics.md). Cheapest channel, and the one that **must not be cut** — see 5.5 |
+| Proprioception | 41 joints × 4 channels + IMU, 1 kHz | 0.006 Gbps | Joint count declared at [`hardware/kinematics.md`](/vault/gems/hardware/kinematics/). Cheapest channel, and the one that **must not be cut** — see 5.5 |
 | SDR / multi-band RF | 2 ch × 56 MHz I/Q, 16 bit | **3.58 Gbps** | |
 | Spatial RF sensing | Wi-Fi / mmWave CSI | modest | Retained at full hardware capability; use is `⟦CTRL⟧` |
 | Olfaction (e-nose) | — | negligible | **5–30 ppb** achieved per compound *(sourced)*; 5–10 s response |

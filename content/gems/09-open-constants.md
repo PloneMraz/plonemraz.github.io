@@ -5,6 +5,8 @@ group: resources
 order: 10
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/09-open-constants.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 Every value this specification cannot yet derive is left marked rather than
 filled with a guess. A specification that invents its own constants trades
@@ -53,7 +55,7 @@ Some things are absent because they belong to no one in this repository:
 |---|---|
 | Any specification of the controller | Not this repository |
 | The standard judging a body's conduct | A third party: the deploying or certifying party |
-| Conformance test procedures | [`protocol/`](https://github.com/PloneMraz/GEMs/tree/HEAD/protocol/) — v0.1 draft |
+| Conformance test procedures | [`protocol/`](/vault/gems/protocol/) — v0.1 draft |
 
 ## Reading this chapter
 

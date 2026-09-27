@@ -5,6 +5,8 @@ group: software
 order: 10
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/07-firmware-and-software.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 What runs on the body. This chapter states responsibilities, rates and
 guarantees; it does not specify an implementation.
@@ -33,7 +35,7 @@ kernel — including the device drivers that run there.
 | **Either, by decision D-3** | The real-time controller: a microcontroller under an RTOS, or an embedded computer under Linux with a real-time kernel | State estimation, balance loop, reflex path including agency tagging, safety supervisor, power-state machine, full-tier log writing at loop rate |
 
 The real-time controller's code is firmware or software according to which
-processor D-3 selects ([plan](https://github.com/PloneMraz/GEMs/blob/HEAD/plan/README.md#3-decisions-that-block-everything-else)).
+processor D-3 selects ([plan](/vault/gems/plan/#3-decisions-that-block-everything-else)).
 Its deadlines do not change with the choice; only the evidence that they are met
 does.
 
@@ -51,7 +53,7 @@ it:
 **The rule that joins them: every hard real-time task runs on a platform whose
 worst-case latency is bounded.** The two axes stay independent — the rule
 constrains the platform, not the layer — and the bound is established one of two
-ways, recorded per task in [`realtime_config/`](https://github.com/PloneMraz/GEMs/tree/HEAD/realtime_config/):
+ways, recorded per task in [`realtime_config/`](/vault/gems/realtime-config/):
 
 | Platform | How the bound is established |
 |---|---|
@@ -101,7 +103,7 @@ decision D-3 places the controller in.
 | 4 | **Measured boot and attestation** | Every sensor and actuator node under the root of trust ([06.2](/vault/gems/06-audit-surface/#62-root-of-trust-and-its-limit)) |
 | 5 | **Beacon transmission at quiescent power** | Survives sleep levels 2 and 4 ([06.5](/vault/gems/06-audit-surface/#65-low-power-beacon)) |
 | 6 | **Full-tier logging at loop rate** | Hash-chained, not signed per record ([06.4](/vault/gems/06-audit-surface/#64-audit-log)) |
-| 7 | **Agency tagging at acquisition** | Every change tagged self-caused or external where the commanded and measured values meet, within the 0.5 ms stage of the reflex budget ([firmware architecture §2](https://github.com/PloneMraz/GEMs/blob/HEAD/firmware/ARCHITECTURE.md#2-the-reflex-budget)) |
+| 7 | **Agency tagging at acquisition** | Every change tagged self-caused or external where the commanded and measured values meet, within the 0.5 ms stage of the reflex budget ([firmware architecture §2](/vault/gems/firmware/architecture/#2-the-reflex-budget)) |
 
 > Guarantee 2 deserves emphasis because it is easy to specify as an
 > afterthought. A body that loses power or loses its balance solver while

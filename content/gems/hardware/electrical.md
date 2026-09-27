@@ -1,0 +1,465 @@
+---
+title: 'Electrical'
+lede: 'Actuator, power, compute and bus selection, sourced, with joint-by-joint actuator sizing'
+group: hardware
+order: 103
+lang: en
+source: https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/README.md
+sourceRepo: GEMs
+templateEngineOverride: md
+---
+Component selection against the specification. Every figure below is sourced;
+§7 lists the references.
+
+| File | Contents |
+|---|---|
+| [`actuator_sizing.py`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/actuator_sizing.py) | Sizes every joint from its peak torque and reports the resulting `f_act` |
+
+---
+
+## 1. The actuator finding — raised, and resolved
+
+> **Resolved by option A on 2026-09-22.** The specification then declared
+> **75–90 Nm/kg peak, on a peak-torque-over-module-mass basis**, and states the
+> basis explicitly. **Revised 2026-09-26 to 80–90 Nm/kg** when the trunk was
+> re-sized from measured human strength and gained a lateral-bend axis (§6a).
+> **The arm payload came down to 15 kg the same day (§6b)**, which took `f_act`
+> at 80 Nm/kg from 0.34 to 0.30; the floor stayed at 80. `spec/` and this
+> document agree again; the record below is kept because the reasoning is what
+> justifies a figure at the top of the commercial band. Note that the §1
+> tables below were computed with the whole of `f_act` treated as scaling with
+> body mass; §6b explains why only the leg and trunk part does.
+
+Sizing the declared 30 joints against published torque densities did not
+reproduce the actuator mass fraction the specification assumed. Tool output as
+run on 2026-09-22, before the correction:
+
+```
+Nm/kg    mass kg    f_act    source
+  22.0      155.2     1.19   integrated state of the art, whole-actuator
+  33.0      103.5     0.80   the figure spec 02.6 uses
+  36.0       94.8     0.73   top of the range spec 02.6 declares
+  52.0       65.7     0.51   commercial QDD module, 8:1 planetary
+  88.7       38.5     0.30   commercial hollow-shaft planetary module, peak
+```
+
+[Spec 02.2](/vault/gems/02-structure-and-motion/#22-the-four-coefficients)
+assumes `f_act` between **0.25 and 0.35**. [Spec
+02.6](/vault/gems/02-structure-and-motion/#26-actuation-and-manipulation)
+declared, at that time, actuator specific torque of **30–36 Nm/kg**, and sized
+its own worked example at 33.
+
+**Those two figures were not compatible.** At 33 Nm/kg the actuators weigh 80%
+of the body, `Σf` exceeds 1 before a single cell of battery is fitted, and the
+coupled loop does not converge at any endurance — not at four hours, not at two.
+
+Both figures in that paragraph have since been corrected; they are quoted here
+as they stood when the contradiction was found.
+
+### It is not the arms
+
+Halving the per-arm payload from 30 kg to 15 kg takes the total from 3414 Nm to
+3000 Nm: `f_act` falls from 0.80 to 0.70. The legs carry 1905 Nm of the total,
+and leg torque is set by body mass, not by what the hands hold.
+
+### A lighter body is worse, not better
+
+| Body | Total torque | `f_act` at 33 Nm/kg |
+|---|---|---|
+| 70 kg | 2396 Nm | **1.04** |
+| 90 kg | 2735 Nm | 0.92 |
+| 110 kg | 3075 Nm | 0.85 |
+| 130 kg | 3414 Nm | 0.80 |
+
+Leg and waist torque scale with mass; wrist, neck and arm torques do not. Shed
+mass and the fixed torques dominate a smaller budget. **There is no lighter
+version of this body that closes at 33 Nm/kg.**
+
+### What does close
+
+The lowest density that puts `f_act` inside the assumed range is **75 Nm/kg**,
+and only the best commercially claimed module reaches it. At a mainstream QDD
+module's 52 Nm/kg, `f_act` = 0.51 and the loop is already marginal:
+
+| `f_act` | 2 h | 4 h |
+|---|---|---|
+| 0.30 — assumed | γ = 3.2 | γ = 4.5 |
+| 0.51 — at 52 Nm/kg | γ = 9.9 | γ = 81.8 |
+| 0.80 — at 33 Nm/kg | **diverges** | **diverges** |
+
+This was a decision for the author, not something to be silently patched. The
+options as put are kept at §6, with the one taken marked.
+
+---
+
+## 2. Actuators
+
+**Selection: quasi-direct drive, hollow-shaft planetary, at the top of the
+commercial torque-density band.** Nothing lower closes the mass loop.
+
+| Property | Figure | Source |
+|---|---|---|
+| Commercial QDD module, 8:1 planetary | **52 Nm/kg**, 9 arcmin backlash | CubeMars AKE80-8 [1] |
+| Commercial hollow-shaft planetary, 16:1 | **88.7 Nm/kg** peak — 78 Nm peak, 26 Nm rated, 879 g; 78 / 0.879 = 88.7. The 85 Nm quoted here until 2026-09-26 was the end of the torque curve, see §6b | CubeMars AKH70-16 [1][22] |
+| The same motor at 48:1 | **159 Nm/kg** peak — 222 Nm peak, 74 Nm rated, 1396 g, three-stage planetary; output ±5 rad/s against ±13 rad/s at 16:1 [23] | CubeMars AKH70-48 [26], search excerpts; page not readable from here |
+| Highest commercial claim, series | up to **36 Nm/kg** | ZHR-H series [3] |
+| Integrated SOTA, whole-actuator | **18–22 Nm/kg** — axial flux, cycloidal QDD, hybrid housing, hollow titanium shaft, phase-change cooling | [3] |
+| Design floor for hip and knee | **> 30 Nm/kg** peak | [3] |
+| Industrial servo, for contrast | 5–10 Nm/kg | [3] |
+| QDD reduction ratios | **6:1 to 15:1**, against 50:1–120:1 industrial | [2] |
+| QDD mass saving | **40–60%** against high-ratio gearboxes | [2] |
+
+> **The two families of number.** A module advertised at 88.7 Nm/kg quotes peak
+> torque over motor-plus-gearbox mass; an integrated figure of 18–22 Nm/kg
+> counts housing, cooling and wiring as well. They differ by a factor of four
+> and both are honest. The sizing script prints both so the gap cannot be
+> read past.
+
+**Why QDD and not harmonic drive.** [Spec
+01](/vault/gems/01-architecture/#application-frame) puts safe human contact at
+the core of the application frame. High-ratio harmonic drives are effectively
+non-backdrivable: a stalled arm cannot yield, so contact force is whatever the
+controller commands and nothing mechanical limits it. QDD at 6:1–15:1 stays
+backdrivable, which makes compliance a property of the mechanism rather than a
+promise made by software. That is a specification-driven reason, not a
+preference.
+
+## 3. Power
+
+| Property | Figure | Source |
+|---|---|---|
+| Silicon-anode cell, commercially available | **450 Wh/kg**, 1150 Wh/L | Amprius [4] |
+| Solid-state pouch, stack level | **465 Wh/kg**, 1400 Wh/L | SOLiTHOR [5] |
+| Semi-solid pouch, validated | ~347 Wh/kg | [6] |
+| All-solid-state pouch for robots | mass production targeted 2027, robots first | Samsung SDI [6] |
+| Rate capability demonstrated | 80% retention after 400 cycles at 4C | QuantumScape [6] |
+
+> **The durable tier of [spec 03.1](/vault/gems/03-energy/#31-source) is now
+> real.** It declares 400–500 Wh/kg, and 450–465 Wh/kg cells are commercially
+> available or at validated stack level. The ceiling tier at 700–1100 Wh/kg
+> remains laboratory-only, exactly as the specification states.
+>
+> **The rate trade the specification asserts is confirmed.** The literature
+> frames it as a straight choice between high C-rate and high energy density
+> [7], which is the mechanism behind
+> [spec 02.7](/vault/gems/02-structure-and-motion/#27-peak-power-is-limited-by-the-source-not-the-actuators):
+> choosing the ceiling pack widens the peak-power shortfall rather than closing
+> it.
+
+## 4. Compute
+
+| Property | Figure | Source |
+|---|---|---|
+| Edge module | NVIDIA Jetson AGX Thor | [8] |
+| AI throughput | up to 2070 FP4 TFLOPS, 7.5× AGX Orin | [8][9] |
+| Power | **40–130 W**, 3.5× the efficiency of AGX Orin | [8][9] |
+| Memory | 128 GB | [9] |
+| Interconnect | PCIe Gen 5, Blackwell architecture | [9] |
+
+**Against the specification.** At 130 W on a 130 kg body this is **1 W/kg** —
+between 4% and 10% of the 10–25 W/kg motion budget of
+[spec 02.2](/vault/gems/02-structure-and-motion/#22-the-four-coefficients). Edge
+compute is affordable in the power budget; what it is not is free, and
+[spec 05.6](/vault/gems/05-sensing/#56-the-on-body--off-body-compute-split)
+states why that matters.
+
+The compression duty is **≥2:1 and realistically 8:1** of 15.8 Gbps raw
+([spec 05.4](/vault/gems/05-sensing/#54-aggregate-rate-against-the-link)) — about
+2 GB/s of sensor data processed in real time. Whether this part meets it is a
+measurement, not a datasheet reading, and it stays open until measured.
+
+## 5. Bus
+
+**Selection: EtherCAT for the joint chain, CAN FD for distributed sensing.**
+
+| Property | Figure | Source |
+|---|---|---|
+| EtherCAT in humanoids | 1 kHz (RoboSimian, Hydra, ARMAR-6) | [10] |
+| | 2 kHz (Atlas, LOLA) | [10] |
+| | **4 kHz** dual-channel (TOCABI) | [10] |
+| CAN FD | 64-byte data field, faster data phase, CAN arbitration retained | [11] |
+| Common practice | hybrid: EtherCAT for high-performance joints, CAN FD for distributed controllers | [11] |
+
+> Boston Dynamics moved from CAN in Petman to EtherCAT in Atlas [10]. The
+> balance loop needs **≥500 Hz**
+> ([spec 07.2](/vault/gems/07-firmware-and-software/#72-real-time-requirements))
+> and joint current loops need kHz-class service; EtherCAT at a demonstrated
+> 2–4 kHz clears both with margin, and CAN FD does not.
+>
+> **This also bears on the timestamp requirement.** EtherCAT distributed clocks
+> give the shared time base
+> [spec 07.2](/vault/gems/07-firmware-and-software/#72-real-time-requirements)
+> demands, rather than leaving skew to be inferred later.
+
+## 6. The decision
+
+The finding of §1 had no technical answer — three options, trading against each
+other. They are kept here because a design that does not record what it turned
+down cannot explain itself later.
+
+| Option | What it costs | |
+|---|---|---|
+| **A — Raise the declared torque density to ≥75 Nm/kg** | Commits the design to the top of the commercial market. Part availability narrows sharply and there is no margin left to trade away | **✅ taken** |
+| **B — Accept a higher `f_act`** | At 52 Nm/kg, `f_act` = 0.51: γ = 9.9 at two hours and 81.8 at four. Endurance collapses below two hours and the mass envelope of spec 02.5 becomes wrong | rejected |
+| **C — Reduce what the body must do** | Lower peak torque means less payload, gentler gait, less dynamic recovery. The legs dominate, so this means a body that walks rather than one that catches itself | rejected on 2026-09-22 — **reopened and taken in part on 2026-09-26** for the arms only, see §6b: the 30 kg payload it was weighed against was a stress test, not the specification's group 2 capability |
+
+### What option A committed the design to
+
+**75–90 Nm/kg peak, over module mass — 80–90 since 2026-09-26.** Only a handful of commercial modules
+reach it — the hollow-shaft planetary at 88.7 Nm/kg is at the very top of what
+is claimed, and a mainstream 52 Nm/kg module does not qualify. Supply is thin
+and will stay thin.
+
+**The specification now states the basis**, which is the part that actually
+prevents a repeat. The original error was not only a wrong number: 30–36 Nm/kg
+is a reasonable figure *on the integrated basis*, and it was being used as if it
+were peak-over-module. A density with no basis attached is a number waiting to
+be misread.
+
+**The two bands are now one constraint.** 80–90 Nm/kg maps onto `f_act`
+0.30–0.34, each derivable from the other, and `scripts/gems_budget.py --check`
+holds them together — including the actuator-mass column, which it did not
+cover before and which is exactly where this drift hid.
+
+## 6a. Trunk lateral-bend torque — research, 2026-09-26
+
+Decision D-9 added a lateral-bend axis to the trunk
+([kinematics §1.4](/vault/gems/hardware/kinematics/#14-the-trunk-is-a-spine-not-a-waist)). It
+has no torque figure yet. Two things were found, and one was not.
+
+**What the trunk figures already in the table rest on.** Nothing. The waist
+rows — trunk pitch 1.54 Nm/kg (200 Nm at 130 kg) and trunk yaw 0.77 Nm/kg — had
+no source in §7; they were assumed when the table was written. The source found
+for lateral bend below covers all three axes, and has replaced both.
+
+**Human trunk torque per kilogram, all three axes — Pan et al. 2025 [14]
+(open access at the DOI; its licence is CC BY-NC-ND, so it is cited, not
+vendored).** 122 asymptomatic adults, 61 male
+(24.5 ± 2.3 y, 73.4 ± 15.0 kg, 175.6 ± 6.8 cm) and 61 female; Bionix Sim3 Pro
+dynamometer; median peak torque, normalised to body weight:
+
+| Axis | Isometric, male | Isometric, female | Isokinetic 15°/s, male | Isokinetic 15°/s, female |
+|---|---|---|---|---|
+| Extension (trunk pitch) | **1.74 Nm/kg** | 1.63 | 0.69 | 1.40 |
+| Flexion | 1.15 | 1.05 | 0.58 | 0.93 |
+| **Lateral bending, left / right (trunk roll)** | **0.95 / 0.91** | 1.00 / 0.86 | 0.47 / 0.46 | 0.88 / 0.78 |
+| Axial rotation, left / right (trunk yaw) | **0.74 / 0.64** | 0.66 / 0.66 | 0.35 / 0.40 | 0.43 / 0.53 |
+
+Sex differences vanish once normalised (P > 0.05), so the male isometric
+column is used as the figure. The isokinetic values are lower because the
+device's slow constant-velocity protocol is not a peak-effort condition; they
+are not a dynamic peak. Lateral bending is **0.55 × extension**.
+
+**Cross-check, two engineered waists and one robot URDF:**
+
+| Source | Roll : pitch | Note |
+|---|---|---|
+| 3-DOF coupled tendon-driven humanoid waist, *Advanced Robotics* 2023 [15]; full specification repeated in the same group's 2025 paper [19] | 0.50 | Designed pitch : roll : yaw = 4 : 2 : 1, realised as 87.0 / 53.0 / 22.2 Nm static from three RMD X8 Pro actuators of 13.0 Nm nominal each. ROM pitch −30…60°, roll ±30°, yaw ±90°. Sized for a torso surrogate of **10 kg at 0.2 m** — a ~20 Nm gravitational moment — so the absolute figures are for a light upper body; only the ratio transfers |
+| Flexinoid tensegrity spine, *Scientific Reports* 2025 [18] | — | No torque figures for pitch or roll; actuators are 1.89 N·m servos with elastic assistance. Its value is as a mechanism reference — see kinematics §1.4 |
+| Unitree G1 URDF, 29-DOF [16] | 1.0 | waist_roll = waist_pitch = 35 Nm, waist_yaw 88 Nm, robot 35.1 kg. An outlier: G1's pitch and roll travel only ±30°, both sized far below its yaw |
+
+Human strength and a waist engineered to match human balance agree at
+**about 0.5–0.55**. The G1 ratio is set by its small-travel design, not by need.
+
+**Decision, 2026-09-26: option B, floor 80.** All three trunk axes take the
+male isometric figures of [14]; the declared density floor of spec 02.6 moves
+from 75 to 80 Nm/kg — 80 rather than the computed 78 so that the next figure
+sized does not break the band again, and because 80 is the density the
+shoulder-torque table of spec 02.6 already used. The band narrows to 80–90:
+the design stands 10 Nm/kg, not 15, below the top of the commercial market.
+The options as they were weighed, at the 130 kg point:
+
+| | Pitch | Roll | Yaw | Σ torque | `f_act` at 75 | at 80 | at 88.7 | Density for `f_act` ≤ 0.35 |
+|---|---|---|---|---|---|---|---|---|
+| Today, no roll | 200 | — | 100 | 3414 Nm | 0.350 | 0.328 | 0.296 | 75.0 |
+| **A** — add roll at 0.95 Nm/kg, keep the assumed pitch and yaw | 200 | 124 | 100 | 3537 Nm | 0.363 | 0.340 | 0.307 | **77.7** |
+| **B** — all three trunk axes from [14]: 1.74 / 0.95 / 0.74 Nm/kg | 226 | 124 | 96 | 3560 Nm | 0.365 | 0.342 | 0.309 | **78.2** |
+
+Either option moves the floor of the declared density band (spec 02.6) from
+75 to about 78 Nm/kg; B also replaces two unsourced constants with sourced
+ones. B was taken.
+
+**What was not found:** a dynamic lateral trunk moment during the motions the
+axis is for — twisting to protect the body in a fall, righting from the ground.
+Isometric strength is a floor on capability, not a peak dynamic demand.
+Asymmetric-lifting biomechanics report lateral bending moments at L5/S1 rising
+with task asymmetry [17], but no peak figure was obtained.
+
+## 6b. Arm payload and the two parts of `f_act` — 2026-09-26
+
+**What was found.** The shoulder rows were sized for 30 kg in one hand at
+0.70 m, the fingertip, and shoulder roll for 22 kg at the same lever, with the
+arm's own weight left out. 30 kg one-handed with the arm straight out is above
+what a strong human does; it was a stress test that had drifted into the
+table, and spec 02.6 described it only as "loads in the tens of kilograms at
+short to medium reach". The lever was also wrong in kind: a held object's
+weight acts at the grip centre, about 0.06 m beyond the wrist, not at the
+fingertip.
+
+**Decision: 15 kg in one hand, arm straight and horizontal, load at the grip
+centre; shoulder roll 11 kg in the same posture abducted.** Sized at the grip
+centre — 0.64 m from the shoulder, 0.32 m from the elbow
+([kinematics §2](/vault/gems/hardware/kinematics/#2-reach-and-segment-lengths)) — with the
+arm's own weight added: the joint modules distal to each joint, weighed at the
+floor density from their own torque in the same table, plus allowances of
+0.8 kg upper-arm structure, 0.6 kg forearm structure and 0.6 kg hand that are
+`⟦IMPL⟧` until CAD exists.
+
+| Joint | Before | Payload now | Self-weight | Peak now |
+|---|---|---|---|---|
+| Shoulder pitch | 206 Nm | 94 | 15 | **109 Nm** |
+| Shoulder roll | 151 Nm | 69 | 15 | **84 Nm** |
+| Elbow | 112 Nm | 47 | 5 | **52 Nm** |
+
+The total falls from 3560 to **3112 Nm**; `f_act` at 80 Nm/kg from 0.34 to
+**0.30**; the arithmetic would now allow a floor of 68 Nm/kg. **The floor stays
+at 80**: the margin is kept for D-1 on the knee, for a dynamic trunk figure
+above the isometric one, and for the continuous-torque question below.
+
+**The two parts of `f_act`.** The finding of §1 that "a lighter body is
+worse" and its option C were argued with the whole actuator mass treated as a
+fraction of the body. It is not. Leg and trunk torque scales with body mass —
+18.09 Nm per kilogram of body, 2352 Nm at 130 kg — so those actuators are a
+true fraction, `f_act_s` = 0.226 at 80 Nm/kg. Arm, wrist and neck torque is
+fixed by payload and geometry — 760 Nm, **9.5 kg** of actuator at 80 Nm/kg —
+and is non-scaling mass, which belongs in `m_ext` of the loop beside armour
+and sensors. `scripts/gems_budget.py` now takes the torque density and
+carries the split; with it the 4-hour point comes out at 129.3 kg and
+γ = 3.38, where the lumped model said 129.5 kg and γ = 4.5. The body mass is
+the same because the fixed part was hiding inside the 0.30; the growth factor
+is lower because the arms do not grow with the armour. Consequences, at the
+same operating point and 15 kg payload:
+
+| Change | Body | Hip pitch | `f_act` |
+|---|---|---|---|
+| Reference of that morning, 4 h, 65% armour, 450 Wh/kg, 1.75 m | 129 kg | 227 Nm | 0.30 |
+| Pack at 900 Wh/kg | 99 kg | 175 Nm | 0.32 |
+| No armour, skin only | 99 kg | 175 Nm | 0.32 |
+| Both | 76 kg | 134 Nm | 0.35 |
+| **D-8 as decided that evening: 2 h with a dock, 65% armour, 1.65 m** | **96 kg** | **170 Nm** | **0.32** |
+
+A lighter body lowers every leg and trunk module's torque and the peak power
+the pack must supply, and raises `f_act` slightly because the fixed part is
+divided by less body. At 30 kg payload the last row would be 0.39, outside the
+band: the payload decision is what lets the body get lighter. No row brings
+the hip under the 78 Nm of the one qualifying module, so D-2 is not settled
+by mass.
+
+**Where the ceiling is, on three bases.** The density band is at the top of
+the market, and the market is not the ceiling:
+
+| Tier | Figure | Basis |
+|---|---|---|
+| Physics | Torque is rotor volume × air-gap shear stress, and shear stress in electric machinery runs from a few kPa in small machines to about 100 kPa in very large, well-cooled ones [20]. A joint-sized motor sits at the low end; the reducer multiplies torque at the cost of its own mass | Bound, not a figure |
+| Laboratory | **64.2 Nm/kg** peak — cycloidal quasi-direct drive, 89.9 Nm peak, 37.5 Nm continuous, Zhu et al. 2024 [21]; 1.40 kg by division, the paper's own mass figure not read | Peak over module mass |
+| Market | **78 Nm peak, 26 Nm rated, 879 g** in the one module found at or above the floor, CubeMars AKH70-16 [22]: 78 / 0.879 = 88.7 Nm/kg, the figure the band's top rests on | Peak over module mass, as claimed |
+
+The laboratory record is below the market claim, which is the usual sign that
+the two are not on the same basis: the laboratory figure is a full module
+with its housing, the market figure a compact planetary module at 16:1 whose
+879 g the datasheet does not break down. **Resolved 2026-09-26 by the author
+from the specification summary of the CubeMars page**: peak torque is
+**78 Nm**, not the 85 Nm the search excerpts and reseller listings carried,
+and 78 / 0.879 = 88.74 Nm/kg exactly. The three figures are consistent, and
+the module is 7 Nm smaller than this document assumed until then — hip yaw,
+at 81 Nm, and shoulder roll, at 84 Nm, moved above it.
+The page's torque–speed curve at 48 VDC runs to 85 Nm, which is where the
+85 figure came from; at that end the module turns at about 53 rpm and puts
+out about 470 W, so its **peak specific power is about 0.53 kW/kg**, against
+the 3–5 kW/kg spec 02.6 declares — an open finding for spec 02.7, where the
+actuator side of the peak-power comparison rests on that band. The module's
+interface is dual CAN, not EtherCAT. Price on the page: USD 598.90, recorded
+in the AVL as the first verified price.
+
+**From the manufacturer's documents, read 2026-09-26** (supplied by the
+author; copyrighted, so cited and not vendored — [23][24][25]):
+
+| Item | Figure | Source |
+|---|---|---|
+| Torque coefficient at the output, AKH70-16 | 2.8334 Nm/A; force-control ranges ±13 rad/s, ±110 Nm | [23] §4.2 |
+| Torque coefficient at the output, AKH70-48 | 8.8123 Nm/A; ranges ±5 rad/s, ±280 Nm | [23] §4.2 |
+| Drive board for both, AK70-4820-2D-A3 | 48 V rated, 18–52 V; **20 A rms rated, 60 A peak**; CAN 1 Mbps; −20…65 °C ambient, 100 °C board limit; 21-bit inner and 15-bit outer encoder; ≤1 W standby | [24] §1.1 |
+| Envelope | Ø90 × 60.5 mm, Ø42 output boss, Ø7 through bore; housing mount 12 × M3 on Ø81; output face 6 × M4, 8 × M2.5, 4 × Ø3 dowels | [25] |
+| AKH70-48 specification table, as far as the page shows it | 48:1, 21 pole pairs; **74 Nm rated at 28 rpm and 6 A DC** (≈ 217 W mechanical); back-drive torque 2.22 Nm; backlash 12 arcmin; NTC temperature sensor (MF51B103F3950); bearing ratings C 5680 N, C₀ 8680 N; 65 dB at 65 cm; 1396 g. The peak-torque, inertia, motor-constant and time-constant cells were blank in the copy read | [26], screenshot supplied by the author |
+| Peak torque duration, thermal time constant | **not stated in any of the three documents, nor on the page.** A search engine's generated answer offering "under 0.5 s", "0.5–2 s" and "over 2 s" phases was seen and is not evidence: no CubeMars document read here gives those figures | — |
+
+So 78 Nm at 2.83 Nm/A is 27.5 A, inside the board's 60 A peak, and the
+manual's ±110 Nm command range is the drive's limit, not the motor's rating.
+The thermal question of the previous paragraph stays open: the documents give
+rated and peak, not how long peak may be held.
+
+**Torque density is a ratio choice.** The AKH70-48 is the same motor and
+drive behind a three-stage 48:1 reducer: 222 Nm peak, 74 Nm rated, 1396 g,
+**159 Nm/kg** [26] — 1.8 times the density this document called the top of
+the market, bought with output speed: ±5 rad/s against ±13 rad/s. Against
+the 130 kg table of that morning, at 48:1 every leg and trunk joint was covered except hip
+pitch and knee at 230 Nm (short by 8) and trunk pitch at 226 (short by 4);
+at the 96 kg reference point of D-8, decided that evening, every joint is
+covered, hip pitch and knee at 170 Nm with 29 kg of carry capacity to spare. What is not known is whether ~5 rad/s
+at the output is enough for gait and for catching a fall; that is the
+measurement D-2 now turns on, and the sizing table gains a speed column
+when it exists.
+
+**Load cases and carry capacity.** Decision D-11 of the same day limits the
+declared loads to static objects and puts a held load onto the leg and trunk
+rows ([spec 02.6](/vault/gems/02-structure-and-motion/#load-cases)). The
+sizing script prints the case table and the mass the legs can carry against
+this module's 222 Nm peak and 74 Nm rated torque; at the old 4-hour point the
+body alone exceeded the peak, at the 2-hour, 1.65 m reference point of D-8
+29 kg is left for the hands.
+
+**In-house design is not an option.** By the author's rule of 2026-09-26
+([`CLAUDE.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/CLAUDE.md) §2), no part of this design may be proposed
+as something to build rather than buy. The "design them" branch of D-2 is
+withdrawn; what remains is which bought module, at which ratio, and how
+several combine.
+
+**The continuous-torque gap.** Every figure in the sizing table is a peak, and
+the density band is peak over module mass. The rated figures are 26 of 78 Nm
+for the market module and 37.5 of 89.9 Nm for the laboratory one — about a
+third. A joint that must hold its peak for longer than the module's thermal
+time constant is sized by the rated figure, at roughly three times the mass.
+Which joints those are — the trunk holding a lift, the shoulder holding the
+declared 15 kg — is not decided here, and is the third reason the floor stays
+at 80 rather than falling to 68.
+
+## 7. References
+
+| # | Source |
+|---|---|
+| 1 | [CubeMars — humanoid robot motors](https://www.cubemars.com/categorys/humanoid-robot-motor) |
+| 2 | [Quasi-Direct Drive Joints: The Engineering Sweet Spot for Humanoid Robots](https://zanerobotics.substack.com/p/quasi-direct-drive-joints-the-engineering) |
+| 3 | [Humanoid Robot Actuator Torque Density (Nm/kg): 2026 Engineering Guide](https://robotics.zhinno.com/blog/humanoid-robot-actuator-torque-density.html) |
+| 4 | [Amprius Technologies — product catalogue](https://amprius.com/documents/Amprius_Product_Catalog.pdf) |
+| 5 | [SOLiTHOR — energy density milestone](https://www.solithor.com/en/news/1259/press-releases/solithor-achieves-key-energy-density-milestone-while-further-validating-alternative-pathway-to-manufacture-scalable-solid-state-batteries) |
+| 6 | [Solid-State Batteries 2026: How the Technology Is Finally Reaching Commercial Use](https://to7motor.com/solid-state-batteries-2026-commercial-reality) |
+| 7 | [High C-Rate or High Energy Density? Robot Battery Insights](https://www.grepow.com/blog/high-c-rate-vs-high-energy-density-robot-battery-insights-wrc-2026.html) |
+| 8 | [NVIDIA Jetson Thor](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-thor/) |
+| 9 | [Jetson module comparison, Orin to AGX Thor](https://www.forecr.io/blogs/embedded-systems/nvidia-jetson-comparison) |
+| 10 | [An EtherCAT-Based Real-Time Control System Architecture for Humanoid Robots](https://mediatum.ub.tum.de/doc/1394924/0185778354196.pdf) |
+| 11 | [CAN vs EtherCAT vs RS-485 vs UART for robot motors and actuators](https://openelab.io/blogs/learn/can-vs-ethercat-vs-rs-485-vs-uart-for-robot-motors-and-actuators) |
+
+Joint torque requirements used by the sizing script: ankle peak 1.4 Nm/kg at
+push-off and 2.5–3.5 W/kg push-off power from normative gait data; hip
+100–150 Nm peak for a 70 kg humanoid during stair climbing and squat rise,
+scaled by mass [12][13]. Knee is assumed equal to hip pitch — **an assumption,
+not a source**, and the one figure in the table that most deserves checking
+against a real gait dataset.
+
+| # | Source |
+|---|---|
+| 12 | [Human-Level Actuation for Humanoids](https://arxiv.org/html/2511.06796) |
+| 13 | [Selection guide for humanoid robot knee and hip joint motors](https://www.cubemars.com/how-to-choose-hip-and-knee-joint-motors-for-humanoid-robots.html) |
+| 14 | Pan F., Cheng J., Kong C., Wang W., Lu S., [Sex-specific characteristics of the trunk muscle behaviors in an asymptomatic adult cohort](https://doi.org/10.1186/s40001-025-02742-w), *European Journal of Medical Research* 30:471, 2025 — open access, CC BY-NC-ND 4.0; not vendored |
+| 15 | [A 3-DOF coupled tendon-driven humanoid waist](https://www.tandfonline.com/doi/abs/10.1080/01691864.2023.2289134), *Advanced Robotics* 37(23), 2023 |
+| 16 | [Unitree G1 description, `g1_29dof.urdf`](https://github.com/unitreerobotics/unitree_ros/tree/master/robots/g1_description) — joint `<limit effort>` values read on 2026-09-26 |
+| 17 | [The effects of lifting speed on the peak external forward bending, lateral bending, and twisting spine moments](https://www.tandfonline.com/doi/abs/10.1080/001401399185838), *Ergonomics* 42(1) |
+| 19 | Wang Y., Chen P., Togo S., Yokoi H., Jiang Y., [A novel gravity compensation mechanism for orthogonal DoFs with coupled springs](https://doi.org/10.1016/j.mechmachtheory.2025.106220), *Mechanism and Machine Theory* 216:106220, 2025 — open access, CC BY-NC 4.0; not vendored. Table 1 restates the waist of [15]; §3.1 reports the wire-slack accuracy loss under load |
+| 18 | Ali A. R., Abdullah H. S., [Development of a compliant spine mechanism for enhanced humanoid robotics locomotion](https://doi.org/10.1038/s41598-025-32165-w), *Scientific Reports* 15:44646, 2025 — open access, CC BY 4.0; copy in [`sources/`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/electrical/sources/ali-2025-flexinoid-tensegrity-spine-sci-rep-15-44646.pdf) |
+| 20 | MIT course notes, *Electric Machines: Electromagnetic Forces* — the shear-stress range and torque ∝ rotor volume × shear stress; quoted from search excerpts, the [copy found](https://www.scribd.com/document/62980862/MIT-Electric-Machines) was not readable from this environment |
+| 21 | Zhu A., Tanaka Y., Rafeedi F., Hong D., [Cycloidal Quasi-Direct Drive Actuator Designs with Learning-based Torque Estimation for Legged Robotics](https://arxiv.org/abs/2410.16591), arXiv:2410.16591, 2024 — torque density up to 64.2 Nm/kg, 37.5 Nm continuous, 89.9 Nm peak; figures from the abstract as excerpted by search, the page not readable from this environment |
+| 23 | CubeMars, *AK Series Product Manual V3.2.0 for AK 3.0 Robotic Actuator*, 2026-01-17 — §4.2 motor parameter table (KV, torque coefficient, speed and torque ranges), fault codes, CAN protocol; copyrighted, not vendored |
+| 24 | CubeMars, *AK70-4820-2D-A3 Driver Manual V1.0.0*, 2026-04-29 — §1.1 driver specifications; copyrighted, not vendored |
+| 25 | CubeMars, *AKH70-16 V1.0 KV41 Hollow Shaft Planetary Actuator 2D Drawing*, 2026-05-19 — proprietary, not vendored |
+| 26 | [CubeMars AKH70-48 V1.0 KV41 hollow-shaft planetary actuator](https://www.cubemars.com/product/akh70-48-v-1-0-kv41-hollow-shaft-planetary-actuator.html) — 222 Nm peak, 74 Nm rated, 1396 g, 159 Nm/kg, 48:1 three-stage; from search excerpts of the page and reseller listings, the page not readable from this environment |
+| 22 | [CubeMars AKH70-16 V1.0 KV41 hollow-shaft planetary actuator](https://www.cubemars.com/product/akh70-16-v-1-0-kv41-hollow-shaft-planetary-actuator.html) — Φ90 × 60.5 mm, 879 g, 7 mm bore, 26 Nm rated, **78 Nm peak**, 105 rpm no-load, 16:1, dual 21-bit encoders; from the specification summary of the product page as read by the author on 2026-09-26, the page itself not readable from this environment. Search excerpts and reseller listings quote 85 Nm peak; the 78 Nm figure is the one consistent with 879 g and 88.74 Nm/kg |

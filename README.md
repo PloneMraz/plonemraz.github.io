@@ -51,7 +51,7 @@ index.html            Front page, copied as-is (not a template)
 theme.css             Colour tokens, dark-only; shared by both halves
 eleventy.config.js    Build configuration
 package.json          Scripts: dev, build
-scripts/sync_gems.py  Mirrors the GEMs chapters from the GEMs repository
+scripts/sync_gems.py  Mirrors the GEMs repositories' documents, as scripts/gems-manifest.json lists them
 CLAUDE.md             Working rules for Claude Code — excluded from the build, like README.md
 
 vault/                Section index pages and paginated templates (papers, albums, books)
@@ -156,19 +156,26 @@ summary: '...'
 Relative links in the snapshot (`LICENSE`, `src/...`) would 404 on the site; the
 `repoLinks` filter rewrites them to `<repo>/blob/HEAD/<path>`.
 
-### A GEMs chapter
+### A GEMs document
 
-The chapters are mirrored from the GEMs repository, which is the working copy; do not
-edit them here. After GEMs changes, run
+The documents are mirrored from the GEMs repositories, which are the working copies; do
+not edit them here. After a repository changes, run
 
 ```sh
-python3 scripts/sync_gems.py ../GEMs-main   # path to a checkout of PloneMraz/GEMs
+python3 scripts/sync_gems.py          # every source; or name one: sync_gems.py GEMs
 ```
 
-It reads the chapter table in GEMs' `spec/README.md` (file, site group, one-line
-contents), writes one file per row into `content/gems/` with the front matter below,
-turns links between chapters into site URLs and links out of `spec/` into GitHub URLs,
-and removes chapters no longer in the table.
+What is mirrored, and where, is declared in `scripts/gems-manifest.json`, one entry per
+source repository: its local checkout, its GitHub URL, the `visual/` folder its images
+go to, the paths to ignore, and its documents. The platform chapters come from the
+chapter table in GEMs' `spec/README.md` (file, site group, one-line contents); every
+other document is listed with its group, order and lede, and a folder's `README.md`
+becomes the page for that folder (`hardware/bom/README.md` → `/vault/gems/hardware/bom/`).
+The script links mirrored documents to each other's site pages and everything else to
+GitHub, copies the images they embed, and warns about a Markdown file the manifest
+neither lists nor ignores. Each page records its repository in `source:`; the script
+removes only pages and images of the source it syncs, so another repository — the
+controller, later — can be added as a second source without touching the first.
 
 GEMs is a document, not a feed. Chapters are ordered by `group`, in the sequence
 defined in `_data/gemsGroups.json`, and then by `order` inside each group. Dates play no
@@ -183,10 +190,12 @@ group: overview        # a key from _data/gemsGroups.json; unknown keys sort las
 order: 20
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/01-architecture.md
+sourceRepo: GEMs       # named in the page's snapshot note
+templateEngineOverride: md   # mirrored text is not run through Nunjucks
 ---
 ```
 
-Chapters are copied verbatim from the GEMs repository and link to each other by
+Documents are copied verbatim from the GEMs repository and link to each other by
 `#anchor`. To keep those links alive, `eleventy.config.js` gives every heading an `id`
 built with GitHub's slug rule (`6.4 Emission log` → `64-emission-log`, duplicates get
 `-1`, `-2`). Do not change that rule without checking the cross-links.

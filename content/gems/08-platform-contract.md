@@ -5,6 +5,8 @@ group: protocols
 order: 10
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/08-platform-contract.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 A body acquires signal and executes response. What happens in between — how raw
 signal becomes structured information — is specified elsewhere, by a companion
@@ -59,7 +61,7 @@ responses allowed"* — wrong, and would make a physical body unusable — and
 reflex layer. It must run the full appraisal cycle (abbreviated, its verdict all
 but foreclosed, as it may be) **and** write a context record for synchronisation
 off-board. In engineering terms this is the reflex decision stage of the
-[firmware reflex budget](https://github.com/PloneMraz/GEMs/blob/HEAD/firmware/ARCHITECTURE.md#2-the-reflex-budget) and
+[firmware reflex budget](/vault/gems/firmware/architecture/#2-the-reflex-budget) and
 the anchored tier of the [audit log](/vault/gems/06-audit-surface/#64-audit-log).
 
 **Cost and benefit.** Each reflex pays a small logging overhead — microseconds
@@ -109,7 +111,7 @@ full requirement in [01](/vault/gems/01-architecture/).
 ## 8.6 Conformance
 
 This chapter is a map. The test is the
-[platform conformance protocol](https://github.com/PloneMraz/GEMs/blob/HEAD/protocol/conformance.md), which states how a
+[platform conformance protocol](/vault/gems/protocol/conformance/), which states how a
 body demonstrates each row of 8.1 and what evidence settles it.
 
 Conformance there is **binary** — a loop whose preconditions are half-met does

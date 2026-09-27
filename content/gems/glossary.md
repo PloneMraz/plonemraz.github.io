@@ -5,6 +5,8 @@ group: resources
 order: 20
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/glossary.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 Technical terms in this repository follow standard usage in robotics, embedded
 systems and systems engineering. Where the repository once used a term of its
@@ -26,8 +28,8 @@ changed over to it.
 | **PREEMPT_RT** | The real-time preemption patch set for the Linux kernel, which bounds scheduling latency closely enough for many real-time control loops; the bound is established by measurement | Reghenzani et al., "The Real-Time Linux Kernel: A Survey on PREEMPT_RT", ACM Computing Surveys |
 | **`SCHED_FIFO`** | Linux fixed-priority real-time scheduling policy | Linux kernel documentation |
 | **`SCHED_DEADLINE`** | Linux earliest-deadline-first scheduling with a constant bandwidth server; each task declares runtime, deadline and period, and deadlines hold only while total utilisation stays within the cores available | [Linux kernel documentation](https://docs.kernel.org/scheduler/sched-deadline.html) |
-| **Reference model** | An executable specification that a port is checked against; it runs on no target. Here: [`reference/`](https://github.com/PloneMraz/GEMs/tree/HEAD/reference/) | General usage ("golden model") |
-| **EBOM**, **MBOM**, **SBOM** | Engineering, manufacturing and software bills of materials | see [`hardware/bom/`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/bom/README.md) |
+| **Reference model** | An executable specification that a port is checked against; it runs on no target. Here: [`reference/`](/vault/gems/reference/) | General usage ("golden model") |
+| **EBOM**, **MBOM**, **SBOM** | Engineering, manufacturing and software bills of materials | see [`hardware/bom/`](/vault/gems/hardware/bom/) |
 | **TM**, **LAB** | Commercially available; demonstrated in the laboratory but not scaled | [00](/vault/gems/00-scope-and-criteria/) |
 | **`⟦IMPL⟧`**, **`⟦CTRL⟧`** | Left open until parts are chosen; left to the operator | [09](/vault/gems/09-open-constants/) |
 
@@ -38,7 +40,7 @@ Two vocabularies meet in this repository, and each has a place.
 **RSIL and DIL terms are kept, in the contract layer.** They name concepts of
 the companion specifications, not components, and renaming them would break the
 correspondence with those papers. Their place is where the contract is stated
-and tested — [spec 08](/vault/gems/08-platform-contract/), [`protocol/`](https://github.com/PloneMraz/GEMs/tree/HEAD/protocol/) —
+and tested — [spec 08](/vault/gems/08-platform-contract/), [`protocol/`](/vault/gems/protocol/) —
 and the field names of the audit-log record schema, which carries the
 contract's evidence. Verified against the RSIL text: *appraisal*, *scar*,
 *appraisal under a scar-dominated field*, *anchored context*, *emission*,

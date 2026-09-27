@@ -1,10 +1,11 @@
 ---
 layout: base.njk
 ---
-{#  Chương trong GEMs. Khác bài viết ở một điểm: thứ tự do trường
+{#  Tài liệu trong GEMs. Khác bài viết ở một điểm: thứ tự do trường
     `order` quyết định, không do ngày. Front matter dùng: title,
     lede, group (khớp khoá trong _data/gemsGroups.json), order,
-    status (ví dụ "đã đóng" / "bảng sơ bộ" / "đang viết").  #}
+    status (ví dụ "đã đóng" / "bảng sơ bộ" / "đang viết"), và với
+    bản chép từ repo (scripts/sync_gems.py): source, sourceRepo.  #}
 <article class="prose gems-doc">
   <h1>{{ title }}</h1>
 
@@ -16,7 +17,7 @@ layout: base.njk
   <p class="lede">{{ lede }}</p>
   {%- endif %}
 
-  {#  Chương ở đây là BẢN CHỤP của chương trong repo. Repo vẫn chạy
+  {#  Tài liệu ở đây là BẢN CHỤP của tài liệu trong repo. Repo vẫn chạy
       tiếp, nên phải nói rõ chỗ nào là bản làm việc — cùng lối với
       bản chụp README ở project.njk.  #}
   {%- if source %}
@@ -26,10 +27,10 @@ layout: base.njk
     </a>
   </p>
   <p class="note">
-    <span data-l="en">Snapshot of the chapter in the GEMs repository. The repository
-      itself is the current version.</span>
-    <span data-l="vi">Bản chụp chương này trong repo GEMs. Bản đang chạy nằm ở chính
-      repo.</span>
+    <span data-l="en">Snapshot of this document in the {{ sourceRepo or "GEMs" }} repository.
+      The repository itself is the current version.</span>
+    <span data-l="vi">Bản chụp tài liệu này trong repo {{ sourceRepo or "GEMs" }}. Bản đang
+      chạy nằm ở chính repo.</span>
   </p>
   {%- endif %}
 

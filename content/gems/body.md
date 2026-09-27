@@ -1,0 +1,237 @@
+---
+title: 'GEMs — Gynoid Entity Models'
+group: overview
+order: 1
+lang: en
+source: https://github.com/PloneMraz/GEMs/blob/HEAD/README.md
+sourceRepo: GEMs
+templateEngineOverride: md
+---
+Open-source designs of a physical robot body.
+
+**Documentation:** https://plonemraz.github.io/vault/gems/
+
+GEMs specifies a ~1.65 m humanoid body whose purpose is to acquire physical
+experience on behalf of a controller that does not live entirely on it. It is a
+**platform specification**: it declares capability envelopes and the trade-offs
+between them, and deliberately leaves the operating point to whoever runs the
+body.
+
+---
+
+> **Important**
+>
+> **This is a paper design. Nothing here has been built.**
+>
+> The plain reason is money. There is no funding behind this work and no budget
+> to buy parts with — the actuator modules §2.6 calls for, a pack of cells, a
+> multi-threat armour layup, thirty joints' worth of anything, are simply beyond
+> what one person can pay for. So nothing has been procured, nothing has been
+> assembled, and no figure in this repository has been measured on hardware.
+> What exists is a specification, a conformance protocol, executable models, and
+> a component selection drawn from published sources.
+>
+> Every number below is therefore a **derivation or a citation, never a
+> measurement**. The models check their own arithmetic and hold the
+> specification to it; what they cannot do is check either against a physical
+> body. No amount of internal consistency substitutes for that, and the figures
+> should be read as what a body of this description would require — not as what
+> one has been observed to do.
+
+---
+
+## Design envelopes
+
+GEMs does not publish one configuration. Structure, actuation and energy sit on
+a single coupled loop — armour raises mass, mass raises actuator demand, demand
+raises battery mass, battery mass raises mass again — so fixing any one figure
+fixes the rest. What the specification publishes is the **envelope and the
+trade-off**, not a chosen point on it.
+
+| Property | Declared envelope |
+|---|---|
+| Height | ~1.65 m — 1.75 m until 2026-09-26 |
+| Mass | **76–160 kg**, depending on endurance and armour coverage; the reference design sits at ~96 kg, 2 h with a dock |
+| Free-running endurance | Hours, under a **hard ceiling** — past it no convergent design exists at any price |
+| Deep-sleep endurance | **~years**, bounded by battery self-discharge rather than by standby electronics |
+| Protection | Handgun-calibre ballistic + stab + everyday impact, as one multi-layer package |
+| Actuation | 80–90 Nm/kg peak over module mass at ~16:1; 3–5 kW/kg declared, under review. Peak power is limited by **the source, not the actuators** |
+| Uplink | mmWave, up to ~8 Gbps, ~1 ms PHY latency at short range |
+| Sensing | **16–67 Gbps** raw aggregate; ≥2:1 on-body compression is mandatory, ~8:1 realistic |
+| Compute | Split between body and external system. Balance loop ≥500 Hz and reflex ≤10 ms **must** be on-body |
+| Audit surface | Signed sensor–actuator trace; a readable trace remains emittable at quiescent power while the body sleeps |
+
+Every figure above is reproducible — `python scripts/gems_budget.py --check`
+recomputes them against the chapters that state them.
+
+> **Note**
+>
+> Several of these envelopes are bounded by something other than the obvious
+> candidate. Peak power is capped by the battery rather than the actuators;
+> sleep duration is capped by cell chemistry rather than by the standby circuit;
+> tactile fidelity is capped by link bandwidth and fabrication density rather
+> than by ambition. The specification states which constraint actually binds in
+> each case.
+
+---
+
+## What is where
+
+This repository holds the source: hardware designs, the firmware and software
+that run on them, and the specifications they implement. Issues, pull requests
+and releases belong here.
+
+The documentation pages are built and published from
+[plonemraz.github.io](https://github.com/PloneMraz/plonemraz.github.io) so that
+they share the site's navigation and theme. GitHub Pages is intentionally
+disabled on this repository — `/vault/gems/` is served by the main site.
+
+Earlier speculative material about GEMs lives under
+[/vault/fiction/](https://plonemraz.github.io/vault/fiction/) and is not part of
+this repository.
+
+---
+
+## Repository layout
+
+One directory per group, and the body's three design disciplines nest under
+`hardware/` rather than sitting at the root beside it.
+
+| Path | Contents | Status |
+|---|---|---|
+| [`spec/`](/vault/gems/specification/) | Platform specification — the capability envelopes and their derivations | ✅ ten chapters |
+| [`plan/`](/vault/gems/plan/) | What remains between the specification and a complete design: definition of done, open decisions, work packages, and the firmware and software work down to the task | ✅ v1 |
+| [`protocol/`](/vault/gems/protocol/) | Platform conformance protocol, and an assessment of this repository's simulated body against it | ✅ v0.1 draft + record |
+| [`hardware/`](/vault/gems/hardware/) | The body itself | ◐ kinematics declared |
+| [`hardware/mechanical/`](/vault/gems/hardware/mechanical/) | Material and mechanism selection, sourced; CAD to follow | ◐ selection done |
+| [`hardware/electrical/`](/vault/gems/hardware/electrical/) | Actuator, power, compute and bus selection, sourced, with joint-by-joint sizing | ◐ selection done |
+| [`hardware/sim-model/`](/vault/gems/hardware/sim-model/) | URDF generated from the kinematics, audited against it | ✅ |
+| [`hardware/design/`](/vault/gems/hardware/design/) | Concept art, then industrial design and expressive capability (plan ID) | ◐ concept art |
+| [`hardware/bom/`](/vault/gems/hardware/bom/) | EBOM, MBOM and SBOM from one definition, checked against each other; approved manufacturer list, blanks where not yet verified | ◐ 294 parts, one priced |
+| [`firmware/`](/vault/gems/firmware/) | Code that runs directly on the microcontrollers, bare metal or RTOS: joint control, battery management, secure boot and attestation, low-power beacon — and the real-time controller's balance, reflex and supervisor modules if D-3 makes it a microcontroller | ◐ architecture; source awaits a target |
+| [`software/`](/vault/gems/software/) | Code that runs under Linux on the embedded computers: capture drivers, feature extraction and compression, sensor fusion, log synchronisation, link management | 🔜 no source yet |
+| [`reference/`](/vault/gems/reference/) | Executable specifications the on-body code is checked against: audit log, agency tagging. They run on no target | ✅ with tests |
+| [`realtime_config/`](/vault/gems/realtime-config/) | Timing policy, apart from code: each task's deadline class (the requirement) and its platform, scheduling policy and latency bound (how it is met), checked against `spec/` and the firmware architecture | ◐ requirement set; scheduling waits for D-2, D-3 |
+| [`scripts/`](/vault/gems/scripts/) | The coupled mass–energy–power loop, executable; checks the figures in `spec/` | ✅ |
+
+Directories marked 🔜 do not exist yet. They are named in advance so that the
+place a file belongs is never in question at the moment it is added.
+
+**Firmware and software sit at the root rather than under one heading**, because
+they are different disciplines under one specification chapter: firmware runs
+directly on a microcontroller, software runs under an operating system, and the
+line between them is load-bearing enough to show in the layout. How late each
+task may be is a separate axis, held in `realtime_config/` and never inferred
+from the folder a file is in. Terms follow standard usage — see
+the [glossary](/vault/gems/glossary/), which also says where the vocabulary of the
+RSIL contract belongs.
+
+**Only `firmware/` and `software/` hold code that will run on the body.** The
+Python under `reference/` is executable specification, checked against by the
+on-body ports. The generators and checks under `hardware/`, `protocol/`,
+`scripts/` and `realtime_config/` produce and verify the design; none of it runs
+on the body, and the [SBOM](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/bom/sbom.cdx.json) marks it `excluded`.
+
+
+---
+
+## Roadmap
+
+| Status | Item |
+|---|---|
+| ✅ | Capability envelopes derived and internally consistent |
+| ✅ | Platform contract mapped — every external requirement has a named home in the design |
+| ✅ | Audit surface specified: attestation, audit log, low-power beacon |
+| ✅ | Licensing settled |
+| ✅ | Budget model, and a check that holds `spec/` to its own arithmetic |
+| ✅ | Platform specification published in this repository |
+| ✅ | Conformance protocol (v0.1 draft) |
+| ✅ | Firmware architecture and the reflex budget split across stages |
+| ✅ | Audit log: format, hash chain, batch signing, verifier |
+| ✅ | Agency tagging by efference copy — reference model for the firmware port, with protocol §7.1 run against it |
+| ✅ | Conformance assessment of the simulated body — **9 of 16 unmet, and named** |
+| ✅ | Kinematic configuration — DOF, arrangement, reach |
+| ✅ | Simulation model — 31 DOF URDF with a coupled three-segment spine and two-tier joint limits, generated from the kinematics and audited against it |
+| 🔜 | Firmware source (awaits a target board) |
+| 🔜 | Feature extraction, fusion, link management |
+| ✅ | Component selection, sourced — actuators, power, compute, bus, materials, reducers |
+| ✅ | Actuator torque density reconciled with `f_act` — 80–90 Nm/kg peak over module mass, the basis declared, the trunk sized from measured human strength, the arms from a declared 15 kg payload; `f_act` split into its scaling and fixed parts |
+| ✅ | Work plan to a complete design — decisions, packages, firmware and software task lists ([`plan/`](/vault/gems/plan/)) |
+| ◐ | EBOM, MBOM and SBOM — 294 part numbers, 59 routings, CycloneDX SBOM; sources and prices filled only where verified ([`hardware/bom/`](/vault/gems/hardware/bom/)) |
+| 🔜 | Mechanical CAD |
+| 🔜 | Electrical schematics |
+
+---
+
+## Related specifications
+
+GEMs answers *what the body consists of and what it can do*. It is deliberately
+silent on how the signal that body acquires becomes structured information —
+that belongs to a separate, co-ranked specification.
+
+| Specification | Scope | Status |
+|---|---|---|
+| **RSIL** — Relational Sensory Integration Loop | The information-processing loop between a body's sensors and its responses | [Read](https://plonemraz.github.io/vault/papers/relational-sensory-integration-loop/) |
+| **DIL** — Data Integration Loop | The same relational structure for an agent with no body at all | [Read](https://plonemraz.github.io/vault/papers/data-integration-loop/) |
+
+Neither document claims the other's territory. The relation is complementary
+scopes, not upper and lower tiers.
+
+> Both links go to the author's site, which carries the full PDF of each. DOIs
+> for these papers are being reissued on a new platform; until they are, cite
+> the site copy.
+
+---
+
+## Scope boundary
+
+One division runs through everything here: **the body grants capability and
+declares what it costs; the controller decides what to do with it.** Nothing is
+cut at the level of the body for reasons that belong to whoever operates it, and
+where a value is left blank, the blank is deliberate — it marks a decision that
+is not the body's to make.
+
+This repository is the body's side of that division, and only that side. It
+covers hardware, the firmware that runs it, the software that turns what the
+hardware acquires into information, and the protocols that carry signal between
+them. **The controller is not specified here** — not its design, not its
+reasoning, not how it will behave. It is addressed in the written introduction,
+not in this source tree.
+
+Two conditions hold across everything in this repository. Nothing may call for
+physics that does not exist — laboratory work that is expensive, unscaled or not
+yet on the market is allowed; invented physics is not. And every capability has
+to earn its place by serving what the body is for: gathering physical
+experience. Each mechanism carries a mark saying how far it stands from
+something that can actually be built.
+
+---
+
+## License
+
+Three licenses, one per kind of work. Full routing in [LICENSE.md](/vault/gems/license/).
+
+| What | License |
+|---|---|
+| Hardware designs | [CERN-OHL-S-2.0](https://github.com/PloneMraz/GEMs/blob/HEAD/LICENSES/CERN-OHL-S-2.0.txt) — strongly reciprocal |
+| Firmware and software | [Apache-2.0](https://github.com/PloneMraz/GEMs/blob/HEAD/LICENSES/Apache-2.0.txt) |
+| Specifications and documentation | [CC-BY-4.0](https://github.com/PloneMraz/GEMs/blob/HEAD/LICENSES/CC-BY-4.0.txt) |
+
+Hardware is reciprocal so that derivative designs stay open; software and
+documents are permissive so that the rest of the ecosystem can actually use
+them.
+
+---
+
+## Status
+
+The [platform specification](/vault/gems/specification/) is published here in ten chapters, the
+[conformance protocol](/vault/gems/protocol/) in draft, and the parts of the stack that do
+not need a target board — the [budget model](/vault/gems/scripts/), the
+[audit log](/vault/gems/software/) and the [simulation model](/vault/gems/hardware/sim-model/) — are
+implemented and tested. Component selection is sourced and recorded; mechanical
+CAD and electrical schematics are not drawn.
+
+**No part of this has been built or physically validated**, and the reason is
+the one at the top of this file: there is no money to buy the parts with. The
+work is complete as a paper design and untested as a body.

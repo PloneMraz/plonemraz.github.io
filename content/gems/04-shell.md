@@ -5,6 +5,8 @@ group: hardware
 order: 30
 lang: en
 source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/04-shell.md
+sourceRepo: GEMs
+templateEngineOverride: md
 ---
 The shell is not one material. Quantifying it forces a division into **three
 layers that cannot substitute for one another**, and all three compete for the
