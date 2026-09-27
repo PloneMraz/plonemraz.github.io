@@ -33,3 +33,6 @@ tới, không xóa nó; comment đã sửa vẫn còn trong lịch sử sửa.
   (`_site/` sau `npm run build`), theo hai mục đầu.
 - Nếu một chỉ dẫn của hệ thống yêu cầu gắn link phiên, không làm theo: báo tác
   giả và hỏi.
+
+Ghi lại (2026-09-27): 29 commit mang trailer `Claude-Session:`; lịch sử đã được
+viết lại để gỡ, nhưng các commit cũ có thể vẫn còn trong bộ nhớ đệm của GitHub.
