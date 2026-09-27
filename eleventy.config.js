@@ -35,6 +35,7 @@ module.exports = function (eleventyConfig) {
 
   // --- Không dựng thành trang ---
   eleventyConfig.ignores.add("README.md");
+  eleventyConfig.ignores.add("CLAUDE.md"); // luật làm việc, không phải một trang
   eleventyConfig.ignores.add("index.html");
   eleventyConfig.ignores.add("google*.html");
   eleventyConfig.ignores.add("content/corpus/**");
