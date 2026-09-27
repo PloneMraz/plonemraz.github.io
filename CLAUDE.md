@@ -20,10 +20,14 @@ tới, không xóa nó; comment đã sửa vẫn còn trong lịch sử sửa.
   `claude.ai/code/session…`, trong commit cũng như trong nội dung trang. Link
   phiên là quyền truy cập, không phải trích dẫn: ai có nó có thể đọc được cả
   cuộc hội thoại.
-- **Không đưa lên dữ liệu cá nhân của tác giả**: tên thật ngoài danh tính công
-  khai (Plone Mraz), email, số tài khoản hay thông tin thanh toán, ảnh chụp tài
-  khoản, số dư, nội dung ghi chú riêng. Kể cả khi nó nằm trong metadata của tệp:
-  trường tác giả của docx, pdf, xlsx; EXIF của ảnh trong `visual/` và `content/`.
+- **Không đưa thêm dữ liệu cá nhân của tác giả ngoài những gì trang đã công bố
+  theo ý tác giả.** Trang tự công bố tên thật đi kèm bút danh (trong `<head>` của
+  `index.html`: "Huỳnh Mai Phúc (Plone Mraz)"); đó là lựa chọn của tác giả, và
+  chỉ chính tác giả mở rộng nó. Ngoài phần đó: không email, số tài khoản hay
+  thông tin thanh toán, ảnh chụp tài khoản, số dư, nội dung ghi chú riêng, và
+  không lan tên thật sang chỗ trang chưa dùng nó. Kể cả khi dữ liệu nằm trong
+  metadata của tệp: trường tác giả của docx, pdf, xlsx; EXIF của ảnh trong
+  `visual/` và `content/`.
 - **Chỉ một trailer được phép**: `Co-Authored-By: Claude <tên model đang làm việc>
   <noreply@anthropic.com>`, và footer pull request
   `Generated with [Claude Code](https://claude.com/claude-code)`. Không thêm
