@@ -51,6 +51,7 @@ index.html            Front page, copied as-is (not a template)
 theme.css             Colour tokens, dark-only; shared by both halves
 eleventy.config.js    Build configuration
 package.json          Scripts: dev, build
+scripts/sync_gems.py  Mirrors the GEMs chapters from the GEMs repository
 CLAUDE.md             Working rules for Claude Code — excluded from the build, like README.md
 
 vault/                Section index pages and paginated templates (papers, albums, books)
@@ -156,6 +157,18 @@ Relative links in the snapshot (`LICENSE`, `src/...`) would 404 on the site; the
 `repoLinks` filter rewrites them to `<repo>/blob/HEAD/<path>`.
 
 ### A GEMs chapter
+
+The chapters are mirrored from the GEMs repository, which is the working copy; do not
+edit them here. After GEMs changes, run
+
+```sh
+python3 scripts/sync_gems.py ../GEMs-main   # path to a checkout of PloneMraz/GEMs
+```
+
+It reads the chapter table in GEMs' `spec/README.md` (file, site group, one-line
+contents), writes one file per row into `content/gems/` with the front matter below,
+turns links between chapters into site URLs and links out of `spec/` into GitHub URLs,
+and removes chapters no longer in the table.
 
 GEMs is a document, not a feed. Chapters are ordered by `group`, in the sequence
 defined in `_data/gemsGroups.json`, and then by `order` inside each group. Dates play no

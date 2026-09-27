@@ -27,13 +27,13 @@ a cross-reference can only dangle.**
 | **E1** | Sensors and internal state must make an inside/outside distinction *possible*. The platform does not draw the line; it must not foreclose it | [05.5](/vault/gems/05-sensing/#55-proprioception-is-mandatory) — proprioception |
 | **E2** | Actuators must act on the region, and the region must be able to return something other than what was predicted | [02.6](/vault/gems/02-structure-and-motion/#26-actuation-and-manipulation) |
 | **E3** | State must persist across cycles | [01](/vault/gems/01-architecture/) — off-body memory; on-body storage |
-| **E4** | Emissions must leave a trace a third party can read | [06.4](/vault/gems/06-audit-surface/#64-emission-log) |
+| **E4** | Emissions must leave a trace a third party can read | [06.4](/vault/gems/06-audit-surface/#64-audit-log) — the audit log, synchronised off-board; also where a stopped loop becomes detectable, as the stored behaviour-record RSIL requires for it |
 | **P(a)** | The platform must emit an action distinguishable from ambient fluctuation | [02.6](/vault/gems/02-structure-and-motion/#26-actuation-and-manipulation) |
 | **P(b)** | It must hold state so history accrues | [01](/vault/gems/01-architecture/) |
 | **P(c)** | It must withstand resistance without resetting itself clean on every mismatch | [02.4](/vault/gems/02-structure-and-motion/#24-protection), [04](/vault/gems/04-shell/) |
 | **INV-6** | Every change must be classified as caused-by-me or not, *before* interpretation | [05.5](/vault/gems/05-sensing/#55-proprioception-is-mandatory) |
 | **INV-8** | An appraisal step must sit between integration and response | 8.2 below |
-| **C5** | The platform must emit an observable low-power trace | [06.5](/vault/gems/06-audit-surface/#65-low-power-trace) |
+| **C5** | The platform must be able to emit an observable low-power trace — in RSIL's definition, the loop's own report that it is running weakly | [06.5](/vault/gems/06-audit-surface/#65-low-power-beacon) — the beacon carries the loop's `loop_state` report unaltered, including during sleep. The body transmits; the loop reports |
 
 The companion specification identifies INV-6, INV-8 and C5 as the three points
 where a conventional sensorimotor chain skips a step — that is, the three places
@@ -43,8 +43,9 @@ They are the load-bearing part of this contract.
 ## 8.2 Traced appraisal, not mute reflex
 
 The contract rejects a scar-to-action shortcut that bypasses appraisal. Reflex
-is not such a shortcut: it is **appraisal under a field a prior injury dominates**
-— the appraisal step still runs, it has simply been pre-closed.
+is not such a shortcut: it is **appraisal under a scar-dominated field** (RSIL
+§9.7) — the appraisal step still runs, its verdict all but foreclosed by the
+scar that dominates the field.
 
 This is not pedantry. An action emitted without appraisal **carries no anchored
 context**, so a third party cannot re-appraise it, and the audit plane goes
@@ -54,12 +55,15 @@ The distinction, stated in platform terms, is the difference between *"no fast
 responses allowed"* — wrong, and would make a physical body unusable — and
 *"even fast responses must leave an auditable trace"* — right, and achievable.
 
-**Hardware requirement.** The on-body seat must not be a straight-through reflex
-layer. It must run the full appraisal cycle (abbreviated and pre-closed as it may
-be) **and** write a context record for synchronisation off-body.
+**Hardware requirement.** The on-board compute must not be a straight-through
+reflex layer. It must run the full appraisal cycle (abbreviated, its verdict all
+but foreclosed, as it may be) **and** write a context record for synchronisation
+off-board. In engineering terms this is the reflex decision stage of the
+[firmware reflex budget](https://github.com/PloneMraz/GEMs/blob/HEAD/firmware/ARCHITECTURE.md#2-the-reflex-budget) and
+the anchored tier of the [audit log](/vault/gems/06-audit-surface/#64-audit-log).
 
 **Cost and benefit.** Each reflex pays a small logging overhead — microseconds
-against a 10 ms budget. In exchange, the off-body seat is never blind to what the
+against a 10 ms budget. In exchange, the off-board compute is never blind to what the
 body has already done, which is what makes "the body is replaceable, the data is
 preserved" true rather than aspirational.
 
@@ -74,7 +78,7 @@ These size the edge compute and its power budget, and they set the lower end of
 the split in [05.6](/vault/gems/05-sensing/#56-the-on-body--off-body-compute-split).
 
 > **Keep the frequency, drop the topology.** The balance loop still runs at
-> 500 Hz and reflex still answers within 10 ms — but as a *pre-closed appraisal
+> 500 Hz and reflex still answers within 10 ms — but as an *appraisal under a scar-dominated field
 > that leaves a trace*, not as a hardware interrupt routed around everything. The
 > contract forbids losing the trace; it does not forbid being fast.
 

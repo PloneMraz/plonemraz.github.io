@@ -27,9 +27,9 @@ quantities, and they do not all move together:
 1. **Fabrication.** The densest published e-skin array reaches **~347
    elements/cm²** *(sourced)* — roughly **level with human skin**, not above it.
    A 100× density means 24,100/cm², about **69× beyond anything yet built**.
-2. **Bandwidth.** Even if it could be built: 24,100/cm² over 1.8 m² is **434
-   million points**. At 1 kHz and 12 bits that is **~5,200 Gbps of tactile data
-   alone** — **650×** the 8 Gbps link of [01](/vault/gems/01-architecture/). No compression
+2. **Bandwidth.** Even if it could be built: 24,100/cm² over 1.6 m² is **386
+   million points**. At 1 kHz and 12 bits that is **~4,600 Gbps of tactile data
+   alone** — **580×** the 8 Gbps link of [01](/vault/gems/01-architecture/). No compression
    ratio rescues that.
 
 **Declared tactile capability:** density **level with human skin** in the fine
@@ -44,11 +44,12 @@ Uniform whole-body density is wasteful — human skin is not uniform either.
 | Region | Area | Density | Points |
 |---|---|---|---|
 | Fine — hands, face | ~500 cm² | ~300/cm² *(near the fabrication ceiling)* | ~150,000 |
-| Ordinary — remainder | ~17,500 cm² | ~20/cm² | ~350,000 |
-| **Total** | 1.8 m² | — | **~500,000** |
+| Ordinary — remainder | ~15,500 cm² | ~20/cm² | ~310,000 |
+| **Total** | 1.6 m² | — | **~460,000** |
 
-At 1 kHz and 12 bits: **6.0 Gbps** raw — three quarters of the link, from one
-channel.
+At 1 kHz and 12 bits: **5.5 Gbps** raw — two thirds of the link, from one
+channel. (1.8 m², ~500,000 points and 6.0 Gbps until the height came to 1.65 m
+on 2026-09-26.)
 
 ## 5.3 Channels
 
@@ -58,7 +59,7 @@ channel.
 | Thermal IR | 640×480, 30 fps, 16 bit | 0.15 Gbps | |
 | LiDAR / depth | 300k points/s | 0.04 Gbps | |
 | Microphone array | 16 ch, 48 kHz, 24 bit | 0.02 Gbps | High-sensitivity, directional |
-| Proprioception | 40 joints × 4 channels + IMU, 1 kHz | 0.006 Gbps | Joint count declared at [`hardware/kinematics.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/kinematics.md). Cheapest channel, and the one that **must not be cut** — see 5.5 |
+| Proprioception | 41 joints × 4 channels + IMU, 1 kHz | 0.006 Gbps | Joint count declared at [`hardware/kinematics.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/kinematics.md). Cheapest channel, and the one that **must not be cut** — see 5.5 |
 | SDR / multi-band RF | 2 ch × 56 MHz I/Q, 16 bit | **3.58 Gbps** | |
 | Spatial RF sensing | Wi-Fi / mmWave CSI | modest | Retained at full hardware capability; use is `⟦CTRL⟧` |
 | Olfaction (e-nose) | — | negligible | **5–30 ppb** achieved per compound *(sourced)*; 5–10 s response |
@@ -77,13 +78,13 @@ channel.
 
 | Configuration | Vision | Tactile | SDR | **Total** | Minimum compression |
 |---|---|---|---|---|---|
-| **A — conservative** (4K30, 500k points) | 5.97 | 6.00 | 3.58 | **15.8 Gbps** | **2 : 1** |
+| **A — conservative** (4K30, 460k points) | 5.97 | 5.52 | 3.58 | **15.1 Gbps** | **2 : 1** |
 | **B — moderate** (8K60, 1M points, 4-ch SDR) | 47.8 | 12.0 | 7.17 | **67.2 Gbps** | **8 : 1** |
 | **C — 100× density** | 47.8 | 5,206 | 7.17 | **5,261 Gbps** | 658 : 1 — *excluded* |
 
 Available link: **8 Gbps**.
 
-> The two-seat architecture of [01](/vault/gems/01-architecture/) is not a design
+> The on-board / off-board split of [01](/vault/gems/01-architecture/) is not a design
 > preference. **It falls short by 2× in the most conservative configuration and
 > by 8× in a sensible one.** On-body processing is arithmetic, not taste.
 
@@ -115,7 +116,7 @@ The split is a dial with **two hard ends and a soft middle**.
 | Minimum compression | **2 : 1 → 8 : 1** (5.4) |
 | Balance loop | **≥ 500 Hz** |
 | Fast reaction loop | **≤ 10 ms** |
-| Traced appraisal on every emission | per emission ([08](/vault/gems/08-platform-contract/)) |
+| Context record for every output event (RSIL INV-8: anchored context on every emission) | per event ([08.2](/vault/gems/08-platform-contract/#82-traced-appraisal-not-mute-reflex)) |
 
 Link round-trip is ~1 ms at ideal short range, but at kilometre range with beam
 tracking it cannot be relied on for ≤10 ms. **Balance and reflex are therefore
