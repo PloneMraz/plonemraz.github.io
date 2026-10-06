@@ -2,7 +2,7 @@
   "sources": [
     {
       "name": "GEMs",
-      "checkout": "../GEMs-main",
+      "checkout": "../GEMs",
       "github": "https://github.com/PloneMraz/GEMs",
       "images": "visual/gems/body",
       "ignore": ["ref/", "CLAUDE.md", "LICENSES/"],
