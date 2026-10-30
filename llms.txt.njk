@@ -23,12 +23,12 @@ each label twice. This file is the clean index.
 
 Seven articulations of one operation, each answering a different question of it.
 {% for p in papers %}{% if p.group == "programme" %}
-- [{{ p.code }} — {{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): asks {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+- [{{ p.code }} — {{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): asks {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }}{% if p.doi %} — DOI: https://doi.org/{{ p.doi }}{% endif %}
 {%- endif %}{% endfor %}
 
 ## Overview and related documents
 {% for p in papers %}{% if p.group == "overview" %}
-- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }}{% if p.doi %} — DOI: https://doi.org/{{ p.doi }}{% endif %}
 {%- endif %}{% endfor %}
 
 ## Applied work
@@ -36,14 +36,14 @@ Seven articulations of one operation, each answering a different question of it.
 Carried into clinical domains as bounded, falsifiable proposals. Neither document is a
 clinical recommendation.
 {% for p in papers %}{% if p.group == "applied" %}
-- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }}{% if p.doi %} — DOI: https://doi.org/{{ p.doi }}{% endif %}
 {%- endif %}{% endfor %}
 
 ## Agent specifications
 
 A co-ranked pair specifying the same relational structure for agents of differing scope.
 {% for p in papers %}{% if p.group == "specs" %}
-- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }} — DOI: https://doi.org/{{ p.doi }}
+- [{{ p.title | safe }}]({{ site.url }}/vault/papers/{{ p.slug }}/): {{ p.asks | safe }}. {{ p.pages }} pages. PDF: {{ site.url }}/corpus/{{ p.pdf }}{% if p.doi %} — DOI: https://doi.org/{{ p.doi }}{% endif %}
 {%- endif %}{% endfor %}
 
 ## Writing

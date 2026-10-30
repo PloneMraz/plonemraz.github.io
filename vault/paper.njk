@@ -23,7 +23,7 @@ eleventyComputed:
   <p class="kicker">
     {%- if paper.code %}<span class="pcode">{{ paper.code }}</span> &middot; {% endif -%}
     {{ paper.pages }} <span data-l="en">pages</span> <span data-l="vi">trang</span>
-    &middot; <a class="e-doi" href="https://doi.org/{{ paper.doi }}">{{ paper.doi }}</a>
+    {%- if paper.doi %} &middot; <a class="e-doi" href="https://doi.org/{{ paper.doi }}">{{ paper.doi }}</a>{% endif %}
   </p>
 
   <p class="paper-actions">
