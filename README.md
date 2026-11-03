@@ -255,9 +255,10 @@ no backend of its own.
 ## Citing the papers
 
 Cite by DOI, which is listed on each paper's page. The PDFs in `content/corpus/` are
-mirrors kept for direct reading, and the figshare records hold the version history.
+mirrors kept for direct reading; the papers' home is the Hugging Face dataset
+[plonemraz/Plones_documents](https://huggingface.co/datasets/plonemraz/Plones_documents), which also publishes their Markdown sources.
 
 ## License
 
 [MIT](LICENSE) for the code in this repository. The papers are distributed under the
-terms recorded on their respective figshare records.
+terms of their home, [plonemraz/Plones_documents](https://huggingface.co/datasets/plonemraz/Plones_documents): all rights reserved (its `LICENSE`).

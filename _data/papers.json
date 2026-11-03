@@ -7,7 +7,7 @@
   "asks": "what operates",
   "pages": 18,
   "pdf": "SP.pdf",
-  "doi": "10.6084/m9.figshare.31848634"
+  "doi": ""
  },
  {
   "slug": "aviplestos",
@@ -15,9 +15,9 @@
   "code": "2026b",
   "title": "Aviplestos",
   "asks": "toward what it tends",
-  "pages": 32,
+  "pages": 34,
   "pdf": "Aviplestos.pdf",
-  "doi": "10.6084/m9.figshare.31848649"
+  "doi": ""
  },
  {
   "slug": "ontonoetic-pattern",
@@ -25,9 +25,9 @@
   "code": "2026c",
   "title": "Ontonoetic Pattern",
   "asks": "by what cognitive procedure it is articulated",
-  "pages": 25,
+  "pages": 26,
   "pdf": "OP.pdf",
-  "doi": "10.6084/m9.figshare.31848265"
+  "doi": ""
  },
  {
   "slug": "patterns-and-cognition",
@@ -35,9 +35,9 @@
   "code": "2026d",
   "title": "Patterns and Cognition",
   "asks": "within what geometry that procedure operates",
-  "pages": 23,
+  "pages": 26,
   "pdf": "PC.pdf",
-  "doi": "10.6084/m9.figshare.31848688"
+  "doi": ""
  },
  {
   "slug": "passage-of-becoming",
@@ -45,9 +45,9 @@
   "code": "2026e",
   "title": "The Passage of Becoming",
   "asks": "through what passage it runs",
-  "pages": 24,
+  "pages": 25,
   "pdf": "PoB.pdf",
-  "doi": "10.6084/m9.figshare.31849009"
+  "doi": ""
  },
  {
   "slug": "potentamis-and-fasaion",
@@ -55,9 +55,9 @@
   "code": "2026f",
   "title": "Potentamis and Fasaion",
   "asks": "how the mechanism operates",
-  "pages": 24,
+  "pages": 25,
   "pdf": "PF.pdf",
-  "doi": "10.6084/m9.figshare.31896160"
+  "doi": ""
  },
  {
   "slug": "stachoria",
@@ -67,7 +67,7 @@
   "asks": "within what it takes place",
   "pages": 22,
   "pdf": "Stachoria.pdf",
-  "doi": "10.6084/m9.figshare.32531592"
+  "doi": ""
  },
  {
   "slug": "programme-overview",
@@ -77,7 +77,7 @@
   "asks": "the architecture connecting the seven papers",
   "pages": 31,
   "pdf": "MetaPaper.pdf",
-  "doi": "10.6084/m9.figshare.31852003"
+  "doi": ""
  },
  {
   "slug": "first-target",
@@ -85,9 +85,9 @@
   "code": "",
   "title": "The First Target of the Observation",
   "asks": "what the programme was built with, and how",
-  "pages": 17,
+  "pages": 18,
   "pdf": "FirstTarget.pdf",
-  "doi": "10.6084/m9.figshare.32657418"
+  "doi": ""
  },
  {
   "slug": "derived-cognitive-protocol",
@@ -95,9 +95,9 @@
   "code": "",
   "title": "Derived Cognitive Protocol",
   "asks": "how to put the corpus to work on a case",
-  "pages": 15,
+  "pages": 38,
   "pdf": "DCP.pdf",
-  "doi": "10.6084/m9.figshare.33261138"
+  "doi": ""
  },
  {
   "slug": "derived-quantitative-protocol",
@@ -105,9 +105,9 @@
   "code": "",
   "title": "Derived Quantitative Protocol",
   "asks": "the same work, with magnitudes",
-  "pages": 42,
+  "pages": 61,
   "pdf": "DQP.pdf",
-  "doi": "10.6084/m9.figshare.33826810"
+  "doi": ""
  },
  {
   "slug": "data-integration-loop",
@@ -115,7 +115,7 @@
   "code": "",
   "title": "The Data Integration Loop",
   "asks": "an agent in a purely informational environment",
-  "pages": 47,
+  "pages": 64,
   "pdf": "DIL-en-v9.pdf",
   "doi": ""
  },
@@ -125,9 +125,9 @@
   "code": "",
   "title": "The Relational Sensory Integration Loop",
   "asks": "the same structure, embodied",
-  "pages": 65,
+  "pages": 70,
   "pdf": "RSIL-en-v1.pdf",
-  "doi": "10.6084/m9.figshare.33261654"
+  "doi": ""
  },
  {
   "slug": "unlocking-motif",
@@ -135,9 +135,9 @@
   "code": "",
   "title": "The Unlocking Motif",
   "asks": "whether the structure organises clinical reasoning",
-  "pages": 15,
+  "pages": 17,
   "pdf": "Aviplestos_Unlocking_Motif_MedEd_v2.pdf",
-  "doi": "10.6084/m9.figshare.32339904"
+  "doi": ""
  },
  {
   "slug": "depression-recovery-blueprint",
@@ -145,8 +145,8 @@
   "code": "",
   "title": "Depression Recovery as Constrained Aviplestos",
   "asks": "whether the structure organises recovery in depression",
-  "pages": 27,
+  "pages": 26,
   "pdf": "Aviplestos_Depression_Blueprint_v1.pdf",
-  "doi": "10.6084/m9.figshare.32515635"
+  "doi": ""
  }
 ]

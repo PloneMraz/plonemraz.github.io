@@ -23,11 +23,15 @@ tới, không xóa nó; comment đã sửa vẫn còn trong lịch sử sửa.
 - **Không đưa thêm dữ liệu cá nhân của tác giả ngoài những gì trang đã công bố
   theo ý tác giả.** Trang tự công bố tên thật đi kèm bút danh (trong `<head>` của
   `index.html`: "Huỳnh Mai Phúc (Plone Mraz)"); đó là lựa chọn của tác giả, và
-  chỉ chính tác giả mở rộng nó. Ngoài phần đó: không email, số tài khoản hay
+  chỉ chính tác giả mở rộng nó. Ngoài phần đó: không số tài khoản hay
   thông tin thanh toán, ảnh chụp tài khoản, số dư, nội dung ghi chú riêng, và
   không lan tên thật sang chỗ trang chưa dùng nó. Kể cả khi dữ liệu nằm trong
   metadata của tệp: trường tác giả của docx, pdf, xlsx; EXIF của ảnh trong
   `visual/` và `content/`.
+  Riêng tên thật được mở rộng ở chỗ Plone ký tên tác giả (Plone, 2026-11-03):
+  "Huỳnh Mai Phúc (Plone Mraz)" (`Huynh, Mai Phuc`), kèm đơn vị và ORCID, được
+  đứng trong metadata trích dẫn — `CITATION.cff`, BibTeX trong README, bản ghi
+  DOI — và trong dòng hoặc trường tác giả của một văn bản.
 - **Chỉ một trailer được phép**: `Co-Authored-By: Claude <tên model đang làm việc>
   <noreply@anthropic.com>`, và footer pull request
   `Generated with [Claude Code](https://claude.com/claude-code)`. Không thêm
