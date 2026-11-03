@@ -7,7 +7,7 @@
   "asks": "what operates",
   "pages": 18,
   "pdf": "SP.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "aviplestos",
@@ -17,7 +17,7 @@
   "asks": "toward what it tends",
   "pages": 34,
   "pdf": "Aviplestos.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "ontonoetic-pattern",
@@ -25,9 +25,9 @@
   "code": "2026c",
   "title": "Ontonoetic Pattern",
   "asks": "by what cognitive procedure it is articulated",
-  "pages": 26,
+  "pages": 27,
   "pdf": "OP.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "patterns-and-cognition",
@@ -37,7 +37,7 @@
   "asks": "within what geometry that procedure operates",
   "pages": 26,
   "pdf": "PC.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "passage-of-becoming",
@@ -47,7 +47,7 @@
   "asks": "through what passage it runs",
   "pages": 25,
   "pdf": "PoB.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "potentamis-and-fasaion",
@@ -57,7 +57,7 @@
   "asks": "how the mechanism operates",
   "pages": 25,
   "pdf": "PF.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "stachoria",
@@ -67,7 +67,7 @@
   "asks": "within what it takes place",
   "pages": 22,
   "pdf": "Stachoria.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "programme-overview",
@@ -77,7 +77,7 @@
   "asks": "the architecture connecting the seven papers",
   "pages": 31,
   "pdf": "MetaPaper.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "first-target",
@@ -87,7 +87,7 @@
   "asks": "what the programme was built with, and how",
   "pages": 18,
   "pdf": "FirstTarget.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "derived-cognitive-protocol",
@@ -97,7 +97,7 @@
   "asks": "how to put the corpus to work on a case",
   "pages": 38,
   "pdf": "DCP.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "derived-quantitative-protocol",
@@ -107,7 +107,7 @@
   "asks": "the same work, with magnitudes",
   "pages": 61,
   "pdf": "DQP.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "data-integration-loop",
@@ -117,7 +117,7 @@
   "asks": "an agent in a purely informational environment",
   "pages": 64,
   "pdf": "DIL-en-v9.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "relational-sensory-integration-loop",
@@ -127,7 +127,7 @@
   "asks": "the same structure, embodied",
   "pages": 70,
   "pdf": "RSIL-en-v1.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "unlocking-motif",
@@ -137,7 +137,7 @@
   "asks": "whether the structure organises clinical reasoning",
   "pages": 17,
   "pdf": "Aviplestos_Unlocking_Motif_MedEd_v2.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  },
  {
   "slug": "depression-recovery-blueprint",
@@ -147,6 +147,6 @@
   "asks": "whether the structure organises recovery in depression",
   "pages": 26,
   "pdf": "Aviplestos_Depression_Blueprint_v1.pdf",
-  "doi": ""
+  "doi": "10.57967/hf/11396"
  }
 ]
