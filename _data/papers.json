@@ -115,8 +115,8 @@
   "code": "",
   "title": "The Data Integration Loop",
   "asks": "an agent in a purely informational environment",
-  "pages": 64,
-  "pdf": "DIL-en-v9.pdf",
+  "pages": 65,
+  "pdf": "DIL.pdf",
   "doi": "10.57967/hf/11396"
  },
  {
@@ -126,8 +126,22 @@
   "title": "The Relational Sensory Integration Loop",
   "asks": "the same structure, embodied",
   "pages": 70,
-  "pdf": "RSIL-en-v1.pdf",
+  "pdf": "RSIL.pdf",
   "doi": "10.57967/hf/11396"
+ },
+ {
+  "slug": "expect-collide-revise",
+  "group": "specs",
+  "code": "",
+  "title": "Expect, Collide, Revise",
+  "asks": "the first, put to work on ARC-AGI-3",
+  "pages": 22,
+  "pdf": "ExpectCollideRevise.pdf",
+  "doi": "10.57967/hf/11396",
+  "licence": {
+   "en": "Licence: CC0 1.0 — dedicated to the public domain, as ARC Prize asks of the work it receives.",
+   "vi": "Giấy phép: CC0 1.0 — hiến tặng vào phạm vi công cộng, như ARC Prize yêu cầu đối với các bài dự thi."
+  }
  },
  {
   "slug": "unlocking-motif",

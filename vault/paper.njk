@@ -53,4 +53,13 @@ eleventyComputed:
     <span data-l="vi" lang="vi">{{ meta.keywords_vi or meta.keywords }}</span>
   </p>
   {%- endif %}
+
+  {#  Chỉ bài có giấy phép riêng mới có dòng này (ExpectCollideRevise:
+      CC0, như ARC Prize yêu cầu); các bài còn lại theo LICENSE chung.  #}
+  {%- if paper.licence %}
+  <p class="licence">
+    <span data-l="en" lang="en">{{ paper.licence.en }}</span>
+    <span data-l="vi" lang="vi">{{ paper.licence.vi }}</span>
+  </p>
+  {%- endif %}
 </article>
