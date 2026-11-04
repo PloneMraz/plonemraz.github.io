@@ -194,4 +194,4 @@ Cite by DOI, which is listed on each paper's page. The PDFs in `content/corpus/`
 
 ## License
 
-[MIT](LICENSE) for the code in this repository. The papers are distributed under the terms of their home, [plonemraz/Plones_documents](https://huggingface.co/datasets/plonemraz/Plones_documents): all rights reserved (its `LICENSE`).
+[MIT](LICENSE) for the code in this repository. The papers are distributed under the terms of their home, [plonemraz/Plones_documents](https://huggingface.co/datasets/plonemraz/Plones_documents): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (its `LICENSE`), except *Expect, Collide, Revise*, dedicated to the public domain under CC0 1.0.
