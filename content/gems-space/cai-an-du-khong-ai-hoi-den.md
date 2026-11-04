@@ -48,8 +48,7 @@ Ai cầm hình ảnh bể và ống thì bảng số liệu thu về sẽ đầy
 
 Rồi năm năm sau người ta sẽ nhìn vào bảng đó và kết luận rằng những thứ ấy không quan trọng. Không phải vì đã đo và thấy nhỏ. Mà vì chưa bao giờ có ô để điền. 📊
 
-Ba mươi bài toán ấy có giải được hay không, tôi không biết. Nhưng tôi khá chắc rằng nó phụ thuộc vào một câu hỏi được đặt ra rất sớm, trước cả khi ai kịp bàn đến công nghệ nào:
-Chúng ta đang hình dung cái hệ này giống cái gì — và hình ảnh đó có khớp với thứ đang thực sự diễn ra ngoài đường không?
+Ba mươi bài toán ấy có giải được hay không, tôi không biết. Nhưng tôi khá chắc rằng nó phụ thuộc vào một câu hỏi được đặt ra rất sớm, trước cả khi ai kịp bàn đến công nghệ nào: Chúng ta đang hình dung cái hệ này giống cái gì — và hình ảnh đó có khớp với thứ đang thực sự diễn ra ngoài đường không?
 
 Câu hỏi thứ hai mới là câu khó. Vì một hình ảnh sai vẫn chạy trơn tru trong đầu ta, vẫn cho ra những con số đẹp, và vẫn im lặng đúng ở chỗ nó bỏ sót.
 

@@ -66,9 +66,7 @@ Quanh một chuyện thường có nhiều vùng cùng có thật một lúc. Kh
 
 Bạn đang đứng trong ít nhất ba vùng khi xem xét chuyện chữ lười ở bữa cơm — và bạn có mặt thật trong cả ba, không phải đứng ngoài nhìn vào:
 
-• Nhà bạn, ba tháng qua. Bên tham gia: các thành viên trong nhà, bạn là một trong số đó.
-• Riêng bữa cơm hôm đó. Bên tham gia: hai người nói — bạn và mẹ — và câu nói ấy.
-• Chỗ bạn đang tìm việc. Bên tham gia: bạn, hồ sơ, nhà tuyển dụng, những vị trí trống.
+• Nhà bạn, ba tháng qua. Bên tham gia: các thành viên trong nhà, bạn là một trong số đó. • Riêng bữa cơm hôm đó. Bên tham gia: hai người nói — bạn và mẹ — và câu nói ấy. • Chỗ bạn đang tìm việc. Bên tham gia: bạn, hồ sơ, nhà tuyển dụng, những vị trí trống.
 
 Cả ba vẫn ở đó dù bạn có nhận ra hay không. Bạn không quyết vùng nào tồn tại. Cái nằm trong tay bạn chỉ là bạn đang đọc từ vùng nào — và bạn phải nói ra điều đó, ít nhất với chính mình.
 
@@ -86,8 +84,7 @@ Kể ra những bên đang tham gia trong vùng bạn vừa khai. Rồi một c�
 
 Bạn có phải một bên tham gia không?
 
-• Ở trong — bạn có mặt, bạn có phần. Cái bạn làm ảnh hưởng tới cái sẽ đứng lại.
-• Ở ngoài — bạn đang đọc một chuyện đã xong, hoặc nhìn từ xa. Cái đứng lại đã đứng mà không có bạn.
+• Ở trong — bạn có mặt, bạn có phần. Cái bạn làm ảnh hưởng tới cái sẽ đứng lại. • Ở ngoài — bạn đang đọc một chuyện đã xong, hoặc nhìn từ xa. Cái đứng lại đã đứng mà không có bạn.
 
 Chỗ này do vùng quyết, không do bạn muốn. Ở trong thì muốn lùi ra cho khách quan cũng không lùi được. Ở ngoài thì tự nhận mình có phần cũng không đưa bạn vào.
 

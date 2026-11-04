@@ -8,10 +8,7 @@ source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/glossary.md
 sourceRepo: GEMs
 templateEngineOverride: md
 ---
-Technical terms in this repository follow standard usage in robotics, embedded
-systems and systems engineering. Where the repository once used a term of its
-own, this page says what the standard term is and whether the repository has
-changed over to it.
+Technical terms in this repository follow standard usage in robotics, embedded systems and systems engineering. Where the repository once used a term of its own, this page says what the standard term is and whether the repository has changed over to it.
 
 ## Standard terms as used here
 
@@ -37,19 +34,9 @@ changed over to it.
 
 Two vocabularies meet in this repository, and each has a place.
 
-**RSIL and DIL terms are kept, in the contract layer.** They name concepts of
-the companion specifications, not components, and renaming them would break the
-correspondence with those papers. Their place is where the contract is stated
-and tested — [spec 08](/vault/gems/08-platform-contract/), [`protocol/`](/vault/gems/protocol/) —
-and the field names of the audit-log record schema, which carries the
-contract's evidence. Verified against the RSIL text: *appraisal*, *scar*,
-*appraisal under a scar-dominated field*, *anchored context*, *emission*,
-*trace*, *agency* (`AgencyTag`, `SELF_CAUSED`), *caused-by-me*, *region*,
-*resistance*, *reflex*, and the requirement labels INV-6, INV-8, C5, E1–E4.
+**RSIL and DIL terms are kept, in the contract layer.** They name concepts of the companion specifications, not components, and renaming them would break the correspondence with those papers. Their place is where the contract is stated and tested — [spec 08](/vault/gems/08-platform-contract/), [`protocol/`](/vault/gems/protocol/) — and the field names of the audit-log record schema, which carries the contract's evidence. Verified against the RSIL text: *appraisal*, *scar*, *appraisal under a scar-dominated field*, *anchored context*, *emission*, *trace*, *agency* (`AgencyTag`, `SELF_CAUSED`), *caused-by-me*, *region*, *resistance*, *reflex*, and the requirement labels INV-6, INV-8, C5, E1–E4.
 
-**Everywhere else, engineering terms.** Where an engineering item realises a
-contract term, it takes the engineering name and cites the contract term once:
-"reflex decision (RSIL INV-8: appraisal under a scar-dominated field)".
+**Everywhere else, engineering terms.** Where an engineering item realises a contract term, it takes the engineering name and cites the contract term once: "reflex decision (RSIL INV-8: appraisal under a scar-dominated field)".
 
 ## Terms changed to standard usage
 
@@ -67,16 +54,6 @@ contract term, it takes the engineering name and cites the contract term once:
 
 ## Decision recorded: what C5 asks of the body
 
-RSIL defines C5 as "self-reports low power: the system emits a trace of *the
-loop is running weakly*", and states that C5 is not a criterion for detecting a
-dead loop. Spec 06.5 first met it with a beacon whose content was a liveness
-signal at low electrical power — closer to a heartbeat, which is what RSIL says
-C5 is not.
+RSIL defines C5 as "self-reports low power: the system emits a trace of *the loop is running weakly*", and states that C5 is not a criterion for detecting a dead loop. Spec 06.5 first met it with a beacon whose content was a liveness signal at low electrical power — closer to a heartbeat, which is what RSIL says C5 is not.
 
-Resolved by the author, 2026-09-26: the beacon stays as the channel, and carries
-the loop's own report in a `loop_state` field, unaltered and with its age. The
-body transmits; the loop reports. The beacon's `alive` field is kept for the
-delegated watch during sleep and is explicitly not C5. Dead-loop detection is
-placed where RSIL places it — in a stored record outside the loop, here the
-audit log synchronised off-board. See [06.5](/vault/gems/06-audit-surface/#65-low-power-beacon),
-[08.1](/vault/gems/08-platform-contract/#81-conformance-map) and protocol C-10.
+Resolved by the author, 2026-09-26: the beacon stays as the channel, and carries the loop's own report in a `loop_state` field, unaltered and with its age. The body transmits; the loop reports. The beacon's `alive` field is kept for the delegated watch during sleep and is explicitly not C5. Dead-loop detection is placed where RSIL places it — in a stored record outside the loop, here the audit log synchronised off-board. See [06.5](/vault/gems/06-audit-surface/#65-low-power-beacon), [08.1](/vault/gems/08-platform-contract/#81-conformance-map) and protocol C-10.

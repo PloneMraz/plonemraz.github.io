@@ -8,14 +8,9 @@ source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/README.md
 sourceRepo: GEMs
 templateEngineOverride: md
 ---
-This is the body's side of GEMs: what it consists of, what it can do, and what
-each capability costs. It does not specify the controller that operates the body
-(see [Scope boundary](/vault/gems/body/#scope-boundary)).
+This is the body's side of GEMs: what it consists of, what it can do, and what each capability costs. It does not specify the controller that operates the body (see [Scope boundary](/vault/gems/body/#scope-boundary)).
 
-The specification declares **envelopes and trade-offs**, never a chosen
-operating point. Structure, actuation and energy sit on one coupled loop, so
-fixing any single figure fixes the rest; the point on that curve is chosen by
-whoever runs the body, not here.
+The specification declares **envelopes and trade-offs**, never a chosen operating point. Structure, actuation and energy sit on one coupled loop, so fixing any single figure fixes the rest; the point on that curve is chosen by whoever runs the body, not here.
 
 ## Chapters
 
@@ -35,25 +30,14 @@ whoever runs the body, not here.
 
 ## Reading order
 
-Chapters 00 and 01 set the terms; read them first. Chapters 02, 03 and 05 are
-mutually dependent — mass determines power, power determines endurance,
-endurance determines mass — and each states where it hands off to the others.
-Chapter 07 states what the on-body stack must do; chapter 08 is the one to read
-if you are checking this body against an external specification rather than
-building it.
+Chapters 00 and 01 set the terms; read them first. Chapters 02, 03 and 05 are mutually dependent — mass determines power, power determines endurance, endurance determines mass — and each states where it hands off to the others. Chapter 07 states what the on-body stack must do; chapter 08 is the one to read if you are checking this body against an external specification rather than building it.
 
 > **Note**
 >
-> **Nothing specified here has been built.** There is no money behind this work
-> to buy parts with, so every figure in these chapters is derived or cited and
-> none is measured on hardware. See the [repository README](/vault/gems/body/) for
-> what that does and does not mean.
+> **Nothing specified here has been built.** There is no money behind this work to buy parts with, so every figure in these chapters is derived or cited and none is measured on hardware. See the [repository README](/vault/gems/body/) for what that does and does not mean.
 
 ## Status
 
-All ten chapters are written. Every capability cluster is closed: no chapter is
-still at the level of a sketch.
+All ten chapters are written. Every capability cluster is closed: no chapter is still at the level of a sketch.
 
-The conformance protocol that turns chapter 08 from a map into a test lives
-in [`../protocol/`](/vault/gems/protocol/), in draft at v0.1, together with an
-assessment of this repository's simulated body against it.
+The conformance protocol that turns chapter 08 from a map into a test lives in [`../protocol/`](/vault/gems/protocol/), in draft at v0.1, together with an assessment of this repository's simulated body against it.

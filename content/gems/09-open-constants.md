@@ -8,16 +8,12 @@ source: https://github.com/PloneMraz/GEMs/blob/HEAD/spec/09-open-constants.md
 sourceRepo: GEMs
 templateEngineOverride: md
 ---
-Every value this specification cannot yet derive is left marked rather than
-filled with a guess. A specification that invents its own constants trades
-honesty for the appearance of completeness.
+Every value this specification cannot yet derive is left marked rather than filled with a guess. A specification that invents its own constants trades honesty for the appearance of completeness.
 
 Two kinds of blank, and they are not the same:
 
-- `⟦CTRL⟧` — **not ours to fill.** A decision belonging to whoever operates the
-  body. Filling it here would be the body overruling its operator.
-- `⟦IMPL⟧` — **not yet derivable.** A value that depends on choices not made, or
-  on measurements not taken.
+- `⟦CTRL⟧` — **not ours to fill.** A decision belonging to whoever operates the body. Filling it here would be the body overruling its operator.
+- `⟦IMPL⟧` — **not yet derivable.** A value that depends on choices not made, or on measurements not taken.
 
 ## ⟦CTRL⟧ — operator decisions
 
@@ -59,9 +55,4 @@ Some things are absent because they belong to no one in this repository:
 
 ## Reading this chapter
 
-A blank here is not an oversight and not a placeholder waiting for a plausible
-number. Where the specification could establish the *shape* of a constraint
-without its exact value, it did so and said which is which — the sleep ceiling
-in [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) is the clearest
-example: the precise self-discharge figure is open, but knowing *which term
-dominates* was enough to close the question that mattered.
+A blank here is not an oversight and not a placeholder waiting for a plausible number. Where the specification could establish the *shape* of a constraint without its exact value, it did so and said which is which — the sleep ceiling in [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) is the clearest example: the precise self-discharge figure is open, but knowing *which term dominates* was enough to close the question that mattered.

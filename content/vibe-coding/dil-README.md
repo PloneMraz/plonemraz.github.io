@@ -145,8 +145,7 @@ console.log(inspectEventLog(audit));
 console.log(renderConformance(checkConformance(audit, { gate })));
 ```
 
-`inspectEventLog` renders the datum-activity journal — lean lines for each move,
-scars by their *derived* name (tags are structured properties, not baked into names):
+`inspectEventLog` renders the datum-activity journal — lean lines for each move, scars by their *derived* name (tags are structured properties, not baked into names):
 
 ```
 [event-log] — 69 record(s)

@@ -93,8 +93,7 @@ Còn bạn làm gì với cái đọc ra được — giữ cho riêng mình, n�
 
 - Một chữ mà bạn dựa vào để ra quyết định
 
-- Một lời khuyên nghe rất đúng mà không làm theo được
-Đừng dùng cho những khái niệm bạn chỉ tò mò. Công cụ này tốn sức. Để dành cho những cái tên đang thật sự điều khiển bạn.
+- Một lời khuyên nghe rất đúng mà không làm theo được Đừng dùng cho những khái niệm bạn chỉ tò mò. Công cụ này tốn sức. Để dành cho những cái tên đang thật sự điều khiển bạn.
 
 ---
 

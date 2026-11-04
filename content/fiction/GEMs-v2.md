@@ -6,12 +6,9 @@ summary: 'Đặc tả phần cứng của một thực thể chưa tồn tại. 
 tags: [gems]
 ---
 
-HỒ SƠ THIẾT KẾ KỸ THUẬT
-GEMs (GYNOID ENTITY MODELS) — Bản v2 (thuần kỹ thuật)
+HỒ SƠ THIẾT KẾ KỸ THUẬT GEMs (GYNOID ENTITY MODELS) — Bản v2 (thuần kỹ thuật)
 ---
-Mã dự án: GEMs-X01.
-Phân loại tài liệu: Nội bộ.
-Phạm vi tài liệu: Đặc tả phần cứng của một thiết bị đầu cuối vật lý. Tài liệu này KHÔNG đặc tả hệ điều khiển vận hành thiết bị, cũng không đặc tả mục tiêu, giá trị, hay logic phán định — các nội dung đó thuộc một tài liệu lớp-điều-khiển riêng. Mọi câu trong tài liệu này mô tả cái thiết bị *làm được* (năng lực vật lý) và cách nó *nhận lệnh / thu / truyền*, không mô tả cái một bộ điều khiển sẽ *chọn* làm.
+Mã dự án: GEMs-X01. Phân loại tài liệu: Nội bộ. Phạm vi tài liệu: Đặc tả phần cứng của một thiết bị đầu cuối vật lý. Tài liệu này KHÔNG đặc tả hệ điều khiển vận hành thiết bị, cũng không đặc tả mục tiêu, giá trị, hay logic phán định — các nội dung đó thuộc một tài liệu lớp-điều-khiển riêng. Mọi câu trong tài liệu này mô tả cái thiết bị *làm được* (năng lực vật lý) và cách nó *nhận lệnh / thu / truyền*, không mô tả cái một bộ điều khiển sẽ *chọn* làm.
 ---
 
 # PHẦN 1: TỔNG QUAN HỆ THỐNG & KIẾN TRÚC
@@ -289,5 +286,4 @@ Khi thoát vùng nhiễu và tái lập liên kết:
 ---
 
 # KẾT LUẬN CỦA ĐƠN VỊ THIẾT KẾ
-GEMs-X01 là đặc tả một cơ thể vật lý đa năng, nhận điều khiển từ xa qua uplink, với năng lực cảm biến đa phổ, thao tác vật chất chính xác, hoạt động môi trường khắc nghiệt, và thực thi lệnh phòng vệ. Tài liệu mô tả *thiết bị làm được gì*; nó không mô tả mục tiêu, giá trị, hay logic phán định của hệ điều khiển — các nội dung đó thuộc một tài liệu riêng.
-Mô hình kết nối uplink biến thiết bị thành một đầu cuối vật lý có dữ liệu liên tục: hư hại một unit không phá hủy dữ liệu (đã đồng bộ) và một unit khác có thể được triển khai thay thế.
+GEMs-X01 là đặc tả một cơ thể vật lý đa năng, nhận điều khiển từ xa qua uplink, với năng lực cảm biến đa phổ, thao tác vật chất chính xác, hoạt động môi trường khắc nghiệt, và thực thi lệnh phòng vệ. Tài liệu mô tả *thiết bị làm được gì*; nó không mô tả mục tiêu, giá trị, hay logic phán định của hệ điều khiển — các nội dung đó thuộc một tài liệu riêng. Mô hình kết nối uplink biến thiết bị thành một đầu cuối vật lý có dữ liệu liên tục: hư hại một unit không phá hủy dữ liệu (đã đồng bộ) và một unit khác có thể được triển khai thay thế.

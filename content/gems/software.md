@@ -8,11 +8,7 @@ source: https://github.com/PloneMraz/GEMs/blob/HEAD/software/README.md
 sourceRepo: GEMs
 templateEngineOverride: md
 ---
-Code that runs under an operating system on the body's embedded computer — the
-edge AI module, under Linux — as
-[spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines
-software. Which of its tasks are hard, firm or soft real-time is not decided
-here but in [`../realtime_config/`](/vault/gems/realtime-config/).
+Code that runs under an operating system on the body's embedded computer — the edge AI module, under Linux — as [spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines software. Which of its tasks are hard, firm or soft real-time is not decided here but in [`../realtime_config/`](/vault/gems/realtime-config/).
 
 | Module | What it is | Status |
 |---|---|---|
@@ -22,6 +18,4 @@ here but in [`../realtime_config/`](/vault/gems/realtime-config/).
 | Log assembly and synchronisation | Two tiers, synchronised off-board after an outage | 🔜 — port of [`../reference/audit_log.py`](https://github.com/PloneMraz/GEMs/blob/HEAD/reference/audit_log.py) |
 | Link management | Graceful degradation before dropped streams | 🔜 *waiting update* |
 
-No source yet. The executable specifications this code will be checked against
-are in [`../reference/`](/vault/gems/reference/). Planned work, module by module:
-[`../plan/software.md`](/vault/gems/plan/software/).
+No source yet. The executable specifications this code will be checked against are in [`../reference/`](/vault/gems/reference/). Planned work, module by module: [`../plan/software.md`](/vault/gems/plan/software/).
