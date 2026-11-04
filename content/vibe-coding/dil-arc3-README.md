@@ -13,8 +13,9 @@ An [ARC-AGI-3](https://arcprize.org/arc-agi/3/) agent whose whole operation is
 the DIL protocol.
 
 Not a solver with a protocol wrapped around it. The protocol *is* the mechanism:
-there is no decision procedure underneath that DIL decorates, and no step where
-the agent leaves the loop to think.
+its choosing rule runs inside the loop, on what the loop gives it — expectations,
+collisions, the field, memory — not beneath it, and there is no step where the
+agent leaves the loop to think.
 
 ## Status, plainly
 
@@ -51,7 +52,7 @@ Settled deliberately, with Plone.
 
 | role | what it is | in this repo |
 |---|---|---|
-| **DIL** | the operating mechanism of the whole — how information moves; its store is the agent's history: what it had before it lived (`prior`), what it met, and what its mind wrote — `[data]` its memory, `[event]` the record it reads and never alters | `src/dil/` |
+| **DIL** | the operating mechanism of the whole — how information moves; its store is the agent's history: what it had before it lived (`prior`), what it met, and what its mind wrote — `[data]` its memory, `[event]` the record it reads and never alters | everywhere: every datum passes its layers, and its store holds all the mind reads and writes; the port of dil-core is `src/dil/` |
 | **host** | its sensory organs take in what the region returns and carry it inward; its effectors carry out the mind's command; it declares both to the mind. **Computes nothing and weighs nothing.** | `src/arc3/frame.py`, `action.py`, `host.py`, `observe.py`, `command.py`, `organs.py`, `prior.py` |
 | **model** | the mind's computing, inside it — not a second mind — and replaceable: an inducer the mind learns with — grid, or a language model. The **mind** is **one** and neutral about its region: it learns, reads, expects, is curious and wants, holds an aim, and constructs the next action; commands it as T5's test. **Acts on nothing.** | `src/mind/` (`mind.py`, `learning.py`, `models/`); `src/arc3/task.py` |
 | **self** | what the loop produces when it runs (§7) — a law, located in no file. Its behaviour is the host's acting under the mind's command. | none: the word is not used in the code |
