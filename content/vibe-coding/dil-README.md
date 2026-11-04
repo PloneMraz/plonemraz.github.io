@@ -28,7 +28,7 @@ If a design ever has DIL generating output to the world, commanding the model, o
 
 ## Status
 
-All six build stages are implemented, and the codebase implements **protocol v0.3.9** (the store's claim stays `0.3.5`; v0.3.9's `read-record` record moves the tag schema to 5): **440 tests, 0 failures.**
+All six build stages are implemented, and the codebase implements **protocol v0.3.9** (the store's claim stays `0.3.5`; v0.3.9's `read-record` record moves the tag schema to 5): **442 tests, 0 failures.**
 
 A short quick-start run scores **4 pass / 3 partial / 0 fail** against the seven §13 conformance criteria; a longer run with diverse resistance sources scores **6 pass / 1 partial / 0 fail**, read by an independent auditor from the durable `[event]` log on disk. Every partial is honest and derived, not attested:
 
@@ -149,16 +149,20 @@ console.log(renderConformance(checkConformance(audit, { gate })));
 scars by their *derived* name (tags are structured properties, not baked into names):
 
 ```
-[event-log] — 45 record(s)
-  #0  [manifest] protocol=0.3.5 schema=3 · DECIDE@IMPL: tagB_thresholds, … 10:00:00  ← the run's constitution, once, at genesis
-  #1  [provenance] cycle-0 prior→running (c0) 10:00:00
-  #2  [layer-exit] cycle-0 @T1 (c0) 10:00:00
+[event-log] — 69 record(s)
+  #0  [manifest] protocol=0.3.5 schema=5 · DECIDE@IMPL: tagA_representation, tagB_thresholds, … 10:00:00  ← the run's constitution, once, at genesis
+  #1  [layer-exit] cycle-0 @T1 (c0) 10:00:00
+  #2  [layer-exit] signal-0-0 @T1 (c0) 10:00:00
   …
-  #10 [crystallization] cycle-0 self|env (c0) 10:00:00           ← §7, once, at cycle-0's T2
-  #11 [expectation] weather conf=0.00 rec=0 err=0 (c0) 10:00:00  ← INV-5 ramp + per-probe prediction error
-  #12 [emission] cycle-0 @T8 ↔ {"kind":"respond",…} (c0) 10:00:00
+  #17  [crystallization] cycle-0 self|env (c0) 10:00:00           ← §7, once, at cycle-0's T2
+  #18  [expectation] weather conf=0.00 rec=0 err=0 (c0) 10:00:00  ← INV-5 ramp + per-probe prediction error
+  #19  [emission] cycle-0 @T8 ↔ {"kind":"respond","cycle":0,"valence":0} (c0) 10:00:00
+  #20  [20261104]_[10:00:00]_[c0]_[running]_[T8]_[domain:cycle]_[flow:single-threaded]_[phase:loop]_[source:driver]_[cycle-seal]  cycle=0 flow=single-threaded observed=weather scars=0
   …
-  #38 [20260724]_[10:00:00]_[scar]_[T8]_[domain:cycle]_[flow:multi-stream]_[phase:loop]_[source:driver]_[value-mismatch]  {…}→{…}
+  #63  [provenance] signal-2-0 running→scar (c2) 10:00:00
+  #64  [20261104]_[10:00:00]_[c2]_[scar]_[T8]_[domain:region]_[format:object]_[source:ch]_[value-mismatch]  {…}→{…}  ← rain where sun was expected
+  …
+  #68  [20261104]_[10:00:00]_[c2]_[scar]_[T8]_[domain:cycle]_[flow:multi-stream]_[phase:loop]_[source:driver]_[cycle-seal]  cycle=2 flow=multi-stream observed=weather scars=2
 ```
 
 ### Audit a store from the command line
@@ -206,7 +210,7 @@ The protocol leaves constants open on purpose; a conforming implementation must 
 
 - Precondition ([`src/precondition/decisions.ts`](src/precondition/decisions.ts)) — the gate is declaration-based by design (requisition: the host declares, DIL threads through), but where a condition is mechanically probeable *before* the loop runs the gate probes it and grades the verdict `probed` vs `declared`: E3/P(b) via a store marker round-trip, E4 via a trace marker read-back — evidence beats claim (a failing probe fails a true declaration). E1, E2, P(a), P(c) stay declaration-based with the reasons stated (e.g. E2: idle is the default of an informational setting, so a silent probe window proves nothing).
 - Store ([`src/store/decisions.ts`](src/store/decisions.ts)) — `[data]` = **SQLite** (`node:sqlite`) under `store/memory/`, `[event]` = hash-chained JSONL under `store/event-log/`, RAM only bounded caches; `source_id`/`provenance` index; store-all `[event]`; private store; **full-field-state** context anchor; open-tag registry free-form (only `domain` required, ≥3 total); sink tamper-evidence via sha256 hash chain (head anchoring deployment-open); daily 64 MiB segments, no pruning, halt-on-append-failure; commit cadence `COMMIT_EVERY = 9` scars and retention (`all`, floor 9); **tag H** — `H_COUNT = 3` situations/cycle (a ceiling, not a quota), fit = consistency with `[data]` (verdict-free, never a scored standard — INV-8).
-- Loop ([`src/loop/decisions.ts`](src/loop/decisions.ts)) — concrete `Signal`/`InfoUnit`/`RefFrame` shapes; T2 `MATCHING_WINDOW=8`, `STABILITY_THRESHOLD=3`; T5 `BASELINE_WINDOW=16`, `SUFFICIENT_RECURRENCE=3`, persistence update law; GLOB-MOD: three axes, `trust`/`alertness`/`exploration` in [0, 1] (NEUTRAL 0.5), every layer reading one and voting from what it alone sees (`FIELD_WIRING`), each shifting a declared threshold or gain by ½–1½ so the field biases and never annuls; convex blend (no inertia constant); static Mode-A appraisal anchor; multi-stream schedule = one topological activation pass via the meaning-channel (flow topology, cycle-time — no OS concurrency claimed).
+- Loop ([`src/loop/decisions.ts`](src/loop/decisions.ts)) — concrete `Signal`/`InfoUnit`/`RefFrame` shapes; T2 `MATCHING_WINDOW=8`, `STABILITY_THRESHOLD=3`; T5 `BASELINE_WINDOW=16`, `SUFFICIENT_RECURRENCE=3`, persistence update law; GLOB-MOD: three axes, `trust`/`alertness`/`exploration` in [0, 1] (NEUTRAL 0.5), every layer reading one and voting from what it alone sees (`FIELD_WIRING`), each shifting a declared threshold or gain by ½–1½ so the field biases and never annuls; convex blend, with the field before carried by `FIELD_CARRY` (0 by default: none); static Mode-A appraisal anchor; multi-stream schedule = one topological activation pass via the meaning-channel (flow topology, cycle-time — no OS concurrency claimed).
 - Runtime ([`src/runtime/decisions.ts`](src/runtime/decisions.ts)) — live Mode-B = the host source; diversity-loss window/minimum; reflection (tag E) = a reading pointed at a cycle of the `[event]` trace, carrying the reader's own view, entering through a declared T3 channel (reader identity and lens deployment-open).
 
 Numeric thresholds are declared **tunable starting values, not derived constants** — stated honestly, not dressed up as fundamental.
