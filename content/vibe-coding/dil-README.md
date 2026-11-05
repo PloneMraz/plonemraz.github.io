@@ -255,9 +255,9 @@ Machine-readable metadata lives in [`CITATION.cff`](CITATION.cff) (CFF 1.2.0) â€
   year    = {2026},
   version = {0.2.0},
   license = {MIT-0},
-  doi     = {10.57967/hf/11268},
+  doi     = {10.57967/hf/11446},
   url     = {https://github.com/PloneMraz/dil-core},
-  note    = {ORCID: 0009-0009-0571-7151. DOI: Hugging Face snapshot at commit 1aba031 (protocol v0.3.9, version 0.2.0)}
+  note    = {ORCID: 0009-0009-0571-7151. DOI: Hugging Face snapshot at commit 38af037 (protocol v0.3.9, version 0.2.0)}
 }
 ```
 
