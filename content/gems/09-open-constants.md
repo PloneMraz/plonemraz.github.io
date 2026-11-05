@@ -41,6 +41,9 @@ Two kinds of blank, and they are not the same:
 | RAM retention and root-of-trust clock power | [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) | Depends on the parts chosen. Immaterial against self-discharge |
 | Full-CSI spatial sensing power | [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) | The one floor term that matters; depends on implementation |
 | Merkle batch period for log signing | [06.4](/vault/gems/06-audit-surface/#64-audit-log) | Trades trace granularity against signing load |
+| Durable-tier cycle life, discharge rate and pack abuse test | [03.1](/vault/gems/03-energy/#31-source) | Set when the cell is chosen (plan D-5). The density, `e`, is the one figure the mass loop needs, and it is established |
+| What must survive the pack's removal in service | [03.1](/vault/gems/03-energy/#31-source) | The always-on rail sits in the power assembly as the bill of materials stands; depends on the power architecture (plan E-2, E-4) |
+| Heartbeat threshold that triggers the OBC | [07.5](/vault/gems/07-firmware-and-software/#75-link-loss-and-the-obc) | Depends on the link and on how long the Real-time Control Layer can hold without new setpoints |
 | Exact self-discharge rate | [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) | Depends on the chemistry chosen. **The order of magnitude and the dominant term are established**, which is what the sleep ceiling needs |
 
 ## What is deliberately *not* here

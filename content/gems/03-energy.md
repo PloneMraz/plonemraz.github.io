@@ -12,12 +12,16 @@ Every trade in this specification is ultimately a division of a kilowatt-hour bu
 
 ## 3.1 Source
 
-Solid-state cells, declared in two configurations:
+Two configurations, declared by what the cell must deliver rather than by its chemistry:
 
 | Configuration | Density | Trade |
 |---|---|---|
-| **Durable** | **~400–500 Wh/kg** | Good cycle life, good thermal safety — suits a body in human contact. **Recommended as the design target** |
+| **Durable** | **~400–500 Wh/kg** | Good cycle life; thermal safety from the cell where it is solid-state, from the pack where it is not. **Recommended as the design target** |
 | **Ceiling** | **~700–1100 Wh/kg** (solid-state Li-S) | Maximum endurance. **Cycle-life debt: presently ~100 cycles** — the pack becomes a consumable |
+
+**What the durable tier requires.** Density of 400–500 Wh/kg at cell level, which is the `e` of the mass loop ([02.2](/vault/gems/02-structure-and-motion/#22-the-four-coefficients)); a cycle life that keeps the pack from becoming a consumable; the discharge rate that [02.7](/vault/gems/02-structure-and-motion/#27-peak-power-is-limited-by-the-source-not-the-actuators) prices; and an abuse test the pack must pass. The figures for the last three are `⟦IMPL⟧`: they are set when the cell is chosen (plan D-5), not invented here.
+
+**Solid-state is preferred, not required** (Plone, 2026-11-05). It is preferred for a body in human contact: a solid electrolyte has no liquid to leak or burn. But this is a reading of present technology, not a lock. As of 2026-11, the durable density can be bought only as silicon-anode lithium-ion, with a liquid electrolyte; solid-state cells at that density stand at stack level, not on sale ([hardware/electrical §3](/vault/gems/hardware/electrical/#3-power)). Either fills the tier. Where the cell is not solid-state, the pack carries the safety the cell does not: a crush zone between shell and cells, and a venting path for thermal runaway away from the head ([plan, pack location](/vault/gems/plan/#pack-location-decided)). When solid-state cells at this density can be bought, the preference decides.
 
 *Sourced, for positioning the three maturity tiers:*
 
@@ -26,7 +30,7 @@ Solid-state cells, declared in two configurations:
 - Expected solid-state packs: 300–500+ Wh/kg; demonstrated cells at 600 Wh/kg
 - Li-S: ~2600 Wh/kg theoretical; lab results 743 Wh/kg (6 mg/cm² cathode loading) to 1100 Wh/kg (18 mg/cm²); record cell 695 Wh/kg but **under 100 cycles**, against >1000 for Li-ion
 
-**Hot-swap under 2 minutes** — the pack is a replaceable module.
+**The pack is fixed in the unit**: a part replaced in service, not during operation (Plone, 2026-11-05). Endurance beyond one pack comes from the dock ([3.5](#35-dock)); presence beyond one unit's endurance comes from other units, and which unit runs, and when another takes over, is the Main Controller's decision ([01](/vault/gems/01-architecture/)). As the bill of materials stands, the always-on rail and the supercapacitor sit in the power assembly with the cells, so removing the pack in service cuts the always-on rail ([3.6](#36-quiescent-power-and-the-sleep-ceiling)); what must survive a service removal is `⟦IMPL⟧`.
 
 **Peak-burst supercapacitor: optional.** Fitted when the mission needs sudden high-power motion (catching, jumping, fast reflex); omitted when lightness matters more. Its role is millisecond-scale discharge without sagging the pack. See [02.7](/vault/gems/02-structure-and-motion/#27-peak-power-is-limited-by-the-source-not-the-actuators) for why this option decides more than its name suggests.
 

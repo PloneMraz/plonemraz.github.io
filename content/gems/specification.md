@@ -32,9 +32,7 @@ The specification declares **envelopes and trade-offs**, never a chosen operatin
 
 Chapters 00 and 01 set the terms; read them first. Chapters 02, 03 and 05 are mutually dependent — mass determines power, power determines endurance, endurance determines mass — and each states where it hands off to the others. Chapter 07 states what the on-body stack must do; chapter 08 is the one to read if you are checking this body against an external specification rather than building it.
 
-> **Note**
->
-> **Nothing specified here has been built.** There is no money behind this work to buy parts with, so every figure in these chapters is derived or cited and none is measured on hardware. See the [repository README](/vault/gems/body/) for what that does and does not mean.
+> [!NOTE] **Nothing specified here has been built.** There is no money behind this work to buy parts with, so every figure in these chapters is derived or cited and none is measured on hardware. See the [repository README](/vault/gems/body/) for what that does and does not mean.
 
 ## Status
 

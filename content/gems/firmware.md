@@ -1,6 +1,6 @@
 ---
 title: 'Firmware'
-lede: 'Code that runs directly on the microcontrollers, bare metal or RTOS: joint control, battery management, secure boot and attestation, low-power beacon — and the real-time controller''s balance, reflex and supervisor modules if D-3 makes it a microcontroller'
+lede: 'Code that runs directly on the microcontrollers, bare metal or RTOS: joint control, battery management, secure boot and attestation, low-power beacon — and the Real-time Control Layer''s balance, reflex and supervisor modules if D-3 makes its computer a microcontroller'
 group: software
 order: 100
 lang: en
@@ -8,7 +8,7 @@ source: https://github.com/PloneMraz/GEMs/blob/HEAD/firmware/README.md
 sourceRepo: GEMs
 templateEngineOverride: md
 ---
-Code that runs directly on the body's microcontrollers, bare metal or under an RTOS — joint drive boards, the battery management board, the secure element, the beacon radio, and the real-time controller if decision D-3 makes it a microcontroller — as [spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines firmware. Which of its tasks are hard, firm or soft real-time is decided in [`../realtime_config/`](/vault/gems/realtime-config/), not here.
+Code that runs directly on the body's microcontrollers, bare metal or under an RTOS — joint drive boards, the battery management board, the secure element, the beacon radio, and the real-time computer, which carries the Real-time Control Layer, if decision D-3 makes it a microcontroller — as [spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines firmware. Which of its tasks are hard, firm or soft real-time is decided in [`../realtime_config/`](/vault/gems/realtime-config/), not here.
 
 | Document | Contents | Status |
 |---|---|---|

@@ -36,7 +36,7 @@
           "lede": "Readable views, with mass roll-up and sourcing status" },
 
         { "src": "firmware/README.md", "group": "software", "order": 100,
-          "lede": "Code that runs directly on the microcontrollers, bare metal or RTOS: joint control, battery management, secure boot and attestation, low-power beacon — and the real-time controller's balance, reflex and supervisor modules if D-3 makes it a microcontroller" },
+          "lede": "Code that runs directly on the microcontrollers, bare metal or RTOS: joint control, battery management, secure boot and attestation, low-power beacon — and the Real-time Control Layer's balance, reflex and supervisor modules if D-3 makes its computer a microcontroller" },
         { "src": "firmware/ARCHITECTURE.md", "group": "software", "order": 101,
           "lede": "Modules and the deadline each carries, the reflex budget split across stages, and the firmware/software interface" },
         { "src": "software/README.md", "group": "software", "order": 110,

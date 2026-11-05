@@ -86,6 +86,8 @@ The same hardware serves a third purpose in [06.3](/vault/gems/06-audit-surface/
 
 ## 5.6 The on-body / off-body compute split
 
+What is split here is **processing, not decision**. Deciding is the Main Controller's, off the body ([01](/vault/gems/01-architecture/)); the dial sets how much of the processing — compression, feature extraction, fusion — runs on the unit.
+
 The split is a dial with **two hard ends and a soft middle**.
 
 **Lower end — what must be on the body:**
@@ -103,7 +105,7 @@ Link round-trip is ~1 ms at ideal short range, but at kilometre range with beam 
 
 | Constraint | Content |
 |---|---|
-| Losing the body loses the state | The more state on the body, the more expensive its loss ([01](/vault/gems/01-architecture/)) |
+| Losing a unit loses its state | Its own state and its unsynchronised record, never memory; the more processing on the unit, the more of that there is ([01](/vault/gems/01-architecture/)) |
 | Power | Edge compute draws on the same `p` (W/kg) that enters the convergence condition `Σf < 1` |
 | Heat | A sealed body in human contact dissipates worse than a rack |
 | Memory and world model | Off-body by architectural definition, not by capacity |

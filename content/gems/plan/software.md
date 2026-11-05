@@ -10,7 +10,7 @@ templateEngineOverride: md
 ---
 Module by module, from [spec 07.4](/vault/gems/07-firmware-and-software/#74-what-software-must-guarantee) and [`../software/README.md`](/vault/gems/software/) down to the task. Levels L0–L5 are defined in [`README.md`](/vault/gems/plan/#levels-of-detail).
 
-**Scope.** Software as [spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines it: code on the edge AI module under Linux. Its tasks here are firm, soft or non-real-time; their classes are set in [`../realtime_config/`](/vault/gems/realtime-config/). The real-time controller's modules are planned in [`firmware.md`](/vault/gems/plan/firmware/), whichever layer D-3 puts them in.
+**Scope.** Software as [spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines it: code on the edge AI module under Linux. Its tasks here are firm, soft or non-real-time; their classes are set in [`../realtime_config/`](/vault/gems/realtime-config/). The Real-time Control Layer's modules are planned in [`firmware.md`](/vault/gems/plan/firmware/), whichever layer D-3 puts them in.
 
 **Almost none of this waits for hardware.** Every module except the capture drivers of S-9 can be written and tested now against synthetic or simulated sensor data (V-7). That makes this the one package that can move to L5 before any part is chosen.
 
@@ -72,7 +72,7 @@ Guarantee 5: **reduced fidelity before dropped streams.**
 |---|---|---|
 | Degradation ladder: which channel loses resolution first, and the floor below which a channel is kept rather than dropped | L4 | — |
 | Bandwidth estimation and the controller that walks the ladder | L4 | — |
-| Outage handling for the local core — maintain, preserve, continue, attempt (spec 07.5) | L4 | — |
+| The IPC heartbeat, and passing command to the OBC and back (spec 07.5) | L4 | — |
 | End-to-end encryption and authentication | L4 | D-7 |
 | Verified against simulated bandwidth, latency and outage (V-8) | L5 | V-8 |
 

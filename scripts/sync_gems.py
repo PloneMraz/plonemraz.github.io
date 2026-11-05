@@ -20,6 +20,8 @@ the site), its `github` URL, an `images` folder of the site it owns, paths to
 
 Each file is copied verbatim, but for what the site needs:
 
+- a YAML block at its top, if it has one (the Hugging Face dataset card's), is
+  dropped;
 - its first line, `# Title` (`# NN — Title` for a chapter), becomes the
   front-matter `title` unless the manifest gives one, and is dropped from the
   body: the layout prints the title;
@@ -152,6 +154,10 @@ def sync(src: dict) -> None:
     written = set()
     for d in docs:
         text = (repo / d["src"]).read_text(encoding="utf-8")
+        if text.startswith("---\n"):
+            # A YAML block before the title is the Hugging Face dataset card's
+            # (GEMs README, 2026-11-05): the site has its own front matter.
+            text = text.split("\n---\n", 1)[1].lstrip("\n")
         head, _, body = text.partition("\n")
         m = TITLE.match(head)
         if not m:

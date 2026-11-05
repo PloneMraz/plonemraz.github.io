@@ -57,7 +57,7 @@ The specification admits laboratory technology where the physics exists but the 
 | Kinematic simulation model | L4 for kinematics only | `hardware/sim-model/` — inertias estimated |
 | Everything else | L0 | — |
 
-No item is at L3. The engineering BOM exists — [`hardware/bom/`](/vault/gems/hardware/bom/), 294 part numbers in a multi-level structure, with MBOM routings and an SBOM — with one selected manufacturer part and no verified price yet.
+No item is at L3. The engineering BOM exists — [`hardware/bom/`](/vault/gems/hardware/bom/), 296 part numbers in a multi-level structure, with MBOM routings and an SBOM — with one selected manufacturer part and one verified price (the AKH70-16, [`avl.csv`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/bom/avl.csv)).
 
 ---
 
@@ -69,9 +69,9 @@ These are ordered: each one is needed before the work packages that depend on it
 |---|---|---|---|
 | **D-1** | **Knee torque requirement.** The sizing script assumes knee = hip pitch, flagged there as an assumption, not a source | Actuator sizing, `f_act`, the mass loop | open — check against published gait data |
 | **D-2** | **Actuators: which procured modules, at which reduction ratio.** In-house design is off the table by rule ([`CLAUDE.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/CLAUDE.md) §2, 2026-09-26): every option must be bought. The same CubeMars motor is sold at 16:1 (78 Nm peak, 105 rpm, 88.7 Nm/kg) and 48:1 (222 Nm peak, ~48 rpm, 159 Nm/kg), so torque density is a ratio choice paid in speed, and the open question per joint is *torque × speed*, not torque alone ([electrical §6b](/vault/gems/hardware/electrical/#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26)). At 48:1 only hip pitch, knee and trunk pitch fall short, by 4–8 Nm; whether ~5 rad/s at the output is enough for gait and fall recovery is unmeasured. Also settles the conflict between the per-class reducers of `hardware/mechanical` and the single module family of `hardware/electrical`, and the CAN-to-EtherCAT question of E-5 | M-3, E-3, F-3 | open — candidates in the AVL |
-| **D-3** | **Real-time controller: a microcontroller under an RTOS, or an embedded computer under Linux with a real-time kernel.** The Jetson carries perception and compression; it is not the target for the 500 Hz balance loop and the 10 ms reflex path. The choice decides whether that code is firmware or software (spec 07.1), and how its latency bound is established — by construction or by measurement | All firmware, E-5 | open |
+| **D-3** | **Real-time computer, which carries the Real-time Control Layer: a microcontroller under an RTOS, or an embedded computer under Linux with a real-time kernel.** The Jetson carries perception and compression; it is not the target for the 500 Hz balance loop and the 10 ms reflex path. The choice decides whether that code is firmware or software (spec 07.1), and how its latency bound is established — by construction or by measurement | All firmware, E-5 | open |
 | **D-4** | **High-voltage bus voltage** | Every power stage, cell count in series, harness gauge | open |
-| **D-5** | **Cell and pack format** at the durable tier (400–500 Wh/kg) | Pack mechanics, BMS, thermal | open — candidates sourced in `hardware/electrical/` |
+| **D-5** | **Cell and pack format** at the durable tier (400–500 Wh/kg). Solid-state preferred, not required ([spec 03.1](/vault/gems/03-energy/#31-source), 2026-11-05); on sale today only as silicon-anode. The choice fixes the tier's `⟦IMPL⟧` figures — cycle life, discharge rate, and the abuse test the pack must pass | Pack mechanics, BMS, thermal | open — candidates sourced in `hardware/electrical/` |
 | **D-6** | **Reference hand configuration.** The declaration leaves 2×5 to 2×21 DOF open (`⟦CTRL⟧`); a complete design needs one point to draw | M-4, E-3 count, F-3 count | open — anchor figure is 40 joints, i.e. 2×5 |
 | **D-7** | **Secure element and low-power beacon radio** | Attestation, beacon, C-10, C-11 | open |
 | **D-8** | **Operating point for the reference design** — endurance, height, armour | Mass, pack size, every downstream figure | **decided 2026-09-26, in part: 2 h free-running with a dock, and 1.65 m** (was 4 h, 1.75 m). The body comes to ~96 kg and the legs gain 29 kg of carry capacity against the AKH70-48 ([spec 02.6](/vault/gems/02-structure-and-motion/#load-cases)). Open within it: armour coverage and level — the reference keeps 65% until discussed. The dock is now load-bearing for the design: package DK |
@@ -162,7 +162,7 @@ Constraints the decision carries into the design:
 | E-2 | Power: pack, BMS, pre-charge and contactor, fusing, supercapacitor tier (spec 03.2 measure 3), regeneration path, dock charger interface | L4 | D-4, D-5 |
 | E-3 | Joint drive board: inverter, gate driver, phase current sensing, encoder interface, EtherCAT slave controller, temperature sensing, brake and lock driver | L4 | D-2, D-4 |
 | E-4 | Power distribution and conversion: HV to logic rails, isolated domains, the always-on rail at quiescent power (spec 03.6) | L4 | E-2 |
-| E-5 | Compute boards: Jetson carrier, real-time controller board, EtherCAT master interface, storage for the audit log | L4 | D-3 |
+| E-5 | Compute boards: Jetson carrier, real-time computer board, EtherCAT master interface, storage for the audit log, and the OBC (spec 07.5) | L4 | D-3 |
 | E-6 | Sensor front-ends: camera links, thermal, LiDAR, microphone array, SDR, IMUs, e-nose | L4 | E-5 |
 | E-7 | Tactile skin readout for ~460,000 taxels (spec 05.2): multiplexing, ADCs, local event compression | L4 | **LAB** |
 | E-8 | Radios: mmWave uplink, fallback link, low-power beacon radio | L4 | D-7 |

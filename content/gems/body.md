@@ -11,13 +11,11 @@ Open-source designs of a physical robot body.
 
 **Documentation:** https://plonemraz.github.io/vault/gems/
 
-GEMs specifies a ~1.65 m humanoid body whose purpose is to acquire physical experience on behalf of a controller that does not live entirely on it. It is a **platform specification**: it declares capability envelopes and the trade-offs between them, and deliberately leaves the operating point to whoever runs the body.
+GEMs specifies a ~1.65 m humanoid body whose purpose is to acquire physical experience on behalf of a controller that lives wholly off it: the Main Controller, on an IPC, for which each GEMs unit is a set of sensors and effectors. It is a **platform specification**: it declares capability envelopes and the trade-offs between them, and deliberately leaves the operating point to whoever runs the body.
 
 ---
 
-> **Important**
->
-> **This is a paper design. Nothing here has been built.**
+> [!IMPORTANT] **This is a paper design. Nothing here has been built.**
 >
 > The plain reason is money. There is no funding behind this work and no budget to buy parts with — the actuator modules §2.6 calls for, a pack of cells, a multi-threat armour layup, thirty joints' worth of anything, are simply beyond what one person can pay for. So nothing has been procured, nothing has been assembled, and no figure in this repository has been measured on hardware. What exists is a specification, a conformance protocol, executable models, and a component selection drawn from published sources.
 >
@@ -39,20 +37,20 @@ GEMs does not publish one configuration. Structure, actuation and energy sit on 
 | Actuation | 80–90 Nm/kg peak over module mass at ~16:1; 3–5 kW/kg declared, under review. Peak power is limited by **the source, not the actuators** |
 | Uplink | mmWave, up to ~8 Gbps, ~1 ms PHY latency at short range |
 | Sensing | **16–67 Gbps** raw aggregate; ≥2:1 on-body compression is mandatory, ~8:1 realistic |
-| Compute | Split between body and external system. Balance loop ≥500 Hz and reflex ≤10 ms **must** be on-body |
+| Compute | The Main Controller wholly off the body, on an IPC; on each unit, processing only, by four tiers that do not decide — the Real-time Control Layer, MCUs, DAQ and the OBC for link loss. Balance loop ≥500 Hz and reflex ≤10 ms **must** be on the unit |
 | Audit surface | Signed sensor–actuator trace; a readable trace remains emittable at quiescent power while the body sleeps |
 
 Every figure above is reproducible — `python scripts/gems_budget.py --check` recomputes them against the chapters that state them.
 
-> **Note**
->
-> Several of these envelopes are bounded by something other than the obvious candidate. Peak power is capped by the battery rather than the actuators; sleep duration is capped by cell chemistry rather than by the standby circuit; tactile fidelity is capped by link bandwidth and fabrication density rather than by ambition. The specification states which constraint actually binds in each case.
+> [!NOTE] Several of these envelopes are bounded by something other than the obvious candidate. Peak power is capped by the battery rather than the actuators; sleep duration is capped by cell chemistry rather than by the standby circuit; tactile fidelity is capped by link bandwidth and fabrication density rather than by ambition. The specification states which constraint actually binds in each case.
 
 ---
 
 ## What is where
 
 This repository holds the source: hardware designs, the firmware and software that run on them, and the specifications they implement. Issues, pull requests and releases belong here.
+
+The same tree is mirrored as the Hugging Face dataset [plonemraz/GEMs](https://huggingface.co/datasets/plonemraz/GEMs), a snapshot of `main` after each push. There the tables load as subsets — `parts`, `ebom`, `mbom` and `avl` from [`hardware/bom/`](/vault/gems/hardware/bom/), `tasks` and `scheduler` from [`realtime_config/`](/vault/gems/realtime-config/) — for example `load_dataset("plonemraz/GEMs", "parts")`. They are the design's tables, not measurements: every caution above holds for them too. The dataset's DOI, [10.57967/hf/11442](https://doi.org/10.57967/hf/11442), names the snapshot of commit `e2bb849`.
 
 The documentation pages are built and published from [plonemraz.github.io](https://github.com/PloneMraz/plonemraz.github.io) so that they share the site's navigation and theme. GitHub Pages is intentionally disabled on this repository — `/vault/gems/` is served by the main site.
 
@@ -74,8 +72,8 @@ One directory per group, and the body's three design disciplines nest under `har
 | [`hardware/electrical/`](/vault/gems/hardware/electrical/) | Actuator, power, compute and bus selection, sourced, with joint-by-joint sizing | ◐ selection done |
 | [`hardware/sim-model/`](/vault/gems/hardware/sim-model/) | URDF generated from the kinematics, audited against it | ✅ |
 | [`hardware/design/`](/vault/gems/hardware/design/) | Concept art, then industrial design and expressive capability (plan ID) | ◐ concept art |
-| [`hardware/bom/`](/vault/gems/hardware/bom/) | EBOM, MBOM and SBOM from one definition, checked against each other; approved manufacturer list, blanks where not yet verified | ◐ 294 parts, one priced |
-| [`firmware/`](/vault/gems/firmware/) | Code that runs directly on the microcontrollers, bare metal or RTOS: joint control, battery management, secure boot and attestation, low-power beacon — and the real-time controller's balance, reflex and supervisor modules if D-3 makes it a microcontroller | ◐ architecture; source awaits a target |
+| [`hardware/bom/`](/vault/gems/hardware/bom/) | EBOM, MBOM and SBOM from one definition, checked against each other; approved manufacturer list, blanks where not yet verified | ◐ 296 parts, one priced |
+| [`firmware/`](/vault/gems/firmware/) | Code that runs directly on the microcontrollers, bare metal or RTOS: joint control, battery management, secure boot and attestation, low-power beacon — and the Real-time Control Layer's balance, reflex and supervisor modules if D-3 makes its computer a microcontroller | ◐ architecture; source awaits a target |
 | [`software/`](/vault/gems/software/) | Code that runs under Linux on the embedded computers: capture drivers, feature extraction and compression, sensor fusion, log synchronisation, link management | 🔜 no source yet |
 | [`reference/`](/vault/gems/reference/) | Executable specifications the on-body code is checked against: audit log, agency tagging. They run on no target | ✅ with tests |
 | [`realtime_config/`](/vault/gems/realtime-config/) | Timing policy, apart from code: each task's deadline class (the requirement) and its platform, scheduling policy and latency bound (how it is met), checked against `spec/` and the firmware architecture | ◐ requirement set; scheduling waits for D-2, D-3 |
@@ -112,7 +110,7 @@ Directories marked 🔜 do not exist yet. They are named in advance so that the 
 | ✅ | Component selection, sourced — actuators, power, compute, bus, materials, reducers |
 | ✅ | Actuator torque density reconciled with `f_act` — 80–90 Nm/kg peak over module mass, the basis declared, the trunk sized from measured human strength, the arms from a declared 15 kg payload; `f_act` split into its scaling and fixed parts |
 | ✅ | Work plan to a complete design — decisions, packages, firmware and software task lists ([`plan/`](/vault/gems/plan/)) |
-| ◐ | EBOM, MBOM and SBOM — 294 part numbers, 59 routings, CycloneDX SBOM; sources and prices filled only where verified ([`hardware/bom/`](/vault/gems/hardware/bom/)) |
+| ◐ | EBOM, MBOM and SBOM — 296 part numbers, 60 routings, CycloneDX SBOM; sources and prices filled only where verified ([`hardware/bom/`](/vault/gems/hardware/bom/)) |
 | 🔜 | Mechanical CAD |
 | 🔜 | Electrical schematics |
 
@@ -129,7 +127,7 @@ GEMs answers *what the body consists of and what it can do*. It is deliberately 
 
 Neither document claims the other's territory. The relation is complementary scopes, not upper and lower tiers.
 
-> Both links go to the author's site, which carries the full PDF of each. DOIs for these papers are being reissued on a new platform; until they are, cite the site copy.
+> Both links go to the author's site, which carries the full PDF of each. Both papers are also deposited in the Hugging Face dataset [plonemraz/Plones_documents](https://huggingface.co/datasets/plonemraz/Plones_documents), DOI [10.57967/hf/11444](https://doi.org/10.57967/hf/11444).
 
 ---
 
