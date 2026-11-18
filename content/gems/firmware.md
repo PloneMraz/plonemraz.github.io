@@ -8,7 +8,7 @@ source: https://github.com/PloneMraz/GEMs/blob/HEAD/firmware/README.md
 sourceRepo: GEMs
 templateEngineOverride: md
 ---
-Code that runs directly on the body's microcontrollers, bare metal or under an RTOS — joint drive boards, the battery management board, the secure element, the beacon radio, and the real-time computer, which carries the Real-time Control Layer, if decision D-3 makes it a microcontroller — as [spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines firmware. Which of its tasks are hard, firm or soft real-time is decided in [`../realtime_config/`](/vault/gems/realtime-config/), not here.
+Code that runs directly on the body's microcontrollers, bare metal or under an RTOS — joint drive boards, the battery management board, the secure element, the beacon radio, and the real-time computer, which carries the Real-time Control Layer, if decision D-3 makes it a microcontroller — as [spec 07.1](/vault/gems/07-firmware-and-software/#71-the-division) defines firmware. The joint drive boards, inside the bought actuator modules, and the battery management board are bought, and their firmware is the manufacturer's: what GEMs writes for them is configuration ([plan F-3, F-9](/vault/gems/plan/firmware/)). Which of its tasks are hard, firm or soft real-time is decided in [`../realtime_config/`](/vault/gems/realtime-config/), not here.
 
 | Document | Contents | Status |
 |---|---|---|
