@@ -314,11 +314,11 @@ Machine-readable metadata lives in [`CITATION.cff`](CITATION.cff) (CFF 1.2.0) â€
   author  = {Huynh, Mai Phuc},
   title   = {dil-core: a reference implementation of the DIL (Data Integration Loop) protocol},
   year    = {2026},
-  version = {0.2.0},
+  version = {0.3.0},
   license = {PolyForm-Noncommercial-1.0.0},
-  doi     = {10.57967/hf/11446},
+  doi     = {10.57967/hf/11681},
   url     = {https://github.com/PloneMraz/dil-core},
-  note    = {ORCID: 0009-0009-0571-7151. DOI: Hugging Face snapshot at commit 38af037 (protocol v0.3.9, version 0.2.0)}
+  note    = {ORCID: 0009-0009-0571-7151. DOI: Hugging Face snapshot at commit a906a5a (protocol v0.4.0, version 0.3.0)}
 }
 ```
 
@@ -332,4 +332,4 @@ To cite the **protocol** rather than this implementation, name the specification
 
 The exception is the specification ([`DIL-en-v10.md`](DIL-en-v10.md), with its figures) and the protocol ([`DIL-protocol-v0.4.0.md`](DIL-protocol-v0.4.0.md)), which are under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): anyone may share and adapt them, for any purpose, with credit.
 
-Versions published before this change, up to commit `f0cefab`, were released under MIT-0, and those copies keep those terms. That includes the DOI snapshot cited above (`38af037`).
+Versions published before this change, up to commit `f0cefab`, were released under MIT-0, and those copies keep those terms. That includes the earlier DOI snapshot, `10.57967/hf/11446` at `38af037` (version 0.2.0). The DOI cited above, `10.57967/hf/11681` at `a906a5a`, is under the present terms.
