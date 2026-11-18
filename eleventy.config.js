@@ -155,7 +155,9 @@ module.exports = function (eleventyConfig) {
      tới liên kết KHÔNG có lược đồ, không bắt đầu bằng / hoặc #. */
   eleventyConfig.addFilter("repoLinks", function (html, repo) {
     if (!repo) return html;
-    const base = String(repo).replace(/\/+$/, "") + "/blob/HEAD/";
+    /* GitHub đọc /blob/HEAD/; Hugging Face chỉ có nhánh main. */
+    const root = String(repo).replace(/\/+$/, "");
+    const base = root + (root.includes("huggingface.co") ? "/blob/main/" : "/blob/HEAD/");
     return String(html).replace(
       /href="(?!https?:|mailto:|#|\/)([^"]+)"/g,
       (m, path) => `href="${base}${path}"`

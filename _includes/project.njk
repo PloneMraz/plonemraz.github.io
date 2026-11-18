@@ -19,7 +19,11 @@ layout: base.njk
   {%- if repo %}
   <p class="paper-actions">
     <a class="btn" href="{{ repo }}">
+      {%- if "huggingface.co" in repo %}
+      <span data-l="en">Open on Hugging Face</span> <span data-l="vi">Mở trên Hugging Face</span>
+      {%- else %}
       <span data-l="en">Open on GitHub</span> <span data-l="vi">Mở trên GitHub</span>
+      {%- endif %}
     </a>
   </p>
   {#  README chép về đây là một BẢN CHỤP. Repo gốc vẫn chạy tiếp,
