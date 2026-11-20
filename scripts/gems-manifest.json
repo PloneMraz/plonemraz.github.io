@@ -41,6 +41,8 @@
           "lede": "Modules and the deadline each carries, the reflex budget split across stages, and the firmware/software interface" },
         { "src": "software/README.md", "group": "software", "order": 110,
           "lede": "Code that runs under Linux on the embedded computers: capture drivers, feature extraction and compression, sensor fusion, log synchronisation, link management" },
+        { "src": "software/RSIL-in-GEMs.md", "group": "software", "order": 111,
+          "lede": "How each construct of RSIL is realised by the algorithms a unit runs: which algorithm, where it runs, which plan task owns it, and the rule RSIL lays on it. Not normative" },
         { "src": "realtime_config/README.md", "group": "software", "order": 120,
           "lede": "Timing policy, apart from code: each task's deadline class (the requirement) and its platform, scheduling policy and latency bound (how it is met), checked against spec/ and the firmware architecture" },
 

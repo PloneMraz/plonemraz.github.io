@@ -28,7 +28,7 @@ Nothing below fixes a part. Where a figure depends on hardware not yet chosen it
 | **Log writer** | Full-tier records, hash-chained at loop rate | loop rate | [06.4](/vault/gems/06-audit-surface/#64-audit-log) |
 | **Low-power beacon** | Signed summary at quiescent power | duty-cycled | [06.5](/vault/gems/06-audit-surface/#65-low-power-beacon) |
 
-Which of these modules are execution, which are declared faculties, and which run the Main Controller's reflexes is set out, algorithm by algorithm, in the binding [`../software/RSIL-in-GEMs.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/software/RSIL-in-GEMs.md).
+Which of these modules are execution, which are declared faculties, and which run the Main Controller's reflexes is set out, algorithm by algorithm, in the binding [`../software/RSIL-in-GEMs.md`](/vault/gems/software/rsil-in-gems/).
 
 **One rule across all of them.** A module that misses its deadline must say so. A late result delivered silently is worse than a reported miss, because the layer above cannot tell the difference between fresh and stale, and the log will record a decision made on data that was not what it appeared to be.
 
@@ -76,7 +76,7 @@ The real-time code — firmware, and the Real-time Control Layer whichever layer
 | **Up** | Timestamped sensor records, each already carrying its agency tag | per-channel |
 | **Up** | Joint telemetry for the full-tier log | loop rate |
 | **Up** | Deadline-miss and fault notifications | on event |
-| **Down** | Motion intent, not motion commands — with the contact it allows ([binding §2.4](https://github.com/PloneMraz/GEMs/blob/HEAD/software/RSIL-in-GEMs.md#24-execution--rsil-75)) | on event |
+| **Down** | Motion intent, not motion commands — with the contact it allows ([binding §2.4](/vault/gems/software/rsil-in-gems/#24-execution--rsil-75)) | on event |
 | **Down** | Power state requests | on event |
 | **Down** | Gating: which channels run at full rate | on event |
 | **Down** | The loop's self-report for the beacon (`loop_state`, RSIL C5), carried unaltered | on event |
