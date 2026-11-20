@@ -115,7 +115,7 @@
   "code": "",
   "title": "The Data Integration Loop",
   "asks": "an agent in a purely informational environment",
-  "pages": 77,
+  "pages": 78,
   "pdf": "DIL.pdf",
   "doi": "10.57967/hf/11683"
  },
@@ -124,8 +124,8 @@
   "group": "specs",
   "code": "",
   "title": "The Relational Sensory Integration Loop",
-  "asks": "the same structure, embodied",
-  "pages": 71,
+  "asks": "what a body adds to the first",
+  "pages": 38,
   "pdf": "RSIL.pdf",
   "doi": "10.57967/hf/11683"
  },
