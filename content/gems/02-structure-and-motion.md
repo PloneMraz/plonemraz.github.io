@@ -10,7 +10,7 @@ templateEngineOverride: md
 ---
 Structure, actuation and energy are one coupled loop. They cannot be specified separately, and cutting the loop anywhere leaves the other ends meaningless.
 
-> Every figure in this chapter is reproducible: `python scripts/gems_budget.py --check` recomputes them and confirms each one still appears here. See [`scripts/`](/vault/gems/scripts/).
+> Every figure in this chapter is reproducible: `python3 scripts/gems_budget.py --check` recomputes them and confirms each one still appears here. See [`scripts/`](/vault/gems/scripts/).
 
 ## 2.1 The mass loop
 

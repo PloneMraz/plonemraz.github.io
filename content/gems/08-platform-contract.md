@@ -15,7 +15,7 @@ That companion specification does not name this body. It states **conditions any
 | Companion specification | Scope | Status |
 |---|---|---|
 | **RSIL** — Relational Sensory Integration Loop | The processing loop for an agent with a body | [Read](https://plonemraz.github.io/vault/papers/relational-sensory-integration-loop/) |
-| **DIL** — Data Integration Loop | The same relational structure with no body at all | [Read](https://plonemraz.github.io/vault/papers/data-integration-loop/) |
+| **DIL** — Data Integration Loop | The standard RSIL extends: an agent — its host, its mind, and the law the data runs by between them. The Main Controller runs by it ([01](/vault/gems/01-architecture/)) | [Read](https://plonemraz.github.io/vault/papers/data-integration-loop/) |
 
 ## 8.1 Conformance map
 
@@ -36,7 +36,7 @@ The companion specification identifies INV-6, INV-8 and C5 as the three points w
 
 ## 8.2 Traced appraisal, not mute reflex
 
-The contract rejects a scar-to-action shortcut that bypasses appraisal. Reflex is not such a shortcut: it is **appraisal under a scar-dominated field** (RSIL §9.7) — the appraisal step still runs, its verdict all but foreclosed by the scar that dominates the field.
+The contract rejects a scar-to-action shortcut that bypasses appraisal. Reflex is not such a shortcut: it is **appraisal under a scar-dominated field** (RSIL §7.1) — the appraisal step still runs, its verdict all but foreclosed by the scar that dominates the field.
 
 This is not pedantry. An action emitted without appraisal **carries no anchored context**, so a third party cannot re-appraise it, and the audit plane goes blind exactly where it matters.
 

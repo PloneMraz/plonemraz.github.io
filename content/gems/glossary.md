@@ -42,7 +42,7 @@ Technical terms in this repository follow standard usage in robotics, embedded s
 
 Two vocabularies meet in this repository, and each has a place.
 
-**RSIL and DIL terms are kept, in the contract layer.** They name concepts of the companion specifications, not components, and renaming them would break the correspondence with those papers. Their place is where the contract is stated and tested — [spec 08](/vault/gems/08-platform-contract/), [`protocol/`](/vault/gems/protocol/) — and the field names of the audit-log record schema, which carries the contract's evidence. Verified against the RSIL text: *appraisal*, *scar*, *appraisal under a scar-dominated field*, *anchored context*, *emission*, *trace*, *agency* (`AgencyTag`, `SELF_CAUSED`), *caused-by-me*, *region*, *resistance*, *reflex*, and the requirement labels INV-6, INV-8, C5, E1–E4.
+**RSIL and DIL terms are kept, in the contract layer.** They name concepts of the companion specifications, not components, and renaming them would break the correspondence with those papers. Their place is where the contract is stated and tested — [spec 08](/vault/gems/08-platform-contract/), [`protocol/`](/vault/gems/protocol/) — and the field names of the audit-log record schema, which carries the contract's evidence. Verified against the RSIL text: *appraisal*, *scar*, *appraisal under a scar-dominated field*, *anchored context*, *emission*, *trace*, *agency* (the body tag: `BODY_CAUSED`, `ENV_PUSHED`, `HOST_REACTED`, `UNDECIDED`), *caused-by-me*, *region*, *resistance*, *reflex*, and the requirement labels INV-6, INV-8, C5, E1–E4.
 
 **Everywhere else, engineering terms.** Where an engineering item realises a contract term, it takes the engineering name and cites the contract term once: "reflex decision (RSIL INV-8: appraisal under a scar-dominated field)".
 
@@ -59,12 +59,12 @@ Two vocabularies meet in this repository, and each has a place.
 | "One intelligence, two seats" | **The controller is off the body**: the Main Controller on the IPC; each unit its sensors and effectors ([spec 01](/vault/gems/01-architecture/)) | The old principle put part of the intelligence on the body, where 07.5 said nothing decides (Plone, 2026-11-05) |
 | Real-time controller | **Real-time Control Layer** for the tier; **real-time computer** for its processor | "Controller" now names only the Main Controller, off the body |
 | Local core | **OBC**, the on-board computer | The kernel is a computer of its own, and holds command only on a trigger |
-| Pre-closed appraisal | **Reflex decision** in engineering text; **appraisal under a scar-dominated field** (RSIL §9.7) in the contract | "Pre-closed" was this repository's paraphrase, not RSIL's wording |
+| Pre-closed appraisal | **Reflex decision** in engineering text; **appraisal under a scar-dominated field** (RSIL §7.1) in the contract | "Pre-closed" was this repository's paraphrase, not RSIL's wording |
 | Appraisal, integration (reflex stages) | Reflex decision, state assembly | |
 | Agency classification | **Agency tagging**, a firmware task | *Agency* itself is the contract's term and stays |
 
 ## Decision recorded: what C5 asks of the body
 
-RSIL defines C5 as "self-reports low power: the system emits a trace of *the loop is running weakly*", and states that C5 is not a criterion for detecting a dead loop. Spec 06.5 first met it with a beacon whose content was a liveness signal at low electrical power — closer to a heartbeat, which is what RSIL says C5 is not.
+DIL defines C5 (DIL §8.1), and RSIL has the body carry it (RSIL §5): "self-reports low power: the system emits a trace of *the loop is running weakly*"; and DIL states that C5 is not a criterion for detecting a dead loop. Spec 06.5 first met it with a beacon whose content was a liveness signal at low electrical power — closer to a heartbeat, which is what DIL says C5 is not.
 
 Resolved by the author, 2026-09-26: the beacon stays as the channel, and carries the loop's own report in a `loop_state` field, unaltered and with its age. The body transmits; the loop reports. The beacon's `alive` field is kept for the delegated watch during sleep and is explicitly not C5. Dead-loop detection is placed where RSIL places it — in a stored record outside the loop, here the audit log synchronised off-board. See [06.5](/vault/gems/06-audit-surface/#65-low-power-beacon), [08.1](/vault/gems/08-platform-contract/#81-conformance-map) and protocol C-10.

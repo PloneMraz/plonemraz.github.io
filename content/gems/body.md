@@ -40,7 +40,7 @@ GEMs does not publish one configuration. Structure, actuation and energy sit on 
 | Compute | The Main Controller wholly off the body, on an IPC; on each unit, processing only, by four tiers that do not decide — the Real-time Control Layer, MCUs, DAQ and the OBC for link loss. Balance loop ≥500 Hz and reflex ≤10 ms **must** be on the unit |
 | Audit surface | Signed sensor–actuator trace; a readable trace remains emittable at quiescent power while the body sleeps |
 
-Every figure above is reproducible — `python scripts/gems_budget.py --check` recomputes them against the chapters that state them.
+Every figure above is reproducible — `python3 scripts/gems_budget.py --check` recomputes them against the chapters that state them.
 
 > [!NOTE] Several of these envelopes are bounded by something other than the obvious candidate. Peak power is capped by the battery rather than the actuators; sleep duration is capped by cell chemistry rather than by the standby circuit; tactile fidelity is capped by link bandwidth and fabrication density rather than by ambition. The specification states which constraint actually binds in each case.
 
@@ -123,7 +123,7 @@ GEMs answers *what the body consists of and what it can do*. It is deliberately 
 | Specification | Scope | Status |
 |---|---|---|
 | **RSIL** — Relational Sensory Integration Loop | The information-processing loop between a body's sensors and its responses | [Read](https://plonemraz.github.io/vault/papers/relational-sensory-integration-loop/) |
-| **DIL** — Data Integration Loop | The same relational structure for an agent with no body at all | [Read](https://plonemraz.github.io/vault/papers/data-integration-loop/) |
+| **DIL** — Data Integration Loop | The standard RSIL extends: an agent — its host, its mind, and the law the data runs by between them. The Main Controller runs by it | [Read](https://plonemraz.github.io/vault/papers/data-integration-loop/) |
 
 Neither document claims the other's territory. The relation is complementary scopes, not upper and lower tiers.
 

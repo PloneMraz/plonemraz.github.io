@@ -28,6 +28,8 @@ Nothing below fixes a part. Where a figure depends on hardware not yet chosen it
 | **Log writer** | Full-tier records, hash-chained at loop rate | loop rate | [06.4](/vault/gems/06-audit-surface/#64-audit-log) |
 | **Low-power beacon** | Signed summary at quiescent power | duty-cycled | [06.5](/vault/gems/06-audit-surface/#65-low-power-beacon) |
 
+Which of these modules are execution, which are declared faculties, and which run the Main Controller's reflexes is set out, algorithm by algorithm, in the binding [`../software/RSIL-in-GEMs.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/software/RSIL-in-GEMs.md).
+
 **One rule across all of them.** A module that misses its deadline must say so. A late result delivered silently is worse than a reported miss, because the layer above cannot tell the difference between fresh and stale, and the log will record a decision made on data that was not what it appeared to be.
 
 ## 2. The reflex budget
@@ -37,7 +39,7 @@ Nothing below fixes a part. Where a figure depends on hardware not yet chosen it
 | Stage | Budget | Note |
 |---|---|---|
 | Acquisition and timestamp | 1.0 ms | Includes transduction at the node |
-| Agency tagging | 0.5 ms | Self-caused or external, before anything interprets |
+| Agency tagging | 0.5 ms | `BODY_CAUSED`, `HOST_REACTED` or `ENV_PUSHED`, before anything interprets (RSIL R2) |
 | State assembly | 2.0 ms | Assembling the state the reflex decision reads |
 | Reflex decision | 1.0 ms | Lookup against the loaded reflex set; not skipped (RSIL INV-8: appraisal under a scar-dominated field, [spec 08.2](/vault/gems/08-platform-contract/#82-traced-appraisal-not-mute-reflex)) |
 | Command and actuation onset | 4.0 ms | Mechanical response begins |
@@ -49,7 +51,7 @@ Nothing below fixes a part. Where a figure depends on hardware not yet chosen it
 >
 > **The reflex decision stage is not optional and not zero.** It still runs, however little it has left to decide; that is what makes the output event re-appraisable from outside, which is what RSIL INV-8 asks. A firmware design that discovers it is over budget and reclaims this millisecond has stopped conforming ([protocol C-9](/vault/gems/protocol/conformance/)).
 
-The split is `⟦IMPL⟧` and will move once real parts exist. The same figures are held, with every task's layer and deadline class, in [`../realtime_config/tasks.csv`](https://github.com/PloneMraz/GEMs/blob/HEAD/realtime_config/tasks.csv), and `python realtime_config/check_timing.py` fails if the two disagree. The margin is not spare capacity to be spent later — it absorbs the jitter that measurement will find.
+The split is `⟦IMPL⟧` and will move once real parts exist. The same figures are held, with every task's layer and deadline class, in [`../realtime_config/tasks.csv`](https://github.com/PloneMraz/GEMs/blob/HEAD/realtime_config/tasks.csv), and `python3 realtime_config/check_timing.py` fails if the two disagree. The margin is not spare capacity to be spent later — it absorbs the jitter that measurement will find.
 
 ## 3. The balance loop
 
@@ -74,7 +76,7 @@ The real-time code — firmware, and the Real-time Control Layer whichever layer
 | **Up** | Timestamped sensor records, each already carrying its agency tag | per-channel |
 | **Up** | Joint telemetry for the full-tier log | loop rate |
 | **Up** | Deadline-miss and fault notifications | on event |
-| **Down** | Motion intent, not motion commands | on event |
+| **Down** | Motion intent, not motion commands — with the contact it allows ([binding §2.4](https://github.com/PloneMraz/GEMs/blob/HEAD/software/RSIL-in-GEMs.md#24-execution--rsil-75)) | on event |
 | **Down** | Power state requests | on event |
 | **Down** | Gating: which channels run at full rate | on event |
 | **Down** | The loop's self-report for the beacon (`loop_state`, RSIL C5), carried unaltered | on event |
@@ -88,6 +90,8 @@ The real-time code — firmware, and the Real-time Control Layer whichever layer
 The OBC is a small computer of its own, standing by while the IPC is online and taking command only on a trigger: a heartbeat missed beyond the threshold, or the Main Controller handing over when the link lags. In command it maintains balance through the Real-time Control Layer, which runs throughout, preserves state and log, continues recording at both tiers, and attempts re-establishment; it gives command back only when the Main Controller takes it.
 
 **It does not decide.** The boundary is stated at [07.5](/vault/gems/07-firmware-and-software/#75-link-loss-and-the-obc) and it is architectural: reflexes are loadable, and the interpretation of priorities in an unforeseen situation is not a reflex.
+
+**It holds for a term.** The Main Controller loads the term with the reflexes, and each heartbeat renews it. When it has passed with the link still lost, the loaded reflexes stop and the safe-state supervisor takes the unit to a supported posture; the declared faculties remain (RSIL §9).
 
 A practical consequence for this layer: the log must not be trimmed to save space during an outage. An outage is exactly when the record matters most, and a body that discards its own unsynchronised history has made the outage unauditable.
 

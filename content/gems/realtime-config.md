@@ -17,7 +17,7 @@ The timing policy of the body, kept apart from the code that follows it and inde
 | [`check_timing.py`](https://github.com/PloneMraz/GEMs/blob/HEAD/realtime_config/check_timing.py) | — | Holds both to the specification and to the firmware architecture |
 
 ```bash
-python realtime_config/check_timing.py
+python3 realtime_config/check_timing.py
 ```
 
 ## Two axes, never merged

@@ -54,7 +54,7 @@ At 1 kHz and 12 bits: **5.5 Gbps** raw — two thirds of the link, from one chan
 | Spatial RF sensing | Wi-Fi / mmWave CSI | modest | Retained at full hardware capability; use is `⟦CTRL⟧` |
 | Olfaction (e-nose) | — | negligible | **5–30 ppb** achieved per compound *(sourced)*; 5–10 s response |
 | Taste (lab-on-chip) | — | negligible | Slow, batch-wise |
-| Trajectory prediction | ~1.5 s horizon | — | Computer vision plus human trajectory prediction. **TM** |
+| Trajectory prediction | ~1.5 s horizon | — | Computer vision plus human trajectory prediction. **TM**. The prediction is an expectation of another entity and runs on the Main Controller; the unit supplies the detections (RSIL §6) |
 | Voice and ultrasound | — | — | Synthesis plus ultrasonic emission. **TM** |
 | Biological response | pupil, expression | — | Micro facial actuators and microfluidics. **TM/LAB** |
 | Cardiac co-regulation | vibration, warmth, rhythm | — | **Optional module, not always-on.** Instrumented per [06.6](/vault/gems/06-audit-surface/#66-contact-amplitude) |
@@ -112,6 +112,8 @@ Link round-trip is ~1 ms at ideal short range, but at kilometre range with beam 
 
 > **Edge compute is not "add as much as you like, it only costs battery." It eats into the convergence condition of the whole body**, and [02.3](/vault/gems/02-structure-and-motion/#23-the-endurance-ceiling) shows `γ` inflating non-linearly near the ceiling.
 >
-> The middle — feature extraction, compression, predictive modelling, tracking of other agents — is `⟦CTRL⟧`, and **should be adjustable per mission** rather than a compile-time constant.
+> The middle — feature extraction, compression, detection, reconstruction of the space around the body — is `⟦CTRL⟧`, and **should be adjustable per mission** rather than a compile-time constant. Predicting and tracking other agents is not in the middle: a tracker predicts where another entity will be, which is an expectation, and expectations are the Main Controller's (RSIL §6; 2026-11-19). The unit estimates only its own state.
+
+**Spatial data is the unit’s to acquire; the map is not (2026-11-20).** The unit senses the space around it and reconstructs it over a bounded window — depth from the stereo pair, points from the LiDAR, occupancy around the body and within reach of its hands — and returns it, whole or in features, to the Main Controller. A map kept beyond the window — built up across visits, corrected by loop closure, used to recognize a place — is part of the world model, built on the Main Controller from what the units return (RSIL §8.6). The same reconstruction serves the unit’s own execution: the ground a foot lands on, the space a hand reaches through. Whether the body goes around a thing or touches it is behaviour, and behaviour is the Main Controller’s: it travels with the command, and the unit carries it out ([binding §2.4](https://github.com/PloneMraz/GEMs/blob/HEAD/software/RSIL-in-GEMs.md#24-execution--rsil-75)). Wi-Fi and mmWave sensing (5.3) add the presence and motion of people; the geometry does not rest on them ([binding §2.9](https://github.com/PloneMraz/GEMs/blob/HEAD/software/RSIL-in-GEMs.md#29-what-does-not-run-on-a-unit)).
 
 **Operating point: `⟦CTRL⟧`.**

@@ -18,4 +18,6 @@ Code that runs under an operating system on the body's embedded computer — the
 | Log assembly and synchronisation | Two tiers, synchronised off-board after an outage | 🔜 — port of [`../reference/audit_log.py`](https://github.com/PloneMraz/GEMs/blob/HEAD/reference/audit_log.py) |
 | Link management | Graceful degradation before dropped streams | 🔜 *waiting update* |
 
+The binding of RSIL to these modules and to the real-time code, algorithm by algorithm — fieldbus masters, drivers, ROS 2, estimators, controllers, faculties — is [`RSIL-in-GEMs.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/software/RSIL-in-GEMs.md).
+
 No source yet. The executable specifications this code will be checked against are in [`../reference/`](/vault/gems/reference/). Planned work, module by module: [`../plan/software.md`](/vault/gems/plan/software/).
