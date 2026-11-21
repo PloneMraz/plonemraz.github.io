@@ -68,7 +68,7 @@ One directory per group, and the body's three design disciplines nest under `har
 | [`plan/`](/vault/gems/plan/) | What remains between the specification and a complete design: definition of done, open decisions, work packages, and the firmware and software work down to the task | ✅ v1 |
 | [`protocol/`](/vault/gems/protocol/) | Platform conformance protocol, and an assessment of this repository's simulated body against it | ✅ v0.1 draft + record |
 | [`hardware/`](/vault/gems/hardware/) | The body itself | ◐ kinematics declared |
-| [`hardware/mechanical/`](/vault/gems/hardware/mechanical/) | Material and mechanism selection, sourced; CAD to follow | ◐ selection done |
+| [`hardware/mechanical/`](/vault/gems/hardware/mechanical/) | Material and mechanism selection, sourced; CAD begun with the skeleton of plan M-1, generated from the kinematics and audited against the URDF | ◐ selection done, skeleton generated |
 | [`hardware/electrical/`](/vault/gems/hardware/electrical/) | Actuator, power, compute and bus selection, sourced, with joint-by-joint sizing | ◐ selection done |
 | [`hardware/sim-model/`](/vault/gems/hardware/sim-model/) | URDF generated from the kinematics, audited against it | ✅ |
 | [`hardware/design/`](/vault/gems/hardware/design/) | Concept art, then industrial design and expressive capability (plan ID) | ◐ concept art |

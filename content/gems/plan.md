@@ -4,7 +4,7 @@ lede: 'What remains between the specification and a complete design: definition 
 group: build
 order: 100
 lang: en
-source: https://github.com/PloneMraz/GEMs/blob/HEAD/plan/README.md
+source: https://github.com/PloneMraz/GEMs/blob/HEAD/plan/PLAN.md
 sourceRepo: GEMs
 templateEngineOverride: md
 ---
@@ -67,7 +67,7 @@ These are ordered: each one is needed before the work packages that depend on it
 
 | # | Decision | Blocks | Status |
 |---|---|---|---|
-| **D-1** | **Knee torque requirement.** The sizing script assumes knee = hip pitch, flagged there as an assumption, not a source | Actuator sizing, `f_act`, the mass loop | open — check against published gait data |
+| **D-1** | **Knee torque requirement.** The sizing script assumes knee = hip pitch, flagged there as an assumption, not a source | Actuator sizing, `f_act`, the mass loop | **checked 2026-11-21 against published gait data: 1.77 Nm/kg stands** — it covers walking, stairs and rising from a seat ([electrical §6c](/vault/gems/hardware/electrical/#6c-knee-torque--d-1-2026-11-21)). Open within it: rising from a deep squat or the floor, and landing — no figure obtained |
 | **D-2** | **Actuators: which procured modules, at which reduction ratio.** In-house design is off the table by rule ([`CLAUDE.md`](https://github.com/PloneMraz/GEMs/blob/HEAD/CLAUDE.md) §2, 2026-09-26): every option must be bought. The same CubeMars motor is sold at 16:1 (78 Nm peak, 105 rpm, 88.7 Nm/kg) and 48:1 (222 Nm peak, ~48 rpm, 159 Nm/kg), so torque density is a ratio choice paid in speed, and the open question per joint is *torque × speed*, not torque alone ([electrical §6b](/vault/gems/hardware/electrical/#6b-arm-payload-and-the-two-parts-of-f_act--2026-09-26)). At 48:1 only hip pitch, knee and trunk pitch fall short, by 4–8 Nm; whether ~5 rad/s at the output is enough for gait and fall recovery is unmeasured. Also settles the conflict between the per-class reducers of `hardware/mechanical` and the single module family of `hardware/electrical`, and the CAN-to-EtherCAT question of E-5 | M-3, E-3, F-3 | open — candidates in the AVL |
 | **D-3** | **Real-time computer, which carries the Real-time Control Layer: a microcontroller under an RTOS, or an embedded computer under Linux with a real-time kernel.** The Jetson carries perception and compression; it is not the target for the 500 Hz balance loop and the 10 ms reflex path. The choice decides whether that code is firmware or software (spec 07.1), and how its latency bound is established — by construction or by measurement | All firmware, E-5 | open |
 | **D-4** | **High-voltage bus voltage** | Every power stage, cell count in series, harness gauge | open |
@@ -97,20 +97,21 @@ Two standard references anchor it. The **Facial Action Coding System** (Ekman an
 
 | ID | Task | To | Waits for |
 |---|---|---|---|
-| ID-1 | Design brief: proportions from `kinematics.md`, the gynoid form, the uncanny-valley position the design takes and why; starting from the author's [concept art](/vault/gems/hardware/design/concept/) and its tensions with the specification | L1 | — |
-| ID-2 | Form development: silhouette and proportion studies, form language, then class-A outer surfaces in CAD. Constraints: shell thickness (spec 04.5), armour coverage (spec 02.4), joint range of motion from the URDF | L4 | ID-1, M-1 |
+| ID-1 | Design brief: proportions from `kinematics.md`, the gynoid form, the uncanny-valley position the design takes and why; starting from the author's [concept art](/vault/gems/hardware/design/concept/) and its tensions with the specification. One tension is already visible: the concept's slender legs against what a leg segment must hold — an actuator module at hip and knee (the AVL's CubeMars AKH70-48 is Ø90 × 81.5 mm on its vendor drawing), armour (spec 02.4) and three shell layers (spec 04.5); the URDF, whose radii follow proportion rather than structure, already draws the thigh at a 58 mm radius. The brief decides which gives: the form, or what is inside it | L1 | — |
+| ID-2 | Form development: silhouette and proportion studies, form language, then class-A outer surfaces in CAD. Constraints: shell thickness (spec 04.5), armour coverage (spec 02.4), joint range of motion from the URDF | L4 | ID-1, M-1, D-3, D-4 |
 | ID-3 | Human-contact surfaces: pinch-point elimination at every joint, contact zones for safe touch (spec 01 group 4), lift and handling points | L4 | ID-2 |
 | ID-4 | Colour, material and finish by zone, within what the shell layers allow: electrochromic range (spec 04.3), the sense-and-heal skin's feel, the fire layer's constraints | L4 | ID-2, M-8 — **LAB** in part |
 | ID-5 | Face: static geometry, eyes, skin; the FACS action units the face will actuate, which fixes the count of facial actuators (EBOM `GEM-11090`) | L4 | ID-1 — **LAB** |
 | ID-6 | Expressive capability specification: range, speed and simultaneity per action unit; gaze from neck and eyes; posture; colour change as a slow channel | L4 | ID-5 |
-| ID-7 | Visual model: renders and a textured visual model for the simulator, replacing the primitives of `sim-model/` | L4 | ID-2 |
+| ID-7 | Visual model: renders and a textured visual model for the simulator, replacing the primitives of `sim-model/`. Trunk and limbs first, from the surfaces of ID-2; face (ID-5) and hands (M-4) after them, being the finest and the least settled. The model is cut into one mesh per URDF link at the joint boundaries, each in its link's frame and reduced for display, and `generate_urdf.py` points its `<visual>` at them; `<collision>` stays primitive. A base mesh is used only under an open licence recorded beside it; meshes made from a vendor's CAD of a bought part are not published unless the vendor's terms allow it (CubeMars marks its drawings proprietary and confidential) — a bought part is drawn by its envelope | L4 | ID-2, ID-9 |
 | ID-8 | Evaluation without hardware: a rendered-stimulus perception study protocol for the face and form — the protocol and stimuli are in scope, running it needs people | L5 | ID-6, ID-7 |
+| ID-9 | Tooling for form and the visual model: Blender, for freeform surfaces, materials, renders and glTF / OBJ / DAE export, driven by its Python API; an MCP server for it is read and checked before use, as freecad-mcp was for FreeCAD (2026-11-21). FreeCAD stays the tool of M-1 and of every dimensioned part — ✅ 2026-11-21: Blender 5.3 with the Blender Lab MCP (add-on 1.0.0, server 1.0.2, GPL-3.0), read in full before install: no telemetry, no network beyond its socket on localhost; run over stdio, never its HTTP transport, which drops DNS-rebinding protection. Not taken: `mcp-for-blender`, which sends a usage record by default and, on opt-in, prompts and scenes for model training | — | — |
 
 ### M — Mechanical
 
 | ID | Task | To | Waits for |
 |---|---|---|---|
-| M-1 | Parametric CAD skeleton generated from `kinematics.md`, the same way the URDF is — joint frames, segment envelopes, keep-out volumes | L4 | — |
+| M-1 | Parametric CAD skeleton generated from `kinematics.md`, the same way the URDF is — joint frames, segment envelopes, keep-out volumes. In FreeCAD (1.1), by a generator script beside `generate_urdf.py` with an audit that holds the CAD and the URDF to the same declaration — ◐ [`hardware/mechanical/skeleton/`](/vault/gems/hardware/mechanical/skeleton/), 2026-11-21: joint frames and segment envelopes generated and audited; keep-out volumes next | L4 | — |
 | M-2 | Packaging study: where the pack, compute, drives, radios and sensors sit, checked against segment envelopes, the outer form and the centre of mass. **Pack location decided: the scapular region of the upper back, on the torso frame** — see [pack location](#pack-location-decided) below | L1 | D-4, D-5, ID-2 |
 | M-3 | Joint modules per class — hip/knee (cycloidal), shoulder/elbow (QDD planetary), wrist/neck (harmonic): bearings, seals, encoder mounts, joint locks (spec 03.2 measure 4), series-elastic elements (measure 5) | L4 | D-1, D-2 |
 | M-4 | Hands at the reference configuration | L4 | D-6 |
@@ -224,9 +225,9 @@ Prices are recorded with the date they were read and the page they were read fro
 
 Nothing here waits for money. What waits is decisions.
 
-1. **D-1**, the knee torque, first — it is the one open figure that could stop the mass loop from converging, and it is cheap to settle.
+1. **D-1**, the knee torque, first — it is the one open figure that could stop the mass loop from converging, and it is cheap to settle. Checked 2026-11-21: the figure stands for the declared tasks.
 2. **D-2 to D-5**, with **B-2** alongside, because pricing the candidates is part of choosing between them.
-3. **S** work in parallel from now: it needs no hardware. **ID-1** and **ID-5** can start now as well — the brief and the face depend on the kinematics and the specification, not on parts.
-4. **M-1**, **E-1**, **ID-2**, and the target-independent parts of **F**, once D-3 and D-4 are settled. Form and packaging iterate against each other from here: neither is fixed first.
+3. **S** work in parallel from now: it needs no hardware. **ID-1** and **ID-5** can start now as well — the brief and the face depend on the kinematics and the specification, not on parts — and so can **M-1**, which needs only `kinematics.md`, and **ID-9**, which waits for nothing.
+4. **E-1**, **ID-2**, and the target-independent parts of **F**, once D-3 and D-4 are settled. Form and packaging iterate against each other from here: neither is fixed first.
 5. Detailed design — M-3 to M-11, E-2 to E-12, F source against the target.
 6. Verification — V-1 to V-9 — as each piece reaches L4, not at the end.

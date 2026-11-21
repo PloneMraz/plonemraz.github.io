@@ -1,0 +1,70 @@
+---
+title: 'CAD skeleton'
+lede: 'Joint frames and segment envelopes generated in FreeCAD from the kinematics, audited against the URDF'
+group: hardware
+order: 102.5
+lang: en
+source: https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/mechanical/skeleton/README.md
+sourceRepo: GEMs
+templateEngineOverride: md
+---
+The parametric CAD skeleton of the GEMs body — plan [M-1](/vault/gems/plan/#m--mechanical) — generated from the declared kinematic configuration, in FreeCAD.
+
+| File | Contents |
+|---|---|
+| [`generate_skeleton.py`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/mechanical/skeleton/generate_skeleton.py) | The generator, and the audit that holds the CAD to the URDF |
+| `gems-skeleton.step` | Generated output — 37 joint frames and 17 segment envelopes, in millimetres. Do not hand-edit |
+
+```bash
+python3 hardware/mechanical/skeleton/generate_skeleton.py                       # build, audit, write gems-skeleton.step
+python3 hardware/mechanical/skeleton/generate_skeleton.py --check               # build and audit, write nothing
+python3 hardware/mechanical/skeleton/generate_skeleton.py --fcstd /path/x.FCStd # also save the FreeCAD document
+```
+
+Needs FreeCAD 1.1 for its console executable (`freecadcmd`, or `freecad.cmd` from the Snap package; `--freecadcmd` or `$FREECADCMD` to name another). The script runs under `python3` and runs itself again under that executable, which takes no options of its own, so the mode passes through the environment.
+
+## One declaration, not two
+
+The skeleton is generated from [`../../kinematics.md`](/vault/gems/hardware/kinematics/) through [`../../sim-model/generate_urdf.py`](https://github.com/PloneMraz/GEMs/blob/HEAD/hardware/sim-model/generate_urdf.py): the generator imports that script and builds from the URDF it produces. It restates no dimension, so a change to the declaration reaches the URDF and the CAD together, the same way the [URDF](/vault/gems/hardware/sim-model/#generated-not-written) is kept from becoming a second declaration of the kinematics.
+
+The audit measures the CAD after FreeCAD has built it and compares it with the URDF generator's own forward kinematics in the zero pose, at 1 µm:
+
+```
+  joint frames             37         expected 37         ok
+  actuated joints          31         expected 31         ok
+  frames at URDF origin    True       expected True       ok
+  frames on URDF axis      True       expected True       ok
+  segment envelopes        17         expected 17         ok
+  envelopes = URDF         True       expected True       ok
+  drawn height m           1.656      expected 1.65       ok
+  solids valid             True       expected True       ok
+  faces FreeCAD Front -Y   True       expected True       ok
+  left side toward +X      True       expected True       ok
+  STEP faces Front -Y      True       expected True       ok
+```
+
+The last line reads the written STEP file back, because what leaves the generator is the file, not the document. A mismatch exits non-zero and leaves no file behind. The audit was itself checked by breaking the generator on purpose — an envelope shifted by 10 µm, a joint axis turned, the turn of the next section left out of the document and then out of the file — and each was reported.
+
+## Two frames, one rotation
+
+The URDF follows the robotics convention: x forward, y left, z up. CAD and modelling tools look at a body from the other side: FreeCAD's *Front* view, like Blender's, looks from −Y, so a body built in URDF axes shows its left side there.
+
+Every marker and envelope is therefore built in URDF axes inside one container, `GEMs_skeleton`, turned −90° about z. In the document and in the STEP file the body faces −Y, its left side toward +X, and FreeCAD's *Front* view shows its front. **That turn is the only difference between the CAD frame and the URDF frame:** geometry taken from the CAD back to the URDF — the visual meshes of plan ID-7 — is turned +90° about z. The audit measures inside the container against the URDF, and checks the turn separately.
+
+FreeCAD 1.1 drops an `App::Part`'s placement when it writes STEP, so the generator writes the STEP from the shapes with the turn already applied, flat, each under its own name.
+
+## What is in it
+
+**Joint frames.** One marker per URDF joint: a rod of 60 mm through the joint's zero-pose origin, along its axis, carrying the joint's name, parent link, child link, type and, for the six coupled trunk joints, the joint it follows. The joints of one multi-axis group — shoulder, hip, wrist, ankle, each trunk segment — share an origin and differ in axis.
+
+**Segment envelopes.** The 17 drawn segments of the URDF: the same boxes and cylinders at the same places. They follow proportion, not structure ([sim-model](/vault/gems/hardware/sim-model/#what-is-estimated--which-is-most-of-it)): they mark where each segment's contents go, not what size those contents are. Section sizing waits for load cases and the joint modules for D-2.
+
+## What is not in it yet
+
+**Keep-out volumes,** the third item of M-1. Two kinds are needed: the space a joint module occupies, which waits for D-2 to say which module; and the space a segment sweeps through its travel, which can be computed from the envelopes and is the next step here.
+
+## Reading it
+
+- **Views:** *Front* shows the body's front, *Right* its left side, *Top* looks down on the head. The origin is the pelvis frame of the URDF.
+- **A saved `.FCStd` opens with every object hidden.** It is written without a GUI, and FreeCAD keeps visibility in the part of the file only a GUI writes. Select all and press Space. The STEP file has no such state and opens shown.
+- The STEP header names the author; joint and envelope names carry through as product names (`joint_l_knee`, `env_l_thigh`).

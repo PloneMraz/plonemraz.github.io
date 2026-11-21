@@ -5,13 +5,18 @@
 What is mirrored, and where, is declared in scripts/gems-manifest.json, one
 entry per source repository. A source names its local `checkout` (relative to
 the site), its `github` URL, an `images` folder of the site it owns, paths to
-`ignore`, and its documents:
+`ignore`, its documents, and optionally `files` it publishes as they are:
 
 - `specTable`: a README whose table lists chapters as
   `| # | [Title](file.md) | site group | contents |`. Each row becomes a page at
   the top of the GEMs area (`/vault/gems/<stem>/`), in the row's group, with the
   row's contents as its lede, in the table's order (10, 20, … per group). The
   table is GEMs' own declaration of what the site shows of its chapters.
+- `files`: repository paths copied byte for byte into the source's `filesDir`
+  (a folder of the site it owns), at the same path below it —
+  `hardware/sim-model/gems.urdf` with `filesDir` `assets/gems` lands at
+  `/assets/gems/hardware/sim-model/gems.urdf`, which the hand-written URDF
+  viewer page reads. A file in `filesDir` that no longer is listed is removed.
 - `docs`: every other Markdown file, `{src, group, order, lede?, title?, path?}`.
   `path` defaults to the file's path, lower-cased, `_` as `-`, a folder's
   `README.md` standing for the folder — `hardware/bom/EBOM.md` is
@@ -187,10 +192,26 @@ def sync(src: dict) -> None:
             if f.is_file() and f.relative_to(images).as_posix() not in embedded:
                 f.unlink()
                 print(f"removed {f.relative_to(SITE)}: nothing embeds it")
-    for folder in sorted([*OUT.rglob("*"), *images.rglob("*")], reverse=True):
+    files = set(src.get("files", []))
+    fdir = SITE / src["filesDir"] if files or src.get("filesDir") else None
+    if files and not src.get("filesDir"):
+        sys.exit(f"{src['name']}: `files` given without a `filesDir`")
+    for rel in sorted(files):
+        if posixpath.normpath(rel).startswith("..") or not (repo / rel).is_file():
+            sys.exit(f"{src['name']}: file not in the repository: {rel}")
+        (fdir / rel).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(repo / rel, fdir / rel)
+    if fdir is not None and fdir.exists():
+        for f in sorted(fdir.rglob("*")):
+            if f.is_file() and f.relative_to(fdir).as_posix() not in files:
+                f.unlink()
+                print(f"removed {f.relative_to(SITE)}: {src['name']} no longer lists it")
+    extra = [fdir] if fdir is not None and fdir.exists() else []
+    for folder in sorted([*OUT.rglob("*"), *images.rglob("*"), *[g for d in extra for g in d.rglob("*")]],
+                         reverse=True):
         if folder.is_dir() and not any(folder.iterdir()):
             folder.rmdir()
-    print(f"{src['name']}: {len(written)} pages, {len(embedded)} images, from {repo}")
+    print(f"{src['name']}: {len(written)} pages, {len(embedded)} images, {len(files)} files, from {repo}")
 
 
 def main() -> None:

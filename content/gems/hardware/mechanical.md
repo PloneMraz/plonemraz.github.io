@@ -1,6 +1,6 @@
 ---
 title: 'Mechanical'
-lede: 'Material and mechanism selection, sourced. CAD still to come'
+lede: 'Material and mechanism selection, sourced; CAD begun with the skeleton of plan M-1'
 group: hardware
 order: 102
 lang: en
@@ -10,7 +10,7 @@ templateEngineOverride: md
 ---
 Material and mechanism selection against the specification. Every figure is sourced; §6 lists the references.
 
-No CAD yet. What is fixed here is what the CAD will be made of and what the joints will be made from — the decisions that have to precede geometry.
+What is fixed here is what the CAD will be made of and what the joints will be made from — the decisions that have to precede geometry. The CAD itself begins with the skeleton of plan M-1 in [`skeleton/`](/vault/gems/hardware/mechanical/skeleton/): joint frames and segment envelopes generated from the kinematics, in FreeCAD, audited against the URDF. No part is drawn yet.
 
 ---
 

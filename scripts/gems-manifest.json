@@ -5,6 +5,8 @@
       "checkout": "../GEMs",
       "github": "https://github.com/PloneMraz/GEMs",
       "images": "visual/gems/body",
+      "files": ["hardware/sim-model/gems.urdf"],
+      "filesDir": "assets/gems",
       "ignore": ["ref/", "CLAUDE.md", "LICENSES/"],
       "specTable": "spec/README.md",
       "docs": [
@@ -18,7 +20,9 @@
         { "src": "hardware/kinematics.md", "group": "hardware", "order": 101,
           "lede": "Degrees of freedom, their arrangement, reach and segment lengths" },
         { "src": "hardware/mechanical/README.md", "group": "hardware", "order": 102,
-          "lede": "Material and mechanism selection, sourced. CAD still to come" },
+          "lede": "Material and mechanism selection, sourced; CAD begun with the skeleton of plan M-1" },
+        { "src": "hardware/mechanical/skeleton/README.md", "group": "hardware", "order": 102.5,
+          "lede": "Joint frames and segment envelopes generated in FreeCAD from the kinematics, audited against the URDF" },
         { "src": "hardware/electrical/README.md", "group": "hardware", "order": 103,
           "lede": "Actuator, power, compute and bus selection, sourced, with joint-by-joint actuator sizing" },
         { "src": "hardware/electrical/sources/README.md", "group": "hardware", "order": 104 },
@@ -51,7 +55,7 @@
         { "src": "protocol/conformance.md", "group": "protocols", "order": 101 },
         { "src": "protocol/conformance-record.md", "group": "protocols", "order": 102 },
 
-        { "src": "plan/README.md", "group": "build", "order": 100,
+        { "src": "plan/PLAN.md", "path": "plan", "group": "build", "order": 100,
           "lede": "What remains between the specification and a complete design: definition of done, open decisions, work packages, and the firmware and software work down to the task" },
         { "src": "plan/firmware.md", "group": "build", "order": 101,
           "lede": "Firmware work, module by module, down to the task" },

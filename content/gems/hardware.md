@@ -13,7 +13,7 @@ The body itself. What [spec chapters 02–06](/vault/gems/specification/) specif
 | Document | Contents | Status |
 |---|---|---|
 | [`kinematics.md`](/vault/gems/hardware/kinematics/) | Degrees of freedom, their arrangement, reach and segment lengths | ✅ |
-| [`mechanical/`](/vault/gems/hardware/mechanical/) | Material and mechanism selection, sourced. CAD still to come | ◐ selection done |
+| [`mechanical/`](/vault/gems/hardware/mechanical/) | Material and mechanism selection, sourced. CAD begun: the skeleton of plan M-1, generated from the kinematics and audited against the URDF, in [`mechanical/skeleton/`](/vault/gems/hardware/mechanical/skeleton/) | ◐ selection done, skeleton generated |
 | [`electrical/`](/vault/gems/hardware/electrical/) | Actuator, power, compute and bus selection, sourced, with joint-by-joint actuator sizing | ◐ selection done |
 | [`sim-model/`](/vault/gems/hardware/sim-model/) | URDF generated from the kinematics, with an audit that holds it to the declaration | ✅ |
 | [`design/`](/vault/gems/hardware/design/) | How the body looks and what it can express: concept art now; industrial design and expression to follow (plan ID) | ◐ concept art |
