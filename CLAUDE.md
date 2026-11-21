@@ -28,3 +28,12 @@ Bản dịch của một bài nằm trong thư mục `i18n/` của mục, cạnh
     translator: '…'     # ai dịch; bản do Claude nháp thì ghi rõ, và tác giả duyệt trước khi đăng
 
 URL của bản dịch là `/<lang>/` đặt trước URL bài gốc (`content/blog/i18n/i18n.json`), ví dụ `/en/vault/blog/gian/`. Collection `translations` nối bản dịch với bài gốc; bài gốc không có ở URL dự kiến thì build dừng và báo lỗi. Bản dịch không vào danh sách bài, feed, search hay llms.txt (chúng đọc `content/blog/*.md`); có trong sitemap, và `<head>` của cả nhóm có `hreflang`. Nút chuyển ngữ đưa người đọc sang bản ở ngôn ngữ vừa chọn nếu có; mở trang thì không tự chuyển. Trang không nói bản nào là gốc, bản nào là dịch (Plone, 2026-09-27: người đọc chọn ngôn ngữ bằng nút là đủ); `translator` chỉ để ghi lại, không hiện. Ở mục lục thanh bên, bài song ngữ có một liên kết cho mỗi ngôn ngữ, mang `data-l`, nên tiêu đề đổi theo nút. Hiện mới làm cho Blog; mục khác cần thư mục `i18n/` và `i18n.json` của riêng nó.
+
+## 3. Phiên khác có thể đang làm trong cùng repo
+
+Các repo trong workspace liên kết với nhau, và nhiều phiên Claude có thể cùng chạy trên một working tree, nên trí nhớ của một phiên về một file có thể đã cũ (Plone, 2026-11-21).
+
+- **Ngay trước khi sửa:** `git fetch`, `git status` và `git log` từ commit cuối mà phiên biết (cùng `CHANGELOG.md` nếu repo có); đọc lại file từ đĩa, không sửa theo lần đọc trước.
+- **Thay đổi chưa commit không phải của phiên mình:** không sửa, không stage những file đó; báo Plone. Chỉ stage đúng các file mình sửa, theo tên; không `git add -A` hay `git add .`.
+- **Đồng bộ từ commit, không từ working tree:** trước khi chép từ repo này sang repo khác (`scripts/sync_gems.py` của site, `ref/DIL.md` và `ref/RSIL.md` của GEMs, các bản sao trong Plone's documents), repo nguồn phải sạch và đúng commit mà message nêu; nếu không, dừng và hỏi.
+- **Trước khi push:** `git fetch` lại; nếu remote đã đi trước, `git pull --ff-only` rồi kiểm lại các bước trên. Không force-push.
