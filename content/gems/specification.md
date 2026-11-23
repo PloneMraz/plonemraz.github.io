@@ -20,7 +20,7 @@ The specification declares **envelopes and trade-offs**, never a chosen operatin
 | 01 | [Architecture](/vault/gems/01-architecture/) | overview | The invariant pillar, and the application frame it serves |
 | 02 | [Structure and motion](/vault/gems/02-structure-and-motion/) | hardware | Mass loop, convergence condition, protection, reach and payload, peak power |
 | 03 | [Energy](/vault/gems/03-energy/) | hardware | Sources, the six levers, state levels, docking, quiescent power and sleep ceiling |
-| 04 | [Shell](/vault/gems/04-shell/) | hardware | Programmable stiffness, self-healing, colour, and the three-layer division |
+| 04 | [Shell](/vault/gems/04-shell/) | hardware | The three baseline layers — padding, armour shell, tactile skin under textile — fire, touch at the hands, and the upgrade path |
 | 05 | [Sensing](/vault/gems/05-sensing/) | hardware | Per-channel envelopes, aggregate rate, and the on-body/off-body compute split |
 | 06 | [Audit surface](/vault/gems/06-audit-surface/) | hardware | Attestation, audit log, low-power beacon, contact amplitude |
 | 07 | [Firmware and software](/vault/gems/07-firmware-and-software/) | software | What runs on the body: responsibilities, rates, guarantees, and link-loss behaviour |

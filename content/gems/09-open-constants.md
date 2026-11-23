@@ -24,7 +24,6 @@ Two kinds of blank, and they are not the same:
 | Supercapacitor fitted or not | [03.1](/vault/gems/03-energy/#31-source) | Determines whether peak power is actuator-limited or source-limited |
 | Sleep depth and schedule | [03.3](/vault/gems/03-energy/#33-tiered-sleep) | Depth against wake latency |
 | Charging method and timing | [03.5](/vault/gems/03-energy/#35-dock) | — |
-| Area allocated to each shell layer | [04.5](/vault/gems/04-shell/#45-the-three-layer-division) | The same `m_ext` budget as armour |
 | Compute split, body against external | [05.6](/vault/gems/05-sensing/#56-the-on-body--off-body-compute-split) | Two hard ends; the middle is adjustable |
 | Use made of spatial RF sensing | [01](/vault/gems/01-architecture/), [05.3](/vault/gems/05-sensing/#53-channels) | Capability retained in full at the hardware level |
 | Log signing period, synchronisation frequency, flag tolerances | [06.7](/vault/gems/06-audit-surface/#67-hard-constraints) | — |
@@ -35,15 +34,16 @@ Two kinds of blank, and they are not the same:
 | Value | Where | Why not filled |
 |---|---|---|
 | `f_str`, `f_act` — structural and actuator mass fractions | [02.2](/vault/gems/02-structure-and-motion/#22-the-four-coefficients) | Depend on material and gearing choices not yet made. Ranges are narrow enough that no conclusion changes sign |
-| Fixed non-scaling mass (compute, sensors, hands, skin, harness) | [02.5](/vault/gems/02-structure-and-motion/#25-mass-envelope) | Depends on component selection |
-| Areal density of the sense-and-heal and variable-stiffness layers | [04.5](/vault/gems/04-shell/#45-the-three-layer-division) | No reliable published figure found. The constraint is firm even though the number is not |
-| Fire layer temperature and duration | [04.4](/vault/gems/04-shell/#44-fire-resistance) | Must anchor to an existing firefighting-garment standard, not be derived here |
+| Fixed non-scaling mass (compute, sensors, hands, shell, harness) | [02.5](/vault/gems/02-structure-and-motion/#25-mass-envelope) | Depends on component selection |
+| Areal density of the impact padding and the tactile skin | [04.5](/vault/gems/04-shell/#45-the-three-layer-division) | The padding's thickness waits for plan M-8; the skin's vendor states no mass. The textile's is read (0.20 kg/m²); the armour shell's is held at 7.5 kg/m², against 7.22 for the hybrid as data sheets give it |
+| Fire: temperatures and durations beyond the textile's NFPA 1970 anchor; the temperature reaching the armour shell's face, against its UHMWPE's ≤ 70 °C | [04.4](/vault/gems/04-shell/#44-fire-resistance) | Anchored to existing standards, not derived here; the armour shell has no fire standard of its own (2026-11-22), and the textile's data sheet gives no heat-transfer figure |
 | RAM retention and root-of-trust clock power | [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) | Depends on the parts chosen. Immaterial against self-discharge |
 | Full-CSI spatial sensing power | [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) | The one floor term that matters; depends on implementation |
 | Merkle batch period for log signing | [06.4](/vault/gems/06-audit-surface/#64-audit-log) | Trades trace granularity against signing load |
 | Durable-tier cycle life, discharge rate and pack abuse test | [03.1](/vault/gems/03-energy/#31-source) | Set when the cell is chosen (plan D-5). The density, `e`, is the one figure the mass loop needs, and it is established |
 | What must survive the pack's removal in service | [03.1](/vault/gems/03-energy/#31-source) | The always-on rail sits in the power assembly as the bill of materials stands; depends on the power architecture (plan E-2, E-4) |
 | Heartbeat threshold that triggers the OBC | [07.5](/vault/gems/07-firmware-and-software/#75-link-loss-and-the-obc) | Depends on the link and on how long the Real-time Control Layer can hold without new setpoints |
+| Motion envelope: walking's cadence and step-length ranges and top speed, the rest after running, the durations of stairs and held postures, the disturbance on stairs, fall height | [02.6](/vault/gems/02-structure-and-motion/#motion-envelope) | Wait for sources, simulation and the modules' thermal data (plan D-2). Which motions are declared is the author's choice, row by row; running and balance recovery were declared on 2026-11-22 |
 | Exact self-discharge rate | [03.6](/vault/gems/03-energy/#36-quiescent-power-and-the-sleep-ceiling) | Depends on the chemistry chosen. **The order of magnitude and the dominant term are established**, which is what the sleep ceiling needs |
 
 ## What is deliberately *not* here

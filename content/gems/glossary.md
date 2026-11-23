@@ -37,6 +37,7 @@ Technical terms in this repository follow standard usage in robotics, embedded s
 | **EBOM**, **MBOM**, **SBOM** | Engineering, manufacturing and software bills of materials | see [`hardware/bom/`](/vault/gems/hardware/bom/) |
 | **TM**, **LAB** | Commercially available; demonstrated in the laboratory but not scaled | [00](/vault/gems/00-scope-and-criteria/) |
 | **`⟦IMPL⟧`**, **`⟦CTRL⟧`** | Left open until parts are chosen; left to the operator | [09](/vault/gems/09-open-constants/) |
+| **`UPG`** | On the upgrade path: not in the baseline, no place reserved for it; it enters only as a revision that runs the mass loop again | [04.7](/vault/gems/04-shell/#47-upgrade-path) |
 
 ## Where each vocabulary belongs
 

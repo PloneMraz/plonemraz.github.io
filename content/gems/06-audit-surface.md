@@ -88,7 +88,7 @@ The division that applies here is the one from [00](/vault/gems/00-scope-and-cri
 | Measured | Where | Why |
 |---|---|---|
 | Contact force and torque | Hands, forearms, every human-contact surface | The mechanical amplitude actually transmitted to a person |
-| Surface temperature | Contact regions | The shell carries micro-thermal regulation ([04](/vault/gems/04-shell/)) |
+| Surface temperature | Contact regions | The modules beneath run hot — up to 100 °C in the thermal test of [electrical §6e](/vault/gems/hardware/electrical/) — and the shell insulates them without regulating its own temperature ([04.1](/vault/gems/04-shell/#41-impact-padding)); what a person touches is measured, not assumed |
 | Vibration amplitude and frequency | The cardiac co-regulation module ([05.3](/vault/gems/05-sensing/#53-channels)) | This is a **measurable** physiological intervention channel |
 | Contact duration and frequency | Whole body | A brief intervention is not a sustained one |
 
